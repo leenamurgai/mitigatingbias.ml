@@ -30,7 +30,11 @@ figure.fullwidth div.lookbox {
 }
 
 @media (max-width: 760px) {
-  figure.fullwidth div.lookbox {
+  figure.fullwidth div.lookbox,
+  section > .chapsumm,
+  section > .lookbox,
+  section > figure,
+  article > .TOC {
     width: 100%;
   }
 }
