@@ -1,0 +1,149 @@
+/* Coloured boxes */
+.chapsumm, .lookbox {
+    /*background-color: rgb(247, 247, 225);*/
+    padding: 1px 2%;
+    width: 51%;
+    border-radius:15px;
+}
+.chapsumm {
+    background-color: #edf5f5;
+}
+.lookbox {
+    background-color: #f5f1e4;
+}
+.chapsumm strong, .lookbox strong {
+    color: #456a80/*rgb(53, 111, 155)*/;
+    font-size: 1.2em;
+}
+.TOC {
+    background-color: #f1f1f1;
+    border-radius: 25px;
+    width: 51%;
+    padding: 2%;
+}
+
+/* Allow tables to be full width
+ * if they're wrapped in a figure.fullwidth
+ * (Easier to insert from Pandoc than manually adding table) */
+figure.fullwidth div.lookbox {
+  width: 90%;
+}
+
+@media (max-width: 760px) {
+  figure.fullwidth div.lookbox {
+    width: 100%;
+  }
+}
+
+/* Tables */
+table {
+    min-width: 55%;
+    overflow-x: visible;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+td {
+    white-space: nowrap;
+}
+td[rowspan] {
+    vertical-align: top;
+    text-align: left;
+}
+caption {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+}
+.tablenotes {
+    width: 55%;
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+.tablenotes > p {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+/* Headers */
+h4 {
+  font-size: 1.6em;
+}
+h5 {
+  font-size: 1.4em;
+  display: inline;
+}
+
+/* Figures */
+figure img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.lookbox > figure {
+  max-width: 40%;
+  padding-left: 30%
+}
+section > figure {
+  max-width: 55%;
+}
+/*
+#fig:Taxonomy, #fig:Workflow {
+  min-width: 100%
+}
+figure img[id="fig:Taxonomy"],
+figure img[id="fig:Workflow"] {
+  width: 100%;
+}*/
+
+/* Lists */
+li p {
+  margin: 0px;
+}
+
+/* Code listings */
+.listing pre > code  {
+  width: 52.5%;
+}
+:not(.listing) pre > code {
+  width: 95%;
+}
+
+/* Code listing captions */
+.listing > p {
+  margin-left: 2.5%;
+  font-size: 1.1rem;
+  width: 95%;
+}
+
+/* Equations */
+section > div[id^="eq:"] { 
+  width: 55%
+}
+.chapsumm > div[id^="eq:"], .lookbox > div[id^="eq:"] { 
+  width: 99%
+}
+div[id^="eq:"] table { 
+  border: none;
+}
+div[id^="eq:"] td { 
+  border: none;
+}
+#TOC ul {
+  list-style-type: none;
+}
+.content ul {
+  list-style-type: none;
+}
+
+/*References*/
+#refs > .csl-entry {
+    font-size: 1.4rem;
+    margin-bottom: 1.4rem;
+}
+.csl-left-margin, .csl-right-inline
+{
+  display:inline;
+}
