@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Dr Leena Murgai">
-  <meta name="dcterms.date" content="2021-10-22">
+  <meta name="dcterms.date" content="2021-11-02">
   <title>Mitigating Bias in Machine Learning</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="tex2html/tufte/tufte.css">
@@ -37,7 +37,7 @@
 <header>
 <h1 class="title">Mitigating Bias in Machine Learning</h1>
 <p class="byline">Dr Leena Murgai</p>
-<p class="byline">22 October 2021</p>
+<p class="byline"> 2 November 2021</p>
 </header>
 <div class="TOC">
 <nav id="TOC">
@@ -1062,7 +1062,7 @@
 <p>Each of these encompasses a subset of nodes in the workflow. The composition of each of these components will vary greatly for different applications and organisations. For example, one would expect that an application that advises recidivism risk for sentencing should go through a much more robust testing and validation process than say a photo filter that figures out where to put animated ears given a facial image; and a company like Google will have a very different risk profile, resources and infrastructure compared to say a start-up with six people, one deployed model and a handful of users. Nevertheless, there are components of financial risk management frameworks that can be applied to machine learning systems. We discuss these here.</p>
 <section id="model-governance-standards" class="level4 unnumbered">
 <h4 class="unnumbered">1. Model governance standards</h4>
-<p>The concept of model governance, though relatively new in machine learning circles, is not a new one. For financial institutions (which depend on vast numbers of proprietary models), model governance is a central part of model risk management and there are well established frameworks for handling it. In addition, the regulatory landscape of financial modelling is also considerably more mature. Given this, it is instructive to look at how such institutions manage model risk.</p>
+<p>Though relatively new terminology in machine learning circles, the concept of model governance has existed a while. For financial institutions (which depend on vast numbers of proprietary models), operating and maintaining a model governance framework is a central part of model risk management and a regulatory requirement for many institutions. The regulatory landscape of the financial sector is considerably more mature than that of other industries, the frameworks used to handle the associated risks have been developed over decaudesit is instructive to look at how such institutions manage model risk.</p>
 <p><span style="color: red">Define model? Data + decision? Decision system governance? Covid vaccine fluff up.</span></p>
 <p>So what does responsible and ethical MLS development and deployment look like? The biggest difficulty in answering this question is that there is no one size fits all answer. The answer to the question will depend on a whole multitude of factors and can be approached from many different perspectives, to mention a few:</p>
 <ul>
@@ -1157,8 +1157,8 @@
 <li><p>The <strong>machine learning model</strong> is defined as the function mapping <span class="math inline">f</span> from features <span class="math inline">(\boldsymbol{X}, \boldsymbol{Z})</span> to predictions <span class="math inline">\hat{Y}</span>.</p></li>
 <li><p>The <strong>decision system</strong> includes the wider infrastructure, processes and policies around development, deployment and monitoring of the model.</p></li>
 </ol>
-<p>We aim to layout both the points at which issues arise and the various points at which one should assess and intervene if necessary. For terminology we take inspiration from evidence based medicine, which has perhaps the most comprehensive set of definitions and classification of bias types (causes of systematic errors in data).</p>
-<p>Table <a href="#tbl:Taxonomy" data-reference-type="ref" data-reference="tbl:Taxonomy">2.2</a> summarises our taxonomy of common causes of harm in machine learning systems. In it, we determine harms to arise from one of two components, the model mapping and or as a result of failures in the model development and deployment process.</p>
+<p>We aim to layout both the points at which issues arise and the various points at which one could assess and intervene if necessary. For this reason the table may appear to contain duplications of the same problem, viewed from different perspectives. We consider this to be of value nevertheless since in many organisations different people are responsible for different stages of the workflow. For example, thanks to unprecidented growth in data vendors, it is not uncommon for a model to be built on independently collected data.</p>
+<p>For terminology for different types of bias (causes of systematic errors), we take inspiration from evidence based medicine, which has perhaps the most comprehensive set of definitions and classification of bias types. Table <a href="#tbl:Taxonomy" data-reference-type="ref" data-reference="tbl:Taxonomy">2.2</a> summarises our taxonomy of common causes of harm in machine learning systems. In it, we determine harms to arise from one of two components, the model mapping and or as a result of failures in the model development and deployment process.</p>
 <div id="tbl:Taxonomy">
 <table>
 <caption>Table 2.2: Taxonomy of common causes of harm in machine learning systems.</caption>
@@ -1172,13 +1172,13 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;" rowspan="17">Model</td>
+<td style="text-align: left;" rowspan="18">Model</td>
 <td style="text-align: left;" rowspan="7">Data Issue</td>
-<td style="text-align: left;">Historical Bias</td>
-<td style="text-align: left;">Data contains systematically prejudice outcomes</td>
+<td style="text-align: left;">Historical bias</td>
+<td style="text-align: left;">Data records wrongful discrimination</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;" rowspan="3">Measurement Bias</td>
+<td style="text-align: left;" rowspan="3">Measurement bias</td>
 <td style="text-align: left;">Quality of data varies across protected classes</td>
 </tr>
 <tr class="odd">
@@ -1188,7 +1188,7 @@
 <td style="text-align: left;">Recording proxies for immeasurable / ill defined variables</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Representation Bias</td>
+<td style="text-align: left;">Representation bias</td>
 <td style="text-align: left;">Data not representative of population for protected features</td>
 </tr>
 <tr class="even">
@@ -1197,11 +1197,11 @@
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Documentation</td>
-<td style="text-align: left;">Failure to adequately document (prevent inappropriate use)</td>
+<td style="text-align: left;">Inadequate documentation</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;" rowspan="10">Misspecification</td>
-<td style="text-align: left;">Aggregation Bias</td>
+<td style="text-align: left;" rowspan="11">Misspecification</td>
+<td style="text-align: left;">Aggregation bias</td>
 <td style="text-align: left;">Failure to model differences in type</td>
 </tr>
 <tr class="odd">
@@ -1229,38 +1229,44 @@
 <td style="text-align: left;">Omitted discrimination penalties</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Evaluation Bias</td>
-<td style="text-align: left;">Test data not representative of the target / poor metric choice</td>
+<td style="text-align: left;" rowspan="2">Evaluation bias</td>
+<td style="text-align: left;">Poor choice of evaluation metrics</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Test data not representative of the target</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">Documentation</td>
 <td style="text-align: left;">Failure to adequately document (prevent inappropriate use)</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;" rowspan="11">System</td>
+<tr class="odd">
+<td style="text-align: left;" rowspan="12">System</td>
 <td style="text-align: left;" rowspan="5">Process</td>
 <td style="text-align: left;">Governance</td>
 <td style="text-align: left;">Failure to set application specific standards</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Risk Assessment</td>
 <td style="text-align: left;">Failure to assess possible severity of impact</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;" rowspan="2">Prioritisation</td>
 <td style="text-align: left;">Failure to allocate appropriate/sufficient resource</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Failure to distribute power to manage conflicts of interest</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Accountability</td>
 <td style="text-align: left;">Non deference to human domain expert</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;" rowspan="7">Controls</td>
+<td style="text-align: left;" rowspan="2">Deployment bias</td>
+<td style="text-align: left;">Inappropriate model use</td>
+</tr>
 <tr class="odd">
-<td style="text-align: left;" rowspan="6">Controls</td>
-<td style="text-align: left;">Deployment Bias</td>
-<td style="text-align: left;">Inappropriate model use / misinterpretation of model results</td>
+<td style="text-align: left;">Misinterpretation of model results</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;" rowspan="3">Validation</td>
@@ -1284,114 +1290,92 @@
 </div>
 <section id="modelling-issues" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Modelling issues</h3>
-<p>In this section we discuss common causes of discrimination that relate directly to the model. We categorise these as originating from one of two sources:</p>
+<p>In this section we discuss common causes of discrimination that relate directly to the model. We categorise these as originating from failures related to one of two sources:</p>
 <ol>
-<li><p><strong>Data issues</strong> refer to bias that arises as a direct result of issues with the data</p></li>
+<li><p><strong>Data issues</strong> refer to harms that arises as a direct result of issues with the data</p></li>
 <li><p><strong>Misspecification</strong> refers to issues relating to misspecification of the underlying problem in the modelling of it.</p></li>
 </ol>
-<p>The latter is an extension of the notion of model misspecification in statistics where the functional form of a model does not adequately reflect reality.</p>
+<p>The latter is an extension of the notion of model misspecification in statistics where the functional form of a model does not adequately reflect observed behaviour.</p>
 <section id="data-issues" class="level4 unnumbered">
 <h4 class="unnumbered">Data issues</h4>
-<p>Within data issues we organise potential sources of bias into three types</p>
-<ol>
-<li><p><strong>Discrimination in data:</strong> Disparities between protected classes, in either outcomes or accuracy and completeness are observed in the data.</p></li>
-<li><p><strong>Sample Bias:</strong> The data is not representative of the population - protected classes are under or over-represented.</p></li>
-<li><p><strong>Low support:</strong> Minority classes naturally have fewer data points to train on.</p></li>
-</ol>
-<section id="discrimination-in-data" class="level5 unnumbered">
-<h5 class="unnumbered">1. Discrimination in data</h5>
-<p>The most obvious way that bias can enter a machine learning model is through the data it is trained on. Discrimination against protected classes is a part of our history and a reality of our society and the data reflects this. One of the goals of training is to in fact replicate the distribution of the data it is trained on. If the training data contains biases we naturally would expect these to propagate through to the predictions of the resulting algorithm. The most obvious way in which this is seen is through a disparity in outcomes between different subgroups of the population. Take medical data where racial and gender disparities in diagnosis and treatment are well publicised as the <em>health gap</em>. In particular, there is a growing body of research across the US and Europe that exposes systematic under-treatment and misdiagnosis of pain in women and Black patients.</p>
-<ul>
-<li><p>A 1990 study that looked at medication administered to postoperative coronary artery bypass graft patients differed significantly by gender. Men were more frequently administered pain medication compared to female patients and that female patients were more frequently administered sedative medication<span class="citation" data-cites="CalderoneSexRoles"><a href="#ref-CalderoneSexRoles" role="doc-biblioref">[41]</a></span><span class="marginnote"><span id="ref-CalderoneSexRoles" class="csl-entry" role="doc-biblioentry">
+<p>When it comes to bias, data driven medicine provides a rich vocabulary for the different types. We mention three in our taxomnomy.</p>
+<section id="historical-bias" class="level5 unnumbered">
+<h5 class="unnumbered">Historical bias</h5>
+<p>arises as a result of differences between accepted societal values and cultural norms and those captured by data. These need not be a result of errors in the data. Even if data perfectly represents some world state it can still depict a reality which society deems unfair. Training a model on such data will naturally lead to similary unfair predictions. Historical bias can manifest itself in data in numerous ways, through unfair outcomes recorded in the data, differing data quality across groups and under or over-representation of groups to name just a few. Take medical data where racial and gender disparities in diagnosis and treatment are well publicised as the <em>health gap</em>. There is a growing body of research across the US and Europe that exposes systematic under-treatment and misdiagnosis of pain in women (<span class="citation" data-cites="CalderoneSexRoles"><a href="#ref-CalderoneSexRoles" role="doc-biblioref">[41]</a></span><span class="marginnote"><span id="ref-CalderoneSexRoles" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[41] </span><span class="csl-right-inline">K. L. Calderone, <span>“The influence of gender on the frequency of pain and sedative medication administered to postoperative patients,”</span> <em>Sex Roles</em>, vol. 23, pp. 713–725, 1990, doi: <a href="https://doi.org/10.1007/BF00289259">https://doi.org/10.1007/BF00289259</a>.</span>
 </span>
-</span>.</p></li>
-<li><p>A 2008 study found that women were less likely to receive opioid analgesia than men when reporting acute abdominal pain at an emergency department<span class="citation" data-cites="SexAnalgesic"><a href="#ref-SexAnalgesic" role="doc-biblioref">[42]</a></span><span class="marginnote"><span id="ref-SexAnalgesic" class="csl-entry" role="doc-biblioentry">
+</span>, <span class="citation" data-cites="SexAnalgesic"><a href="#ref-SexAnalgesic" role="doc-biblioref">[42]</a></span><span class="marginnote"><span id="ref-SexAnalgesic" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[42] </span><span class="csl-right-inline">E. H. C. MD <em>et al.</em>, <span>“Gender disparity in analgesic treatment of emergency department patients with acute abdominal pain,”</span> <em>Academic Emergency Medicine</em>, vol. 15, pp. 414–418, May 2008, doi: <a href="https://doi.org/10.1111/j.1553-2712.2008.00100.x">https://doi.org/10.1111/j.1553-2712.2008.00100.x</a>.</span>
 </span>
-</span>.</p></li>
-<li><p>A 2001 paper surveys extensive research showing that despite evidence that women report more severe, frequent and longer duration of pain than men, they are treated less aggressively for it<span class="citation" data-cites="GirlPain"><a href="#ref-GirlPain" role="doc-biblioref">[43]</a></span><span class="marginnote"><span id="ref-GirlPain" class="csl-entry" role="doc-biblioentry">
+</span>, <span class="citation" data-cites="GirlPain"><a href="#ref-GirlPain" role="doc-biblioref">[43]</a></span><span class="marginnote"><span id="ref-GirlPain" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[43] </span><span class="csl-right-inline">D. E. Hoffmann and A. J. Tarzian, <span>“The girl who cried pain: A bias against women in the treatment of pain,”</span> <em>SSRN</em>, 2001, doi: <a href="http://dx.doi.org/10.2139/ssrn.383803">http://dx.doi.org/10.2139/ssrn.383803</a>.</span>
 </span>
-</span>.</p></li>
-<li><p>Research in the US in 2012 showed that Black patients are 22% less likely than Whites to be given pain medication and 29% less likely that Whites to be treated with opioids (despite prescription drug abuse being more prevalent among White Americans).</p></li>
-<li><p>A study in 2015 showed that this disparity in pain treatment extended to children with White children being three times more likely to be treated with opioids for appendicitis.</p></li>
-<li><p>In a 2016 US study, 200 medical students and residents were given a series of statements about biological differences between White and Black people (such as “Black people’s skin is thicker than White people’s skin”) and asked to say whether they were true or false. Half the respondents marked false statements as true. Later when given case studies for Black and White patients reporting pain, those participants that held those beliefs rated the Black persons pain lower and made less accurate treatment recommendations<span class="citation" data-cites="RacialBiasPain"><a href="#ref-RacialBiasPain" role="doc-biblioref">[44]</a></span><span class="marginnote"><span id="ref-RacialBiasPain" class="csl-entry" role="doc-biblioentry">
+</span>) and Black patients (despite prescription drug abuse being more prevalent among White Americans), <span class="citation" data-cites="RacialBiasPain"><a href="#ref-RacialBiasPain" role="doc-biblioref">[44]</a></span><span class="marginnote"><span id="ref-RacialBiasPain" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[44] </span><span class="csl-right-inline">K. M. Hoffman, S. Trawalter, J. R. Axt, and M. N. Oliver, <span>“Racial bias in pain assessment and treatment recommendations, and false beliefs about biological differences between blacks and whites,”</span> <em>Proceedings of the National Academy of Sciences</em>, vol. 113, no. 16, pp. 4296–4301, 2016, doi: <a href="https://doi.org/10.1073/pnas.1516047113">10.1073/pnas.1516047113</a>.</span>
 </span>
-</span>.</p></li>
-</ul>
-<p>A more subtle way in which discrimination can manifest in data is where the accuracy and completeness of records are correlated to sensitive features. This can happen for example, where there are geographic disparities in services provided by institutions (which tend to be correlated with race) or where institutions systematically fail to produce accurate and timely records for protected groups. A good example of the latter is again provided by medical data. Misdiagnosis leads to longer lags between the reporting of symptoms and accurate diagnosis. Given the above we might expect greater delays in accurate diagnosis for protected classes. A study of 12,000 rare disease patients across Europe in 2009 which found significant diagnosis delays for women compared to men<span class="citation" data-cites="EU12K"><a href="#ref-EU12K" role="doc-biblioref">[45]</a></span><span class="marginnote"><span id="ref-EU12K" class="csl-entry" role="doc-biblioentry">
+</span>.</p>
+</section>
+<section id="measurement-bias" class="level5 unnumbered">
+<h5 class="unnumbered">Measurement bias</h5>
+<p>refers to non-random noise in measurements across groups. This can occur if for example, there are geographic disparities in services provided by an institution or the quantity and quality of the measuring instruments that mean the accuracy and completeness of records vary by location (and other highly correlated variables like race). In some cases institutions can systematically fail to produce accurate and timely records for certain groups. For example, in medical data, where more frequent misdiagnosis of rare diseases for women leads to a longer lag before accurate diagnosis. In particular, 12 compared to 20 months for Crohn’s disease (despite the disease being more prevalent among women) and 16 compared to 4 years for Ehlers-Danlos syndrome<span class="citation" data-cites="EU12K"><a href="#ref-EU12K" role="doc-biblioref">[45]</a></span><span class="marginnote"><span id="ref-EU12K" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[45] </span><span class="csl-right-inline"><span>“The voice of 12,000 patients: Experiences and expectations of rare disease patients on diagnosis and care in europe.”</span> 2009.</span>
 </span>
-</span>; for example 12 compared to 20 months for Crohn’s disease (despite being more common among women) and 16 compared to 4 years for Ehlers-Danlos syndrome. Systematic delays in diagnosis for protected groups mean that for any given snapshot in time, the medical records for more frequently misdiagnosed groups are less accurate.</p>
+</span>. Systematic delays in diagnosis for protected groups mean that for any given snapshot in time, the medical records for more frequently misdiagnosed groups are less accurate.</p>
+<p>Another way in which measurement bias can manifest is if the measurement process varies across groups, for example where the level of scrutiny varies across groups. Predictive policing discussed earlier provides an example of this where there are existing disparities in the level of policing across neighbourhoods. But in practice any process (algorithmic or otherwise) which seeks to identify a behaviour or property (good or bad), but where disproportionate attention is allocated to some subgroup will result in disproportionately more instances of that behaviour or property being observed among members of that group. The result is induced correlation in the data, even in cases where there may in reality be none. One must be careful of making the assumption that where no observation was made the behaviour or property did not exist. The result can be a cycle that continually amplifies the association. Since data often measures and records features which are in fact noisey proxies for the true variables of interest, measurement bias includes cases where use of proxies leads to systematic errors.</p>
 </section>
-<section id="sample-bias" class="level5 unnumbered">
-<h5 class="unnumbered">2. Sample Bias</h5>
-<p>Another, way in which the training data can result in biased predictions is where there is an imbalance in the prevalence of classes of sensitive features in the training data. All too often training data is assumed to be representative of the population that the model will serve, where it is not. Both under and over representation can be disadvantageous.</p>
-<p>Under-represented classes are exposed to higher error rates a problem which arises as a result of ‘low support’, that is a smaller pool of data points to train the model on. Let’s briefly examine why this might happen. In training we are trying to find the set of model parameters which minimizes some aggregate measure of model error on training data (the ‘cost’ function). If the contribution to the cost from majority classes dominates (which it will without intervention) the algorithm is naturally incentivised to focus learning characteristics of majority classes as a means of reducing the cost faster. Majority classes being more richly represented by the data results in the model being better able to generalize to them.</p>
-<p>In 2017, Joy Buolamwini and Timnit Gebru conducted a seminal study Gender Shades<span class="citation" data-cites="GenderShades"><a href="#ref-GenderShades" role="doc-biblioref">[24]</a></span> which found that systems sold by IBM, Microsoft, and Face++ had as high as a 34.4% accuracy gap in gender classification, between lighter-skinned males and darker-skinned females. Error rates on lighter-skinned males did not exceed 1%. While we can’t be sure without seeing the data these algorithms were trained on, a lack of adequate representation of darker-skinned females in the training data is more than likely at least a contributing factor to such disproportionate error rates. Dataset bias (an over reliance on a single dataset for testing and benchmarking), is a well known issue in computer vision tasks.</p>
-<p>One of the drivers behind big data initiatives is the plummeting cost of collection and storage data. Companies and institutions are able to train models that better target individuals, reducing costs and boosting profits. However, often data collection methods fail to adequately represent historically disadvantaged classes of people who are often less engaged in certain data generating ecosystems. A good example of this, given by Barocas &amp; Selbst<span class="citation" data-cites="BarocasSelbst"><a href="#ref-BarocasSelbst" role="doc-biblioref">[4]</a></span> is that of the phone app <a href="https://www.boston.gov/transportation/street-bump">Street Bump</a>, which was developed by the City of Boston to reduce the cost and time taken to find (and consequently repair) pot holes. The app uses data generated by the accelerometers and GPS of Boston residents’ smart phones as they drive. Once a pothole is located it is automatically added to the city’s system to schedule a repair. One can see easily see how this method of data collection might fail to adequately capture data from poorer neighbourhoods, where car and smart phone ownership are less prevalent; neighbourhoods which probably correlate with race and are already likely to suffer from lack of investment.</p>
-<p>Over-representation of classes can also result in bias through increased scrutiny. Predictive policing discussed earlier provides an example of this. But in practice any process (algorithmic or otherwise) which seeks to identify negative behaviour in which disproportionate resource is allocated to some subgroup will result in disproportionately more instances of that negative behaviour being observed among members of that group. The result is induced correlation in the data between the negative behaviour and over-scrutinised class even if in reality there is none. If an algorithm that seeks to identify negative behaviours is used to determine where to allocate resource to identifying those behaviours in the future, an implicit assumption is made that where no observation was made the negative behaviour did not occur. If observations are not uniformly distributed across the population, the result will be a pernicious cycle that continually amplifies the association between the negative behaviour and members of the over-scrutinised class.</p>
+<section id="representation-bias" class="level5 unnumbered">
+<h5 class="unnumbered">Representation bias</h5>
+<p>occurs as a result of biased sampling from the target population. It can be observed as differences in the prevalence of groups when comparing the target population and the sample data. Under-represented classes are exposed to higher error rates a problem which arises as a result of ‘low support’, that is a smaller pool of data points to train the model on. Looked at from the perspective of the majority class which dominates the aggregate error, the algorithm is naturally incentivised to focus learning characteristics of majority classes.</p>
+<p>One of the drivers behind big data initiatives is the plummeting cost of collection and storage data. Companies and institutions are able to train models that better target individuals, reducing costs and boosting profits. However, data collection methods often fail to adequately represent historically disadvantaged classes of people less engaged data generating ecosystems. A good example of this, given by Barocas &amp; Selbst<span class="citation" data-cites="BarocasSelbst"><a href="#ref-BarocasSelbst" role="doc-biblioref">[4]</a></span> is that of the phone app <a href="https://www.boston.gov/transportation/street-bump">Street Bump</a>, which was developed by the City of Boston to reduce the cost and time taken to find (and consequently repair) pot holes. The app uses data generated by the accelerometers and GPS of Boston residents’ smart phones as they drive. Once a pothole is located it is automatically added to the city’s system to schedule a repair. One can see easily see how this method of data collection might fail to adequately capture data from poorer neighbourhoods, where car and smart phone ownership are less prevalent; neighbourhoods which probably correlate with race and are already likely to suffer from lack of investment.</p>
+<p>In the extreme case of under-representation, there is no support, that is to say, no data points to train on at all. This can be a problem when say studies of symptoms or clinical trials for drugs have no representation for certain groups among which symptoms or drug effectiveness may well vary. A good example of this is diabetes, the impact of the disease and effectiveness of drugs for which have historically most often been measured on samples with few to no hispanic individuals in datasets at all.</p>
 </section>
 <section id="low-support" class="level5 unnumbered">
-<h5 class="unnumbered">3. Low support</h5>
-<p>It is worth briefly mentioning that the problem of low-support need not be a result of under-representation of classes. This is a particular problem for individuals belonging to multiple disadvantaged classes for example Black women.</p>
+<h5 class="unnumbered">Low support</h5>
+<p>may lead to undesirably high errors for some groups even in the absence of representation bias, since minority classes naturally have fewer data points to train on. This is a particular problem for individuals belonging to multiple disadvantaged classes, for example Black women, which are often overlooked when studies seek to meet fairness metric targets.</p>
+</section>
+<section id="documentation" class="level5 unnumbered">
+<h5 class="unnumbered">Documentation</h5>
+<p>of datasets can have a significant impact when it comes to avoiding data miuse or misinterpretation of variables or relationships in the data due to lack of domain knowledge. Summaries that explain the provenance of the data (who collected the data, for what purpose, what population was sampled from and how, limitations of the data, clear explaination of the target variables (including consideration of use cases for which it would not appropriate for), breakdown of the demographics and the variables by sensitive features pointing out classes that are not well represented. Documentation that is standardised through use of a template could ensure some level of consistency.</p>
 </section>
 </section>
 <section id="misspecification" class="level4 unnumbered">
 <h4 class="unnumbered">Misspecification</h4>
-<p>We categorise misspecification as one of three types, based on which aspect of the modelling they relate to</p>
-<ol>
-<li><p><strong>Target variable:</strong> the events our model predicts</p></li>
-<li><p><strong>Features:</strong> the features we use in our model</p></li>
-<li><p><strong>Cost function:</strong> how we evaluate our model in training</p></li>
-</ol>
-<section id="target-variable" class="level5 unnumbered">
-<h5 class="unnumbered">1. Target variable</h5>
-<p>We discuss three common issues related to the target variable definition:</p>
-<ul>
-<li><p>Target variable subjectivity</p></li>
-<li><p>Proxy target variable learning</p></li>
-<li><p>Heterogeneous target variable</p></li>
-</ul>
-<p>One of the challenges in developing a machine learning is the translation of the underlying problem by definition of a target variable - something which can be observed, measured and recorded accurately. While there are relatively uncontentious examples that machine learning solutions lend themselves well to (spam detection in email or on-base and slugging percentage for player valuation in Major League Baseball). Often however, this translation is non-trivial and rather subjective. It requires the model developer to interpret some problem and translate objectives and requirements into a target variable that can be measured or is accessible in order to set up a tractable machine learning problem.</p>
-<p>For the purpose of illustration, consider the problem of determining which candidates from a pool would make ‘good’ employees. How do we determine what a good employee looks like? What might our target variable be? Do they produce results faster? Do they stay with the company longer? Do they take less annual leave? Perhaps they have better annual performance ratings? Each of the above variables would likely exhibit correlations with protected classes that would result in different kinds of biases infiltrating our algorithm. The data might show for example that men tend to stay with the company longer but this might simply be because the workplace is more hostile towards women and bear no relation to how good the employee actually is.</p>
-<p>Of course one of the problems in the above example (in addition to the subjectivity in the choice of target variable) is that, like with the predictive policing example, data on the variable we want doesn’t really exist so we use a proxy that we believe to be correlated with the variable we wish to affect. In 2018, Amazon was forced to scrap a recruitment tool it spent four years developing. The algorithm rated resumes of potential employees and was trained on 10 years worth of resumes submitted by job applicants. The exact details of the algorithm were not publicised but based on what we know about the training data, it is likely that the proxy variable they used was some measure of how the candidates had performed in the hiring process, and potentially beyond, in the past.</p>
-<p>Another common issue is the use of a heterogeneous target variable, where a range of different events are coarsely grouped into a single outcome. This might happen for example where the event of particular interest is rare and by including more events in the target the predictive accuracy of the model increases as it has more data to learn from. D’Alessandro et. al<span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[39]</a></span> provide a useful example in predictive policing where the model developer is initially interested in predicting violent crime but ends up incorporating petty crimes (which happen much more frequently) in the target variable in pursuit of a more accurate model.</p>
+<section id="aggregation-bias" class="level5 unnumbered">
+<h5 class="unnumbered">Aggregation bias</h5>
+<p>occurs when heterogenous groups are modelled as homogeneous. In this case we are assuming the same model is approriate for all groups when infact it is not, it is a failure to recognise differences in type. There are many examples of this is medical models for diagnosis or that measure the effectiveness of treatments. Historically much of medical research is based on data that over-represents White men. Diseases that manifest differently across gender or race are more often misdiagnosed or less effectively treated. Take autism spectrum disorder (AUD) for example, in 2016 research estimated that autism is four times more prevalent in boys than girls. However more recent research has suggested that a contributing factor maybe that autism more often goes undiagnosed in women because studies of the disorder have historically been focussed on male subjects. The most notible difference between autistic males and females is how the social (rather than behavioural) symptoms manifest. It is thought that women, especially at the high-functioning end of the spectrum, are more likely to camoflage them.</p>
 </section>
-<section id="features" class="level5 unnumbered">
-<h5 class="unnumbered">2. Features</h5>
-<p>We discuss two issues related to feature selection:</p>
-<ol>
-<li><p>Inclusion of protected features without control variables</p></li>
-<li><p>Inclusion of protected feature proxies (redlining)</p></li>
-</ol>
+<section id="target-variable-selection" class="level5 unnumbered">
+<h5 class="unnumbered">Target variable selection</h5>
+<p>One of the challenges in developing a machine learning is the translation of the underlying problem by defining a target variable - something which can be observed, measured and recorded or obtained easily (from a third party vendor), and that accurately reflects the variable we wish to predict. While there are relatively uncontentious examples that machine learning solutions lend themselves well to (spam detection for emails or on-base or slugging percentage for major league baseball player valuation) for many problems the translation is non-trivial and subjective. Take a job applicant filter for example, that aims to find the most promising applicants. The attributes that one might consider to be held by an applicant tht make them promising are like to be described differently by different people even if they work in the same team. Even if two individuals agree on the attributes, it’s likely they’ll’ weight the attributes differently based on their experiences and preferences. Different choices will result in the different kinds of biases infiltrating our algorithm.</p>
+<p>Often when data on the variable we want to affect doesn’t really exist we use a proxy. In 2018, Amazon was forced to scrap a recruitment tool it spent four years developing. The algorithm rated resumes of potential employees and was trained on 10 years worth of resumes submitted by job applicants. The exact details of the algorithm were not publicised but based on the training data, it is likely that the proxy variable they used was some measure of how the candidates had performed in the hiring process previously. Thus predicting who they would have hired in the past (given their historical and existing biases) rather than who was the best applicant. The problem with such systems is that often they end up being how we define the thing that it’s actually a proxy for.</p>
+<p>Issues can also arise when defining a heterogeneous target variable, where a range of different events are coarsely grouped into a single outcome. This is a form of aggregation bias where the issue specifically concerns the target. This might happen for example where the event of particular interest is rare and by including more events in the target the predictive accuracy of the model increases as it has more data to learn from. D’Alessandro et. al<span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[39]</a></span> provide a useful example in predictive policing where the model developer is initially interested in predicting violent crime but ends up incorporating petty crimes (which happen much more frequently) in the target variable in pursuit of a more accurate model. The model then ends up trying to learn the features of a more nebulous concept of crime ignoring important differences between different types. Another example might be building a gewnder recognition system and only recognising people as one of two genders<span class="citation" data-cites="GenderShades"><a href="#ref-GenderShades" role="doc-biblioref">[24]</a></span>.</p>
+</section>
+<section id="feature-selection" class="level5 unnumbered">
+<h5 class="unnumbered">Feature selection</h5>
 <p>In an ideal world we would train a machine learning model on a sufficiently large dataset consisting of a rich set of features that actually influence the target variable rather than simply being correlated to it. More often than not, the reality is rather different. Comprehensive data can be expensive and difficult to collect. Factors that influence the target variable might not be easily measured or be measurable at all, while data containing more erroneous indicators might simply be cheaper to obtain or more readily available. This is a common way in which bias against protected classes can enter our model.</p>
-<p>We discuss two cases. In the first we include a protected feature because it appears to be predictive of the target variable. Of course using protected characteristic when building a model would invariably come with disparate treatment liability so is not a problem one is typically faced with but we take this opportunity to recall the importance of controlling for confounding variables, in drawing conclusions about relationships between features from observational data (see section <a href="#sec_SimpsParadox" data-reference-type="ref" data-reference="sec_SimpsParadox">1.3</a>).</p>
-<p>The second (more common) case is one where we do not use protected features in the model but use features which are predictive of them. Take another example in the context of hiring. Historically employers have taken the reputation of the university that applicants graduated from as a strong indicator of the calibre of the candidate. But many of the most reputable universities have very low rates of non-White/Asian students in attendance. A hiring process which is strongly influenced by the university from which the applicant graduated, can erroneously disadvantage racial groups that are less likely to have attended them. While the university an applicant graduated from, might correlate to some degree with success in a particular role it is not in itself the driver. An algorithm that directly takes into account the skills and competencies required for the role would be more predictive and simultaneously less biased. Given the cost of collecting comprehensive data, one might argue that higher error rates for some classes would be financially justified (rational prejudice).</p>
+<p>The inclusion of protected features without control variables might arise because a protected feature appears to be predictive of the target variable where explanatory variables are not known or available. Of course in cases where using protected characteristics as inputs to an algorithm would lead to disparate treatment liability, this is not a problem one is typically faced with, but it’s worth reiterating the importance of controlling for confounding variables, in drawing conclusions about relationships between features from observational data (see section <a href="#sec_SimpsParadox" data-reference-type="ref" data-reference="sec_SimpsParadox">1.3</a>).</p>
+<p>Inclusion of protected feature proxies, as is the case with redlining, is perhaps a more common problem. One where protected features are not used as inputs to the model, but features which are predictive of them are. Historically employers have taken the reputation of the university that applicants graduated from as a strong indicator of the calibre of the candidate. But many of the most reputable universities have very low rates of non-White/Asian students in attendance. A hiring process which is strongly influenced by the university from which the applicant graduated, can erroneously disadvantage racial groups that are less likely to have attended them. While the university an applicant graduated from, might correlate to some degree with success in a particular role it is not in itself the driver. An algorithm that directly takes into account the skills and competencies required for the role would be more predictive and simultaneously less biased. Given the cost of collecting comprehensive data, one might argue that higher error rates for some classes would be financially justified (rational prejudice).</p>
 </section>
 <section id="cost-function" class="level5 unnumbered">
-<h5 class="unnumbered">3. Cost function</h5>
-<p>We discuss two issues related to the cost function specification:</p>
-<ol>
-<li><p>Failure to specify asymmetric error costs</p></li>
-<li><p>Omitted discrimination penalties</p></li>
-</ol>
+<h5 class="unnumbered">Cost function</h5>
 <p>A critical consideration in how we specify our model is the cost function. It is how we evaluate our model in training and essentially determines the model (parameters) we end up with. The cost function can be interpreted as an expression of our model objectives and so provides a natural route to addressing discrimination concerns. A common failure in the design of classification models is proper accounting of the costs of the different types of classification errors (false negative versus false positives). If the harm caused by the different types of misclassification are asymmetric, the cost matrix should reflect this asymmetry.</p>
 <p>More broadly (for both regression and classification), it is important to consider the contribution from each sample in the training data to the cost function in training. Upsampling (or simply up-weighting, depending on the learning algorithm you are using) is a valuable tool to keep in mind and can alleviate a number of the issues discussed above, that are common sources of bias. Let’s take the issue of low support. By upsampling minority classes, one can increase the importance of reducing errors for those data points, relative to other more abundant classes, during learning. Though it’s worth noting that it cannot resolve issues relating to a lack of richness of representation for classes with low support. Another case in which upsampling can help is that discussed in relation to definition of a heterogeneous target variable. By upsampling data points that correspond to the primary event of interest (violent crime in the example we discussed above), one can again increase the importance of the model fitting to those data points.</p>
 <p>For an algorithm that solves a problem in a regulated domain, it would make sense for the absence of discrimination to be a model objective along with utility. This can be achieved by use of a penalty term in the cost function which relates to discrimination in the resulting predictions (just as we have terms that relate to the error or overfitting). Essentially the idea is similar to that of regularisation to avoid overfitting. We introduce an additional hyper-parameter to tune, which represents the strength of the penalty for discrimination in our cost. We will discuss this and upsampling in more detail when we discuss bias mitigation techniques, in part three of the book.</p>
 </section>
+<section id="evaluation-bias" class="level5 unnumbered">
+<h5 class="unnumbered">Evaluation bias</h5>
+<p>arises when evaluating a model’s performance. There are two main components here, the metrics chosen to describe the model’s performance and the benchmark dataset on which they are calculated. Choosing either inappropriately will result in our evaluation metric inaccurately reflecting the efficacy of our model. For sociotechnical problems in particular choosing good metrics requires domain knowlegde - the wider political, legal, social and historical context is important when defining what success and failure look like. For example, if building a gender recognition system, one should not simply think of the performance on the specific task but also the wider infrastructural systems which might find the technology useful. Where should we set the bar for such a technology? That should surely depend on how the technology is used after the prediction is made? Are there controls around model use? Should there be? What kinds of risk level does the model present? What might be the impact of the prediction being incorrect? When would an error be fair? What kind of examples would you expect your system to get wrong and why? What do they gave in common? Are they represented in the benchmark dataset? By asking these kinds of questions, when deciding what success looks like, it’s hard to imagine thinking that minimising the mean squared error on a conveniently available dataset would be sufficient.</p>
+<p>One approach might be to set accuracy thresholds across all (skin colour) phenotype and gender combinations <span class="citation" data-cites="GenderShades"><a href="#ref-GenderShades" role="doc-biblioref">[24]</a></span>. This would be one way of thinkinging about success in a way that incorporates <em>some</em> of our societal values of equality. The gender recognition software we talked about in the previous chapter suffered from evaluation bias on both counts. The benchmark datasets used were not representative of the target population and the metrics that were chosen, failed to expose the models poor performance on darker skinned women. The problem of evaluation bias arising from poor choice of testing/benchmark data is often the result of trying to objectively compare performance across models and can lead to overfitting to said benchmark data.</p>
+</section>
+<section id="documentation-1" class="level5 unnumbered">
+<h5 class="unnumbered">Documentation</h5>
+<p>for models (as for datasets) can have a significant impact when it comes to avoiding model miuse (a model use it is not appropriate/approved for) and ensuring model limitations are well understood. It can reduce the risk of misinterpretation of variables as a suitable proxies for other variables. Clear explanation of the model, testing that was performed, on what subgroups of the data can mke it easier to know which tests might be missing that would offer insight into the validity of the model. Documentation that is standardised through use of a template could ensure some level of consistency and efficiency across domains and applications.</p>
 </section>
 </section>
-<section id="system-process-issues" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> System / process issues</h3>
-<p>In this section we discuss failures that relate to the larger machine learning system (rather than more directly to the model). Any institution (no matter how big or small) that uses models in a setting where there are real world consequences of the model being wrong should have processes in place to ensure the risks are assessed, understood and mitigated. We talk about the kinds of processes that form part of a responsible development and deployment in the section that follows but cover them at a high level here for completeness. We consider three ways in which process interventions play a critical role in avoiding bias in machine learning systems.</p>
-<ol>
-<li><p><strong>Validation</strong> and testing of the approach, data and model pre-deployment</p></li>
-<li><p><strong>Monitoring</strong> of the model post-deployment</p></li>
-<li><p><strong>Keeping human experts in the loop</strong> in development and post-deployment</p></li>
-</ol>
+</section>
+<section id="system-issues" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> System issues</h3>
+<p>In this section we discuss failures that relate to the larger machine learning system (rather than more directly to the model). Any institution (no matter how big or small) that uses models in a setting where there are real world consequences of the model being wrong should have processes in place to ensure the risks are assessed, understood and mitigated if necessary. In the section hat follows, we talk about the kinds of processes that form part of a responsible development and deployment workflow and provide examples of harms that can arise in the absence of them. We think of system failures being one of two types, those that can be resolved by implementing processes and those that can be (at least partially) mitigated through better controls around the risk related to the application.</p>
 <section id="failure-to-validate" class="level4 unnumbered">
 <h4 class="unnumbered">1. Failure to validate</h4>
 <p>We discuss two important aspects of the modelling which should be appropriately validated pre-deployment</p>
@@ -1524,7 +1508,7 @@
 <li><p><strong>Data issues</strong> refer to bias that arises as a direct result of issues with the data</p>
 <ul>
 <li><p><strong>Discrimination in data:</strong> Disparities between protected classes, in either outcomes or accuracy and completeness are present in the data.</p></li>
-<li><p><strong>Sample Bias:</strong> The data is not representative of the population - protected classes are under or over-represented.</p></li>
+<li><p><strong>Representation bias:</strong> The data is not representative of the population - protected classes are under or over-represented.</p></li>
 <li><p><strong>Low support:</strong> Minority classes naturally have fewer data points to train on.</p></li>
 </ul></li>
 <li><p><strong>Misspecification</strong> refers to issues relating to misspecification of the underlying problem in the modelling of it. These can be related to different aspects of the modelling.</p>
