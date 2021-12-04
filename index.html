@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Dr Leena Murgai">
-  <meta name="dcterms.date" content="2021-11-02">
+  <meta name="dcterms.date" content="2021-12-03">
   <title>Mitigating Bias in Machine Learning</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="tex2html/tufte/tufte.css">
@@ -37,7 +37,7 @@
 <header>
 <h1 class="title">Mitigating Bias in Machine Learning</h1>
 <p class="byline">Dr Leena Murgai</p>
-<p class="byline"> 2 November 2021</p>
+<p class="byline"> 3 December 2021</p>
 </header>
 <div class="TOC">
 <nav id="TOC">
@@ -1021,13 +1021,13 @@
 <p>In this section we cover the more practical aspects of ethical model development and deployment. We take a take a higher level view of the process by which machine learning systems are created and identify the stages at which we can build in safety considerations. We take inspiration from model risk management in finance where models are ubiquitous. In banking, processes and policies with regard to development, testing, documentation, review, monitoring and reporting of model related valuation risk, have been developed over decades. Many of the ideas we discuss in this chapter were developed and implemented after the 2008 credit crisis in an effort to improve controls around valuation model risk.</p>
 <section id="development-and-deployment-workflow" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span> Development and deployment workflow</h3>
-<p>Before we think about identifying and categorising common causes of harm in machine learning applications, it will be helpful to outline the workflow through which a machine learning models might be developed and deployed. Figure <a href="#fig:Workflow" data-reference-type="ref" data-reference="fig:Workflow">2.4</a> does exactly this. We aim for completeness in the workflow but it’s worth noting that in most organisations (that implement machine learning models) not all of the activities we describe in fact take place. We start by summarising the workflow at a high level and later go into more detail.</p>
+<p>Before we think about identifying and categorising common causes of harm in machine learning applications, it will be helpful to outline the workflow through which a machine learning models might be developed and deployed responsibly. Figure <a href="#fig:Workflow" data-reference-type="ref" data-reference="fig:Workflow">2.4</a> does exactly this. We start by summarising the workflow at a high level and later go into more detail.</p>
 <figure class="fullwidth">
 <img src="02_EthicalDevelopment/figures/Fig_Workflow.png" id="fig:Workflow" alt="Figure 2.4: Fairness aware machine learning system development, deployment and management workflow." /><figcaption aria-hidden="true">Figure 2.4: Fairness aware machine learning system development, deployment and management workflow.</figcaption>
 </figure>
 <p>At the very top of Figure <a href="#fig:Workflow" data-reference-type="ref" data-reference="fig:Workflow">2.4</a> we have the governance standards that overarch the entire workflow. These essentially outline the processes, roles and responsibilities that constitute the development, deployment and management of the machine learning system. It defines and documents a sets the standards for the activities that constitute each stage of the depicted workflow. We’ll discuss this in more detail later in the chapter.</p>
-<p>The workflow starts in top left corner with the formulation of the problem. This segment of the development process includes setting objectives, gathering data, analysing and processing it, determining a target variable, relevant features and metrics that indicate success (and failure) of the model (in training, evaluating and monitoring the deployed model) in achieving said objectives. This process should include consulting with experts in the problem domain. The goal here is to understand the problem, data and impact of potential solutions for all the stakeholders. The arrows show that the problem formulation process is an iterative one where ideally domain experts, data collection and processing all inform each other in the creation of a tractable machine learning problem.</p>
-<p>Once the problem is well understood and represented in the data the next broad segment is developing a model. This includes splitting the data into training and testing sets, evaluating the model against its objectives and consequently refining the data, model, evaluation metrics or other aspects. The splitting of data may be more complex (perhaps split three ways with a third set providing unbiased evaluation of the trained model, or split k ways if using k-fold cross validation) but for simplicity we omit specific details here. Part of model development and validation process should be to understand the model’s limitations - where predictions might be unreliable, what it can and cannot be used for. Again model development is an iterative process and the data, metrics, training objectives, post-processing steps and more will evolve as the developers’ understanding of the problem improves.</p>
+<p>The workflow starts in top left corner with the formulation of the problem. This segment of the development process includes setting objectives, gathering data, analysing and processing it, determining a target variable, relevant features and metrics that indicate success (and failure) of the model (in training, evaluating and monitoring the deployed model). This process should include consulting with experts in the problem domain. The goal here is to understand the problem, data and impact of potential solutions for all the stakeholders. The arrows show that the problem formulation process is an iterative one where ideally domain experts, data collection and processing all inform each other in the creation of a tractable machine learning problem.</p>
+<p>Once the problem is well understood and represented in the data the next broad segment is developing a model. This includes splitting the data into training and testing sets, evaluating the model against its objectives and consequently refining the data, model, evaluation metrics or other aspects. The splitting of data may be more complex (perhaps split three ways with a third set providing unbiased evaluation of the trained model, or split k ways if using k-fold cross validation) but for simplicity we omit specific details here. Part of model development and validation process should be to understand the model’s limitations - where predictions might be unreliable, what it can and cannot be used for. Again, model development is an iterative process and the data, metrics, training objectives, post-processing steps and more will evolve as the developers’ understanding of the problem improves.</p>
 <p>For applications that make it to deployment, the documentation for the data and model analysis and implementation is submitted to the model owners for review. At this stage the model is either approved for deployment or not. For the sake of brevity, and to emphasize the right of the model owners to reject proposed solutions, we describe the situation where the model is not approved as it being rejected. In reality, rejecting a model need not mean that it is scrapped. Model owners may for example require further analysis or other changes to be made before it is resubmitted for approval. In any organisation, ideally the values, mission and objectives are well enough understood by the members, that a solution being scrapped at the last hurdle would be a rare event. The kinds of issues that would result in rejection should generally be caught at an earlier stage of the model development workflow.</p>
 <p>Part of deploying a model should be ensuring the necessary reporting mechanisms are in place so it can be monitored. In addition to regular reporting to model owners, monitoring might include alerts that inform model owners when model evaluation metric or risk materiality limits are triggered for example. If the actions taken off the back of the predictions include human judgement or interpretation this should also be captured as part of monitoring the model. Indeed the various ways in which the results of the model might be interpreted should be considered at the problem formulation stage. Finally we include human experts in the loop at the stage where predictions are acted upon. Human experts might for example be consulted in cases where the model is understood to produce less reliable predictions, or via an appeals process that is built into the decision system.</p>
 <section id="measuring-fairness" class="level4 unnumbered">
@@ -1041,43 +1041,48 @@
 </section>
 <section id="bias-mitigation-techniques" class="level4 unnumbered">
 <h4 class="unnumbered">Bias mitigation techniques</h4>
-<p>There are essentially three stages at which one can intervene to mitigate bias in the machine learning model development workflow (nodes coloured green in Figure <a href="#fig:Workflow" data-reference-type="ref" data-reference="fig:Workflow">2.4</a>) and we categorise them accordingly:</p>
+<p>There are three stages at which one can intervene to mitigate bias in the machine learning model development workflow (nodes coloured green in Figure <a href="#fig:Workflow" data-reference-type="ref" data-reference="fig:Workflow">2.4</a>) and we categorise them accordingly:</p>
 <ol>
 <li><p><strong>Pre-processing</strong> techniques modify the historical data on which the model is trained (at the <em>data pre-process</em> stage).</p></li>
 <li><p><strong>In-processing</strong> techniques alter the training process or objective (at the <em>model training</em> stage).</p></li>
-<li><p><strong>Post-processing</strong> techniques take a trained model/s and modify the output such that the resulting predictions are fairer/less biased (at the <em>model post-process</em> stage).</p></li>
+<li><p><strong>Post-processing</strong> techniques take a trained model/s and modify or combine the output (at the <em>model post-process</em> stage).</p></li>
 </ol>
 </section>
 </section>
-<section id="fairness-aware-process-and-policy" class="level3" data-number="2.2.2">
+<section id="sec_ProcessPolicy" class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span> Fairness aware process and policy</h3>
-<p>In this section we discuss what a fairness aware aware development, deployment and management workflow for a machine learning system looks like in more detail. For the most part, the workflow is not much different to one that is concerned with effective (machine learning specific) model risk management. One that acknowledges that models are fallible and accordingly sets standards for development, deployment and monitoring, in order to prevent foreseeable failures and mitigate the associated risks. The main difference is that we consider ethical risk as a central component of the risks that must be managed. Of course utility is an important consideration in being fair (it’s hard to think of a model that is no better than guessing as fair) but viewing model evaluation through an ethical lens requires a more holistic assessment of the system, it’s purpose, reliability and impact; not just for the business that makes use of it, but for all those exposed to or affected by it.</p>
-<p><span style="color: red">Reference Fairness and Abstraction</span></p>
-<p>In Figure <a href="#fig:Workflow" data-reference-type="ref" data-reference="fig:Workflow">2.4</a>, overarching the whole process is a set of model governance standards. These define the full details of the workflow and can depend on the particular application being developed, among other things. Below we will describe the kinds of activities that play a role in responsible development. In relating these activities to the workflow in Figure <a href="#fig:Workflow" data-reference-type="ref" data-reference="fig:Workflow">2.4</a>, we divide them into three main areas.</p>
+<p>In this section we examine a fairness aware aware development, deployment and management workflow for a machine learning system. For the most part, the workflow is not much different to one that is concerned with effective (machine learning specific) model risk management; one that acknowledges that models are fallible and accordingly sets standards for development, deployment, monitoring and maintenance, in order to prevent foreseeable failures and mitigate the associated risks. The main difference is that we consider ethical risk as a central component of the risks that must be managed. Of course utility is an important consideration in being fair (it’s hard to think of a model that is no better than guessing as fair) but viewing model evaluation through an ethical lens requires a more holistic assessment of the system, it’s purpose, reliability and impact; not just for the business, but for all those exposed to or affected by it.</p>
+<p>We’ll address some of the problems that can’t be solved through the kinds of model interventions we will discuss in later chapters. In <span class="citation" data-cites="FairAbs"><a href="#ref-FairAbs" role="doc-biblioref">[37]</a></span><span class="marginnote"><span id="ref-FairAbs" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[37] </span><span class="csl-right-inline">A. D. Selbst, D. Boyd, S. A. Friedler, S. Venkatasubramanian, and J. Vertesi, <span>“Fairness and abstraction in sociotechnical systems,”</span> in <em>Proceedings of the conference on fairness, accountability, and transparency</em>, 2019, pp. 59–68. doi: <a href="https://doi.org/10.1145/3287560.3287598">10.1145/3287560.3287598</a>.</span>
+</span>
+</span>, Selbst et al. describe five traps that one might fall into, even while attempting to create fair machine learning applications. In particular, they describe the <em>formalism trap</em>, in which one fails to account for the full meaning of complex social concepts such as fairness. These can’t be formalised with mathematical equations. Under such formalisms, it has been shown that a universally fair classifier is precluded by irreconcilable definitions (we’ll see why in chapter <a href="#ch_GroupFairness" data-reference-type="ref" data-reference="ch_GroupFairness">3</a>). Fairness might more naturally be established proceedurally (as often it is in law). In addition, social concepts are contextual, and thus do not lend themselves well to abstraction - a core prinipal in computer science which enables portability of solutions. Social concepts evolve over time, as cultural norms shift, therefore contestabitlity is a key element of fairness as it provides an avenue for change. These requirements are qualities of a system rather than a formula and cannot be resolved solely through algorithmic interventions.</p>
+<p>In industry, where innovation demands taking risks, where time is money, and growth is used as a proxy for value by investors, how do we ensure the proper amount care and attention is applied when creating products that have the potential for harm? Historically, the answer has been to impose rules that slow the process down, by requiring steps which prioritise safety over other concerns. In order to do this one must first determine and define a safety standard. In Figure <a href="#fig:Workflow" data-reference-type="ref" data-reference="fig:Workflow">2.4</a>, overarching the whole process is a set of model governance standards. These esentially define that standard by describing the workflow, roles and requirements.</p>
+<p>How does one determine what constitutes harm and thus which organisations should be subjected to them? In the financial sector, major banks (that are considered to be of systemic importance to a nations financial stability) are be subjected to greater scrutiny. An example of this might be requiring them to publish results of <a href="https://www.bankofengland.co.uk/stress-testing/2021/key-elements-of-the-2021-stress-test">solvency stress tests</a>. The way we measure systemic importance may require more thought for companies that profit from sociotechnical systems but the principal ought to be the same. <strong>Organisations which own products which are of systemic importance to the sociopolitical landscape should have sufficient and appropriate resource (relative to those of the risk generating activities) to manage and mitigate their ethical risk. For applications that carry high risk of harm, risk functions should act as gatekeepers for model deployment and use.</strong></p>
+<p>To describe the kinds of activities that play a role in responsible development, we consider three main areas.</p>
 <ol>
 <li><p>Model governance standards</p></li>
-<li><p>Pre-deployment</p></li>
-<li><p>Post-deployment</p></li>
+<li><p>Pre-deployment activities</p></li>
+<li><p>Post-deployment activities</p></li>
 </ol>
-<p>Each of these encompasses a subset of nodes in the workflow. The composition of each of these components will vary greatly for different applications and organisations. For example, one would expect that an application that advises recidivism risk for sentencing should go through a much more robust testing and validation process than say a photo filter that figures out where to put animated ears given a facial image; and a company like Google will have a very different risk profile, resources and infrastructure compared to say a start-up with six people, one deployed model and a handful of users. Nevertheless, there are components of financial risk management frameworks that can be applied to machine learning systems. We discuss these here.</p>
+<p>Each of these encompasses a subset of nodes in the workflow in Figure <a href="#fig:Workflow" data-reference-type="ref" data-reference="fig:Workflow">2.4</a>. The composition of each of these components will vary greatly for different applications and organisations. For example, one would expect that an application that advises recidivism risk for sentencing should go through a much more robust testing and validation process than say, a photo filter that figures out where to put animated ears given a facial image; and a company like Google will have a very different risk appetite and profile, resources and infrastructure compared to say a start-up with six people, one deployed model and a handful of users. Nevertheless, there are components of financial risk management frameworks that can be applied to machine learning systems. We discuss these here.</p>
 <section id="model-governance-standards" class="level4 unnumbered">
 <h4 class="unnumbered">1. Model governance standards</h4>
-<p>Though relatively new terminology in machine learning circles, the concept of model governance has existed a while. For financial institutions (which depend on vast numbers of proprietary models), operating and maintaining a model governance framework is a central part of model risk management and a regulatory requirement for many institutions. The regulatory landscape of the financial sector is considerably more mature than that of other industries, the frameworks used to handle the associated risks have been developed over decaudesit is instructive to look at how such institutions manage model risk.</p>
-<p><span style="color: red">Define model? Data + decision? Decision system governance? Covid vaccine fluff up.</span></p>
-<p>So what does responsible and ethical MLS development and deployment look like? The biggest difficulty in answering this question is that there is no one size fits all answer. The answer to the question will depend on a whole multitude of factors and can be approached from many different perspectives, to mention a few:</p>
+<p>Though relatively new terminology in machine learning circles, the concept of model governance has existed for decades. For financial institutions (which depend on vast numbers of proprietary models), operating and maintaining a model governance framework is a central part of model risk management and a regulatory requirement for many institutions. The regulatory landscape of the financial sector is considerably more mature than that of other industries and the frameworks used to handle the associated risks have been developed and refined over time. It is therefore instructive to look at how such institutions manage model risk.</p>
+<p>So what does responsible and ethical machine learning development and deployment look like? The biggest difficulty in answering this question is that there is no one size fits all answer. The answer to the question will depend on a whole multitude of factors and can be approached from many different perspectives, to mention a few:</p>
 <ul>
 <li><p><strong>Domain:</strong> Different domains will have different legal and ethical concerns for example employment or housing versus entertainment or targeted advertising.</p></li>
 <li><p><strong>The number and complexity of the models being used by the business:</strong> An organisation that uses hundreds of models and composes them to create new products would benefit greatly from infrastructure and methodologies for measuring the materiality of the associated risks that would enable prioritisation of work related to mitigating them. In contrast, for a business based on a single model, this would be less of a concern.</p></li>
-<li><p><strong>Cost of errors:</strong> Where the potential harm caused by model errors is high, pre-deployment testing will need to be extensive and prescribed. Well defined and mandatory processes will play an important role - checklists, contingency planning, detailed logging so postmortems can be conducted and more.</p></li>
+<li><p><strong>Cost of errors:</strong> Where the potential harm caused by model decisions is great and the risk high, pre-deployment testing will need to be extensive and prescribed. Well defined and mandatory processes will play an important role - checklists, contingency planning, detailed logging so postmortems can be conducted and more. For these types of applications we would want authority over model deployment to be distributed to risk functions that have the power to</p></li>
 </ul>
-<p>Given this, how does one approach the problem of responsible development? Step zero is to create a set of model governance standards. The purpose of model governance standards is to clearly define and communicate what responsible model development and deployment looks like for your specific application, use case, domain, business, principles and values. It essentially documents and communicates the why, who, what and how of your model risk management approach. What are the kinds of questions we might want our model governance standards to answer?</p>
+<p>Given this, how does one approach the problem of responsible development? Step zero is to create a set of governance standards. The purpose of model governance standards is to clearly define and communicate what responsible model development and deployment looks like for your specific application, use case, domain, business, principles and values. It essentially documents and communicates the why, who, what and how of your model risk management approach. What are the kinds of questions we might want our model governance standards to answer?</p>
 <ul>
-<li><p><strong>Why is the work important?</strong> What kinds of events are you trying to avoid? What legislation is the company subject to? What are the consequences of failures? What are the values of the company that you want to protect?</p></li>
+<li><p><strong>Why is the work important?</strong> What kinds of events or uses of your models are you trying to avoid (or said another way are outside of the organisation’s risk appetite)? What legislation is the company subject to? What are the consequences of failures? What are the values of the company that you want to protect?</p></li>
 <li><p><strong>Who is responsible?</strong> Who are the stakeholders? Who is accountable for managing the various identified risks?</p></li>
-<li><p><strong>What are they responsible for?</strong> What are their roles? What kind of expertise are required to understand and manage the risks? What are the questions each stakeholder must answer? What are the responsibilities of those experts at the various stages of the model development and deployment life cycle? What authority do they have in relation to determining if the model is fit for deployment? Who decides what?</p></li>
-<li><p><strong>How do you manage the risk?</strong> What are the rules, processes and requirements that ensure the companies values are maintained, people are treated fairly, the legal requirements are fulfilled and the model risks are appropriately managed? How do the stakeholders work together? For example some roles might need to be independent while others work alongside one another. How is the materiality of different risks measured and tracked? Numbers of predictions? Numbers of individuals? Consequences? Revenue? What are the requirements around training data (documentation, review, storage, privacy, consent and such)? What are the requirements around modelling (documentation, testing, explainability and such)? What are the processes and requirements around proposing, reviewing, testing, deploying, monitoring model related risks? For example, frequency of risk reviews, forums for discussion and monitoring, required logging. What are the processes and requirements in place for (specific foreseeable types of) model failures? Are there stakeholder specific templates or check-lists that ensure particular questions get answered at specific points in the model development and deployment life cycle?</p></li>
+<li><p><strong>What are they responsible for?</strong> Define what is and what is not included in the standard and whose concern it is. What are their roles? What kind of expertise are required to understand and manage the risks? What are the questions each stakeholder must answer? What are the responsibilities of those experts at the various stages of the model development and deployment life cycle? What authority do they have in relation to determining if the model is fit for deployment? Who decides what?</p></li>
+<li><p><strong>How do you manage the risk?</strong> What are the rules, processes and requirements that ensure the companies values are maintained, people are treated fairly, the legal requirements are fulfilled and the model risks are appropriately managed? How do the stakeholders work together? For example some roles might need to be independent while others work alongside one another. What are the requirements around training data (documentation, review, storage, privacy, consent and such)? What are the requirements around modelling (documentation, testing, explainability and such)? What are the processes around proposing, reviewing, testing, deploying, monitoring model related risks? For example, frequency of risk reviews, forums for discussion and monitoring, required logging. What are the processes and requirements in place for (specific foreseeable types of) model failures? Are there stakeholder specific templates or check-lists that ensure particular questions get answered at specific points in the model development and deployment life cycle?</p></li>
+<li><p><strong>How is the materiality of different risks assessed and compared?</strong> An important componant of managing risk is having a system to measure and track it. Having a way to compare risk level across products and or product classes, even if comparisons are corse, enables risk appropriate prioritisation and resource allocation in managing them. Risk can be estimated in many different ways and exactly how it is measured will depend on the details of the machine learning system but broadly speaking it should consider both the severity of impact and model uncertaintainty. Simple metrics that one might use and combine are numbers of predictions or users, data quality, model complexity, impact of errors for stakeholders.</p></li>
 </ul>
-<p>The list of questions above is by no means exhaustive but a good starting point. Creating a set of model governance standards is about planning. Machine learning systems can be complicated and have many points of failure: problem formulation, the data collection, data processing, modelling, implementation, deployment. The only way to reduce the risk of failures is to be organised, deliberate and plan for them. Creating a set of standards does exactly that. Where the systems we build have real world consequences, the preparation, planning and process around development, review, analysis, deployment and monitoring of them should reflect that. Ensuring that the right questions get asked at the right time, knowing who is responsible for answering them and fixing things when they go wrong is a core part of developing and deploying models ethically.</p>
+<p>The list of questions above is by no means exhaustive but a good starting point. Creating a set of model governance standards is about planning. Machine learning systems can be complicated and have many points of failure: problem formulation, the data collection, data processing, modelling, implementation, deployment. The only way to reduce the risk of failures is to be organised, deliberate and plan for them. Creating a set of standards does exactly that. Where the systems we build have real world consequences, the preparation, planning and process around development, review, analysis, deployment and monitoring of them should reflect that. Ensuring that the right questions get asked at the right time, knowing who is responsible for answering them and being prepared to address problems is a core part of developing and deploying models ethically.</p>
 </section>
 <section id="compliance" class="level4 unnumbered">
 <h4 class="unnumbered">Compliance</h4>
@@ -1095,18 +1100,19 @@
 </section>
 <section id="problem-formulation" class="level4 unnumbered">
 <h4 class="unnumbered">Problem formulation</h4>
-<p>Problem formulation is the first key step in developing a machine learning solution and an especially pivotal one in ethical risk assessment. The problem formulation stage plays perhaps the largest role in what the end product will actually be. It is the stage at which the model objectives, requirements, target variable and training data are determined. Data should be documented. How was the population sampled? For what purpose was it collected? By whom? What analysis and cleaning steps were performed. <span style="color: red">It is also the stage at which the materiality of the risk should be assessed. What’s the worst that can happen? How likely is such a failure? How many people would be exposed to the model? As part of problem formulation one should examine the machine learning cycle in the context of the biases in the data and consider the nature (direction and strength) of the feedback of resulting actions on future data. It’s important to consider other ways in which the model might be used (other than that intended) and the corresponding feedback cycle in those cases. How the model might be misused? Are there ways in which it should not be used? Document them.</span></p>
+<p>Problem formulation is the first key step in developing a machine learning solution and an especially pivotal one in ethical risk assessment. The problem formulation stage plays perhaps the largest role in what the end product will actually be. It is the stage at which the model objectives, requirements, target variable and training data are determined. Data should be documented. How was the population sampled? For what purpose was it collected? By whom? What analysis and cleaning steps were performed. It is also the stage at which the materiality of the risk should be assessed. What’s the worst that can happen? How likely is such a failure? How many people would be exposed to the model? Is the model within risk appetite (as defined in the model governance standards)? Having a way to understand and compare the risks posed by different models/applications is useful in ensuring the appropriate amount of resource and scrutiny is applied at all stages of the development, deployment and maintenance lifecycle.</p>
+<p>As part of problem formulation one should examine the machine learning cycle in the context of the biases in the data and consider the nature (direction and strength) of the feedback of resulting actions on future data. It’s important to consider other ways in which the model might be used (other than that intended) and the corresponding feedback cycle in those cases. How the model might be misused? Are there ways in which it should not be used? Documenting these types of considerations is an important step in preventing deployment bias (which results through inapproriate model use or misinterpretation of model results).</p>
 <p>A thorough examination of ethical issues demands consideration of a diversity of voices, which is well known to be lacking in technology. This is the stage at which it is important to consider who is affected by the technology, consult with them and ensure their views are understood and incorporated in the understanding of the problem and design of a potential solution. Who are the human experts? By that we mean, those who would have valuable insight and opinions on the potential harms of the model you plan on building? Who does the model advantage and who does it disadvantage? Want to use machine learning to help manage diabetes? What are the interests of the health insurance company funding the development? Have you consulted with diabetics in addition to specialist physicians? What are their concerns? What is the problem from the different perspectives? Would a model be able to help or are there simpler solutions? How and for who?</p>
 <p>In any system that is vulnerable to errors and less than optimal subjective decisions, pre-deployment independent review is a well established method of preventing costly foreseeable failures. Whether it’s a completely new solution built from scratch or a modification to an existing solution that’s being deployed, an independent review process is an important element of responsible model development. Below we describe the responsibilities of two separate roles, model development (designing a solution) and the model validation (critical assessment of the solution risks).</p>
 </section>
 <section id="model-development" class="level4 unnumbered">
 <h4 class="unnumbered">Model development</h4>
 <p>The model developers role is to translate the business problem into a tractable machine learning problem and create a initial model solution. They will work with the business and receive input from other necessary domain experts relevant to the application to develop a possible solution. This will include tasks such as acquiring and interpreting data that is relevant for the problem, determining a target variable, model objectives, performance measures, fairness measures and more.</p>
-<p>The model developer should document the solution. Documentation should include for example, descriptions of the data and model, motivation behind subjective decisions that were made to arrive at the solution (how to process the data, what features to use/ignore, model type, cost function, sample weights, bias and success metrics), known data/model issues, how the model was tested, what it’s limitations are, what it should and should not be used for with justification. The documentation of the model should provide enough detail to be able to re-implement the model, reproduce results and justify the solution approach. Documentation can be standardised using application specific templates. Recent research discusses standardisation of documentation specifically for publicly released datasets<span class="citation" data-cites="DS4DS"><a href="#ref-DS4DS" role="doc-biblioref">[37]</a></span><span class="marginnote"><span id="ref-DS4DS" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[37] </span><span class="csl-right-inline">T. Gebru <em>et al.</em>, <span>“Datasheets for datasets.”</span> 2020.Available: <a href="https://arxiv.org/abs/1803.09010">https://arxiv.org/abs/1803.09010</a></span>
+<p>The model developer should document the solution. Documentation should include for example, descriptions of the data and model, motivation behind subjective decisions that were made to arrive at the solution (how to process the data, what features were used/ignored and why, model type, cost function, sample weights, bias and success metrics), known data/model issues, how the model was tested, what it’s limitations are, what it should and should not be used for with justification. The documentation of the model should provide enough detail to be able to re-implement the model, reproduce results and justify the solution approach. Documentation can be standardised using application specific templates. Recent research discusses standardisation of documentation specifically for publicly released datasets<span class="citation" data-cites="DS4DS"><a href="#ref-DS4DS" role="doc-biblioref">[38]</a></span><span class="marginnote"><span id="ref-DS4DS" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[38] </span><span class="csl-right-inline">T. Gebru <em>et al.</em>, <span>“Datasheets for datasets.”</span> 2020.Available: <a href="https://arxiv.org/abs/1803.09010">https://arxiv.org/abs/1803.09010</a></span>
 </span>
-</span> and machine learning models<span class="citation" data-cites="MC4MR"><a href="#ref-MC4MR" role="doc-biblioref">[38]</a></span><span class="marginnote"><span id="ref-MC4MR" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[38] </span><span class="csl-right-inline">M. Mitchell <em>et al.</em>, <span>“Model cards for model reporting,”</span> <em>Proceedings of the Conference on Fairness, Accountability, and Transparency</em>, 2019, doi: <a href="https://doi.org/10.1145/3287560.3287596">10.1145/3287560.3287596</a>.</span>
+</span> and machine learning models<span class="citation" data-cites="MC4MR"><a href="#ref-MC4MR" role="doc-biblioref">[39]</a></span><span class="marginnote"><span id="ref-MC4MR" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[39] </span><span class="csl-right-inline">M. Mitchell <em>et al.</em>, <span>“Model cards for model reporting,”</span> <em>Proceedings of the Conference on Fairness, Accountability, and Transparency</em>, 2019, doi: <a href="https://doi.org/10.1145/3287560.3287596">10.1145/3287560.3287596</a>.</span>
 </span>
 </span>.</p>
 <p>In terms of preventing failures, the model developer would be considered the first line of defence. The responsibility of developing a model responsibly and ethically lies, in the first instance, with them. The model developer should aim to create a model they believe to be production ready. The model developer should follow the processes and fulfill the requirements specified in the model governance standards. These should include ethical as well as performance standards which must be met. If there is an accuracy requirement for example, has the performance been tested for different subgroups of the population? Have conjunctions of protected characteristics also been tested?</p>
@@ -1136,29 +1142,18 @@
 </section>
 <section id="common-causes-of-harm" class="level2" data-number="2.3">
 <h2 data-number="2.3"><span class="header-section-number">2.3</span> Common causes of harm</h2>
-<p>There are many ways in which machine learning solutions can result in harm. In this section we present a taxonomy of common causes with examples. We relate the causes in our taxonomy to the corresponding stages of the model development and deployment life cycle at which consideration could prevent them from happening. The hope is for this to serve as a good starting point for a reference for developing fairer models; avoid common pitfalls and ensure that we, as data scientists and developers of these technologies, perform an appropriate level of due dilligence before releasing our work.</p>
-<p>It’s worth noting that creating a taxonomy is not as straightforward as one might hope. There is no agreed upon terminology that describes the different types of issues that can arise or agreed upon framework for developing machine learning solutions that factor in safety concerns (since there are no regulations). Indeed, developing one is the subject of recent publications, <span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[39]</a></span><span class="marginnote"><span id="ref-ConsClfn" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[39] </span><span class="csl-right-inline">B. d’Alessandro, C. O’Neil, and T. LaGatta, <span>“Conscientious classification: A data scientist’s guide to discrimination-aware classification,”</span> <em>Big Data</em>, vol. 5, no. 2, pp. 120–134, 2017, doi: <a href="https://doi.org/10.1089/big.2016.0048">10.1089/big.2016.0048</a>.</span>
+<p>There are many ways in which machine learning solutions can result in harm. In this section we present a taxonomy of common causes of harm and then discuss it in more detail providing examples. At the end of the section, we’ll relate the causes in our taxonomy to the corresponding stages of the model development and deployment life cycle (discussed earlier) at which consideration could prevent them from arising. The goal is for this to serve as a good starting point for a reference for developing fairer models; avoid common pitfalls and ensure that we, as data scientists and developers of these technologies, perform an appropriate level of due dilligence before releasing our work.</p>
+<p>Creating a taxonomy is not as straightforward as one might hope. There is no agreed upon terminology that describes the different types of issues that can arise or agreed upon framework for developing machine learning solutions that factor in safety concerns (since there are no regulations). Indeed, developing one is the subject of recent research, <span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[40]</a></span><span class="marginnote"><span id="ref-ConsClfn" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[40] </span><span class="csl-right-inline">B. d’Alessandro, C. O’Neil, and T. LaGatta, <span>“Conscientious classification: A data scientist’s guide to discrimination-aware classification,”</span> <em>Big Data</em>, vol. 5, no. 2, pp. 120–134, 2017, doi: <a href="https://doi.org/10.1089/big.2016.0048">10.1089/big.2016.0048</a>.</span>
 </span>
-</span>, <span class="citation" data-cites="BiasFramework"><a href="#ref-BiasFramework" role="doc-biblioref">[40]</a></span><span class="marginnote"><span id="ref-BiasFramework" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[40] </span><span class="csl-right-inline">H. Suresh and J. Guttag, <span>“A framework for understanding sources of harm throughout the machine learning life cycle,”</span> 2021.</span>
+</span>, <span class="citation" data-cites="BiasFramework"><a href="#ref-BiasFramework" role="doc-biblioref">[41]</a></span><span class="marginnote"><span id="ref-BiasFramework" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[41] </span><span class="csl-right-inline">H. Suresh and J. Guttag, <span>“A framework for understanding sources of harm throughout the machine learning life cycle,”</span> 2021.</span>
 </span>
-</span>, <span class="citation" data-cites="DS4DS"><a href="#ref-DS4DS" role="doc-biblioref">[37]</a></span>, <span class="citation" data-cites="MC4MR"><a href="#ref-MC4MR" role="doc-biblioref">[38]</a></span>.</p>
-<p>The word bias itself has many definitions <span style="color: red">(talk about this in chapter 1: What is bias?)</span> and even in a given context can have multiple valid interpretations. Different practitioners would likely describe the same type of bias differently. Causes of bias in machine learning applications are often numerous and overlapping, thus difficult to attribute to a single source or prescribe a single solution for.</p>
-<div class="lookbox">
-<p><strong>The problem with bias attribution</strong></p>
-<p>A racist manager (<strong>racial bias</strong>) collects data on the errors made by factory workers. Expecting they’ll make more errors, she pays more attention to Black workers than White ones (<strong>expectation bias</strong>). In addition, the standard she sets for correctness is higher for Black employees (<strong>verification bias</strong>). The data then appears to show that Black employees more often make errors. <span style="color: red">But since she wasn’t observing all workers equally the sampling of observations was not random across the whole population, it contains (<strong>representation bias</strong>)</span>. The data of employee error rates is combined with data from their job application forms and used to train an applicant filtering system by predicting the error rates for prospective employees and thus who get.</p>
-</div>
-<p>The most appropriate remedy itself will be very much context dependent and different practitioners may not even agree. And if that wasn’t difficult enough, the very definition of a model is known to be the subject of debate. Before presenting our taxonomy we address a point of contention in the machine learning community - that models are not biased, bias comes from data.</p>
-<p>The notion that bias is simply an artifact of data rather than a model is not uncommon among machine learning scholars and practitioners. In this book we’ve already discussed numerous examples of biased machine learning models, so where does this idea come from? In more theoretical disciplines a model is interpreted as being the parametric form. Under this definition of a model, different values of the parameters then don’t change what we consider to be our model. For example, the term <em>linear model</em> describes a family of models. More practical disciplines view a model as a (deterministic) function mapping - provided with input, the model returns output. By this definition of a model, if the parameters change, so does the function and thus the model. From a practical perspective then it’s clear that a model can discriminate since if the data documents historic discrimination, we would expect the trained model to reproduce it.</p>
-<p>The idea that bias is a data problem, rather than a modelling one is at best a gross oversimplification of the problem and at worst misleading. It implies that in general, after training, a model will perfectly reproduce the joint distribution of the variables in data. Anyone who’s ever trained a model on real world data knows, is patently false. It suggests that models and data are independent when, in practice, they ought not be. Model development is an iterative process. The modelling choices we make can depend on the data and our model results should in turn influence our training data. Treating data and modelling as independent entities diminishes the responsibility of model developers in addressing the problem of biased and unfair applications. It ignores the very practical nature of developing models that serve real people and the societal impact they can have. For sociotechnical systems, the objectives must surely extend beyond utility. We consider defining those wider objectives and incorporating them part of the modelling process and thus failing to consider them a modelling problem.</p>
-<p>For it’s practical value, at a high level we follow the taxonomy described by d’Alessandro et. al.<span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[39]</a></span>, in which we distinguish between the machine learning model the larger decision system development and deployment process, of which it is a component.</p>
-<ol>
-<li><p>The <strong>machine learning model</strong> is defined as the function mapping <span class="math inline">f</span> from features <span class="math inline">(\boldsymbol{X}, \boldsymbol{Z})</span> to predictions <span class="math inline">\hat{Y}</span>.</p></li>
-<li><p>The <strong>decision system</strong> includes the wider infrastructure, processes and policies around development, deployment and monitoring of the model.</p></li>
-</ol>
-<p>We aim to layout both the points at which issues arise and the various points at which one could assess and intervene if necessary. For this reason the table may appear to contain duplications of the same problem, viewed from different perspectives. We consider this to be of value nevertheless since in many organisations different people are responsible for different stages of the workflow. For example, thanks to unprecidented growth in data vendors, it is not uncommon for a model to be built on independently collected data.</p>
-<p>For terminology for different types of bias (causes of systematic errors), we take inspiration from evidence based medicine, which has perhaps the most comprehensive set of definitions and classification of bias types. Table <a href="#tbl:Taxonomy" data-reference-type="ref" data-reference="tbl:Taxonomy">2.2</a> summarises our taxonomy of common causes of harm in machine learning systems. In it, we determine harms to arise from one of two components, the model mapping and or as a result of failures in the model development and deployment process.</p>
+</span>, <span class="citation" data-cites="DS4DS"><a href="#ref-DS4DS" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="MC4MR"><a href="#ref-MC4MR" role="doc-biblioref">[39]</a></span>. The word bias itself has many definitions and even in a given context can have multiple valid interpretations. Different practitioners would likely describe the same type of bias differently. Causes of bias in machine learning applications are often numerous and overlapping, thus difficult to attribute to a single source or prescribe a single solution for. The most appropriate remedy itself will be very much context dependent, different practitioners may not even agree.</p>
+<p><span style="color: red">Chapter 1: What is bias?</span></p>
+<p><span style="color: red">Define model? Data + decision? Decision system governance? Covid vaccine fluff up.</span></p>
+<p>For it’s practical value, at a high level we follow the taxonomy described by d’Alessandro et. al.<span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[40]</a></span>, in which the model is distinguished from the larger system of which it is a component. The <strong>system</strong> includes the infrastructure, processes, policies and risk controls around development, deployment, monitoring and maintenace of the decision system. While the <strong>model</strong> is defined as the function mapping <span class="math inline">f</span> from features <span class="math inline">(\boldsymbol{X}, \boldsymbol{Z})</span> to predictions <span class="math inline">\hat{Y}</span>. We aim to layout both the points at which issues arise and the various points at which one could assess and intervene if necessary. For this reason, the table may appear to contain duplications of the same problem viewed from different perspectives. This is intentional. In many organisations, different parts of the system might be developed independently and so this adds value. It’s not uncommon, thanks to unprecidented growth in data vendors, for models to be built on independently collected data.</p>
+<p>Evidence based medicine provides a rich terminology for different types of bias (causes of systematic errors) and has perhaps the most comprehensive set of definitions and classification of bias types. This in itself can provide an important reference in determining which kinds of biases model developers should be aware of and we include some of them here. Table <a href="#tbl:Taxonomy" data-reference-type="ref" data-reference="tbl:Taxonomy">2.2</a> summarises our taxonomy of common causes of harm in machine learning systems.</p>
 <div id="tbl:Taxonomy">
 <table>
 <caption>Table 2.2: Taxonomy of common causes of harm in machine learning systems.</caption>
@@ -1172,84 +1167,8 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;" rowspan="18">Model</td>
-<td style="text-align: left;" rowspan="7">Data Issue</td>
-<td style="text-align: left;">Historical bias</td>
-<td style="text-align: left;">Data records wrongful discrimination</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;" rowspan="3">Measurement bias</td>
-<td style="text-align: left;">Quality of data varies across protected classes</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Measurement process varies across protected classes</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Recording proxies for immeasurable / ill defined variables</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Representation bias</td>
-<td style="text-align: left;">Data not representative of population for protected features</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Low support</td>
-<td style="text-align: left;">Minority protected classes have too few data points</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Documentation</td>
-<td style="text-align: left;">Inadequate documentation</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;" rowspan="11">Misspecification</td>
-<td style="text-align: left;">Aggregation bias</td>
-<td style="text-align: left;">Failure to model differences in type</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;" rowspan="3">Target variable</td>
-<td style="text-align: left;">Target variable subjectivity</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Proxy target variable learning</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Heterogeneous target variable</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;" rowspan="2">Features</td>
-<td style="text-align: left;">Inclusion of protected features without control variables</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Inclusion of protected feature proxies (redlining)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;" rowspan="2">Cost function</td>
-<td style="text-align: left;">Failure to specify asymmetric error costs</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Omitted discrimination penalties</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;" rowspan="2">Evaluation bias</td>
-<td style="text-align: left;">Poor choice of evaluation metrics</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Test data not representative of the target</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Documentation</td>
-<td style="text-align: left;">Failure to adequately document (prevent inappropriate use)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;" rowspan="12">System</td>
-<td style="text-align: left;" rowspan="5">Process</td>
-<td style="text-align: left;">Governance</td>
-<td style="text-align: left;">Failure to set application specific standards</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Risk Assessment</td>
-<td style="text-align: left;">Failure to assess possible severity of impact</td>
-</tr>
-<tr class="odd">
+<td style="text-align: left;" rowspan="11">System</td>
+<td style="text-align: left;" rowspan="5">Process / Policy</td>
 <td style="text-align: left;" rowspan="2">Prioritisation</td>
 <td style="text-align: left;">Failure to allocate appropriate/sufficient resource</td>
 </tr>
@@ -1257,68 +1176,211 @@
 <td style="text-align: left;">Failure to distribute power to manage conflicts of interest</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">Governance</td>
+<td style="text-align: left;">Failure to set or comply with application specific standards</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Risk Assessment</td>
+<td style="text-align: left;">Failure to assess possible severity of impact</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">Accountability</td>
 <td style="text-align: left;">Non deference to human domain expert</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;" rowspan="7">Controls</td>
+<td style="text-align: left;" rowspan="6">Controls</td>
 <td style="text-align: left;" rowspan="2">Deployment bias</td>
-<td style="text-align: left;">Inappropriate model use</td>
+<td style="text-align: left;">Inappropriate model use / Misinterpretation of model results</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Misinterpretation of model results</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;" rowspan="3">Validation</td>
 <td style="text-align: left;">Data appropriateness and preparation</td>
 </tr>
-<tr class="odd">
+<tr class="even">
+<td style="text-align: left;"></td>
 <td style="text-align: left;">Modelling approach and implementation</td>
 </tr>
-<tr class="even">
+<tr class="odd">
+<td style="text-align: left;"></td>
 <td style="text-align: left;">Model evaluation (pre and post deployment metrics)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;" rowspan="2">Monitoring</td>
 <td style="text-align: left;">Poor feedback/monitoring of model validity and impact</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Poor monitoring of risk exposure</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;" rowspan="18">Model</td>
+<td style="text-align: left;" rowspan="7">Data Issue</td>
+<td style="text-align: left;">Historical bias</td>
+<td style="text-align: left;">Data records wrongful discrimination</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;" rowspan="3">Measurement bias</td>
+<td style="text-align: left;">Quality of data varies across protected classes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Measurement process varies across protected classes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Recording proxies for immeasurable / ill defined variables</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Representation bias</td>
+<td style="text-align: left;">Data not representative of population for protected features</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Low support</td>
+<td style="text-align: left;">Minority protected classes have too few data points</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Documentation</td>
+<td style="text-align: left;">Inadequate documentation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;" rowspan="11">Misspecification</td>
+<td style="text-align: left;">Aggregation bias</td>
+<td style="text-align: left;">Failure to model differences in type</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;" rowspan="3">Target variable</td>
+<td style="text-align: left;">Target variable subjectivity</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Proxy target variable learning</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Heterogeneous target variable</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;" rowspan="2">Features</td>
+<td style="text-align: left;">Inclusion of protected features without control variables</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Inclusion of protected feature proxies (redlining)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;" rowspan="2">Cost function</td>
+<td style="text-align: left;">Failure to specify asymmetric error costs</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Omitted discrimination penalties</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;" rowspan="2">Evaluation bias</td>
+<td style="text-align: left;">Poor choice of evaluation metrics</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Test data not representative of the target</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Documentation</td>
+<td style="text-align: left;">Failure to adequately document (prevent inappropriate use)</td>
 </tr>
 </tbody>
 </table>
 </div>
-<section id="modelling-issues" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> Modelling issues</h3>
+<section id="system-issues" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> System issues</h3>
+<p>In this section we discuss failures that relate to the larger decision system (rather than more directly to the model mapping). In section <a href="#sec_ProcessPolicy" data-reference-type="ref" data-reference="sec_ProcessPolicy">2.2.2</a> we discussed the kinds of processes, policies, roles and responsibilities that might exist as part of a fairness aware model development, deployment and management workflow. In this section we briefly discuss the kinds of harms that can result in the absence of these. We think of system failures being one of two types,</p>
+<ol>
+<li><p>those that can be resolved by through improvements in process and policies.</p></li>
+<li><p>those that can be (at least partially) mitigated through better controls around the risk related to the application.</p></li>
+</ol>
+<section id="process-policy-issues" class="level4 unnumbered" style="color: red">
+<h4 class="unnumbered">Process / Policy issues</h4>
+</section>
+<section id="prioritisation" class="level5 unnumbered" style="color: red">
+<h5 class="unnumbered">Prioritisation</h5>
+<p>Failure to allocate appropriate/sufficient resource</p>
+</section>
+<p><span style="color: red">Failure to distribute power to manage conflicts of interest</span></p>
+<section id="governance" class="level5 unnumbered" style="color: red">
+<h5 class="unnumbered">Governance</h5>
+<p>Failure to set or comply with application specific standards</p>
+</section>
+<section id="risk-assessment" class="level5 unnumbered" style="color: red">
+<h5 class="unnumbered">Risk Assessment</h5>
+<p>Failure to assess possible severity of impact</p>
+</section>
+<section id="accountability" class="level5 unnumbered" style="color: red">
+<h5 class="unnumbered">Accountability</h5>
+<p>Non deference to human domain expert</p>
+</section>
+<section id="controls" class="level4 unnumbered" style="color: red">
+<h4 class="unnumbered">Controls</h4>
+</section>
+<section id="deployment-bias" class="level5 unnumbered" style="color: red">
+<h5 class="unnumbered">Deployment bias</h5>
+<p>Inappropriate model use</p>
+</section>
+<p><span style="color: red">Misinterpretation of model results</span></p>
+<section id="validation" class="level5 unnumbered" style="color: red">
+<h5 class="unnumbered">Validation</h5>
+<p>Data appropriateness and preparation</p>
+</section>
+<p><span style="color: red">Modelling approach and implementation</span></p>
+<p><span style="color: red">Model evaluation (pre and post deployment metrics)</span></p>
+<section id="monitoring" class="level5 unnumbered" style="color: red">
+<h5 class="unnumbered">Monitoring</h5>
+<p>Poor feedback/monitoring of model validity and impact</p>
+</section>
+<p><span style="color: red">Poor monitoring of risk exposure</span></p>
+<section id="failure-to-validate" class="level4 unnumbered">
+<h4 class="unnumbered">1. Failure to validate</h4>
+<p>We discuss two important aspects of the modelling which should be appropriately validated pre-deployment</p>
+<ol>
+<li><p>Data appropriateness and preparation</p></li>
+<li><p>Modelling approach, implementation and evaluation</p></li>
+</ol>
+<p>A common failure that results in biased algorithms is inadequate review and validation of a machine learning systems pre-deployment. Testing for discrimination should be built into the model/product development process. Interpretation and translation of ethical standards into data/model/product requirements, consideration of the resulting machine learning cycle and determining appropriate metrics should be an integral part of the problem formulation and solution design.</p>
+<p>An assessment should be made with regards to how appropriate the data is for the model use case. Understanding the provenance of the data (who collected it, how it was collected and for what purpose) is important. Is it representative of the population the model built on it intends to serve? Exploratory data analysis (EDA) should include understanding if there is bias and or discrimination in the data. In particular understanding how is the target variable distributed for different subgroups of the population and what the nature of the resulting machine learning cycle might be for the intended and unintended use cases. Is there strong correlation between protected features and other variables? Data preparation methods should also be analysed for potential biases they may introduce. Methods for measuring and mitigating bias as part of data preparation may be used and should also be analysed during development and model review.</p>
+<p>The process of testing and analysing model output for performance should also include corresponding analysis for discrimination and fairness. How are predictions and errors distributed for different subgroups of the population? How does the model output distribution differ from the training data? What are the limitations of the model? What should it not be used for and why? Again methods for measuring and mitigating bias may also be used and should be properly analysed.</p>
+</section>
+<section id="failure-to-monitor" class="level4 unnumbered">
+<h4 class="unnumbered">2. Failure to monitor</h4>
+<p>Post-deployment monitoring is an important part of responsible model development and deployment. Analysis should not stop once the model is deployed. Decisions on what to monitor and necessary feedback mechanisms should be determined during development. It’s important to understand if the model is performing in line with expectations (based on pre-deployment testing and analysis). Are there changes in distributions? Is the data coming out of the model more or less biased than the data going in? This should be of particular concern where the actions taken based on predictions determine the composition of future data. Mechanisms for model monitoring should account for asymmetries in information. Post-deployment monitoring encompasses a range of other processes (in addition to direct tracking of the model described above) such as risk materiality tracking and periodic re-reviews. We will discuss in more detail later in the chapter.</p>
+</section>
+<section id="non-deference-to-human-experts" class="level4 unnumbered">
+<h4 class="unnumbered">3. Non-deference to human experts</h4>
+<p>In section <a href="#sec_SimpsParadox" data-reference-type="ref" data-reference="sec_SimpsParadox">1.3</a> we discussed the importance of domain knowledge in interpreting data to avoid erroneous conclusions about relationships between variables. We highlight the need for consultation with human experts at the development stage in understanding the problem and data. In addition, different stakeholders in the risk of a model will have different perspectives and it is of important to understand these in assessing ethical risks.</p>
+<p>Given that models are simplified representations of real world systems and we know that they will make errors, responsible development should build in processes for anticipating and dealing with those cases and where necessary deferring to the judgement of a human expert.</p>
+</section>
+</section>
+<section id="modelling-issues" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> Modelling issues</h3>
 <p>In this section we discuss common causes of discrimination that relate directly to the model. We categorise these as originating from failures related to one of two sources:</p>
 <ol>
 <li><p><strong>Data issues</strong> refer to harms that arises as a direct result of issues with the data</p></li>
 <li><p><strong>Misspecification</strong> refers to issues relating to misspecification of the underlying problem in the modelling of it.</p></li>
 </ol>
 <p>The latter is an extension of the notion of model misspecification in statistics where the functional form of a model does not adequately reflect observed behaviour.</p>
+<p>Before discussing our taxonomy we address a point of contention in the machine learning community - that models are not biased, bias comes from data. The notion that bias is simply an artifact of data rather than a model is not uncommon among machine learning scholars and practitioners. In this book we’ve already discussed numerous examples of biased machine learning models, so where does this idea come from? In more theoretical disciplines a model is interpreted as being the parametric form. Under this definition of a model, different values of the parameters then don’t change what we consider to be our model. For example, the term <em>linear model</em> describes a family of models. More practical disciplines view a model as a (deterministic) function mapping - provided with input, the model returns output. By this definition of a model, if the parameters change, so does the function and thus the model. From a practical perspective then it’s clear that a model can discriminate since if the data documents historic discrimination, we would expect the trained model to reproduce it.</p>
+<p>The idea that bias is a data problem, rather than a modelling one is at best a gross oversimplification of the problem and at worst misleading. It implies that in general, after training, a model will perfectly reproduce the joint distribution of the variables in data. Anyone who’s ever trained a model on real world data knows, is patently false. It suggests that models and data are independent when, in practice, they ought not be. Model development is an iterative process. The modelling choices we make can depend on the data and our model results should in turn influence our training data. Treating data and modelling as independent entities diminishes the responsibility of model developers in addressing the problem of biased and unfair applications. It ignores the very practical nature of developing models that serve real people and the societal impact they can have. For sociotechnical systems, the objectives must surely extend beyond utility. We consider defining those wider objectives and incorporating them part of the modelling process and thus failing to consider them a modelling problem.</p>
 <section id="data-issues" class="level4 unnumbered">
 <h4 class="unnumbered">Data issues</h4>
 <p>When it comes to bias, data driven medicine provides a rich vocabulary for the different types. We mention three in our taxomnomy.</p>
 <section id="historical-bias" class="level5 unnumbered">
 <h5 class="unnumbered">Historical bias</h5>
-<p>arises as a result of differences between accepted societal values and cultural norms and those captured by data. These need not be a result of errors in the data. Even if data perfectly represents some world state it can still depict a reality which society deems unfair. Training a model on such data will naturally lead to similary unfair predictions. Historical bias can manifest itself in data in numerous ways, through unfair outcomes recorded in the data, differing data quality across groups and under or over-representation of groups to name just a few. Take medical data where racial and gender disparities in diagnosis and treatment are well publicised as the <em>health gap</em>. There is a growing body of research across the US and Europe that exposes systematic under-treatment and misdiagnosis of pain in women (<span class="citation" data-cites="CalderoneSexRoles"><a href="#ref-CalderoneSexRoles" role="doc-biblioref">[41]</a></span><span class="marginnote"><span id="ref-CalderoneSexRoles" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[41] </span><span class="csl-right-inline">K. L. Calderone, <span>“The influence of gender on the frequency of pain and sedative medication administered to postoperative patients,”</span> <em>Sex Roles</em>, vol. 23, pp. 713–725, 1990, doi: <a href="https://doi.org/10.1007/BF00289259">https://doi.org/10.1007/BF00289259</a>.</span>
+<p>arises as a result of differences between accepted societal values and cultural norms and those captured by data. These need not be a result of errors in the data. Even if data perfectly represents some world state it can still depict a reality which society deems unfair. Training a model on such data will naturally lead to similary unfair predictions. Historical bias can manifest itself in data in numerous ways, through unfair outcomes recorded in the data, differing data quality across groups and under or over-representation of groups to name just a few. Take medical data where racial and gender disparities in diagnosis and treatment are well publicised as the <em>health gap</em>. There is a growing body of research across the US and Europe that exposes systematic under-treatment and misdiagnosis of pain in women (<span class="citation" data-cites="CalderoneSexRoles"><a href="#ref-CalderoneSexRoles" role="doc-biblioref">[42]</a></span><span class="marginnote"><span id="ref-CalderoneSexRoles" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[42] </span><span class="csl-right-inline">K. L. Calderone, <span>“The influence of gender on the frequency of pain and sedative medication administered to postoperative patients,”</span> <em>Sex Roles</em>, vol. 23, pp. 713–725, 1990, doi: <a href="https://doi.org/10.1007/BF00289259">https://doi.org/10.1007/BF00289259</a>.</span>
 </span>
-</span>, <span class="citation" data-cites="SexAnalgesic"><a href="#ref-SexAnalgesic" role="doc-biblioref">[42]</a></span><span class="marginnote"><span id="ref-SexAnalgesic" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[42] </span><span class="csl-right-inline">E. H. C. MD <em>et al.</em>, <span>“Gender disparity in analgesic treatment of emergency department patients with acute abdominal pain,”</span> <em>Academic Emergency Medicine</em>, vol. 15, pp. 414–418, May 2008, doi: <a href="https://doi.org/10.1111/j.1553-2712.2008.00100.x">https://doi.org/10.1111/j.1553-2712.2008.00100.x</a>.</span>
+</span>, <span class="citation" data-cites="SexAnalgesic"><a href="#ref-SexAnalgesic" role="doc-biblioref">[43]</a></span><span class="marginnote"><span id="ref-SexAnalgesic" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[43] </span><span class="csl-right-inline">E. H. C. MD <em>et al.</em>, <span>“Gender disparity in analgesic treatment of emergency department patients with acute abdominal pain,”</span> <em>Academic Emergency Medicine</em>, vol. 15, pp. 414–418, May 2008, doi: <a href="https://doi.org/10.1111/j.1553-2712.2008.00100.x">https://doi.org/10.1111/j.1553-2712.2008.00100.x</a>.</span>
 </span>
-</span>, <span class="citation" data-cites="GirlPain"><a href="#ref-GirlPain" role="doc-biblioref">[43]</a></span><span class="marginnote"><span id="ref-GirlPain" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[43] </span><span class="csl-right-inline">D. E. Hoffmann and A. J. Tarzian, <span>“The girl who cried pain: A bias against women in the treatment of pain,”</span> <em>SSRN</em>, 2001, doi: <a href="http://dx.doi.org/10.2139/ssrn.383803">http://dx.doi.org/10.2139/ssrn.383803</a>.</span>
+</span>, <span class="citation" data-cites="GirlPain"><a href="#ref-GirlPain" role="doc-biblioref">[44]</a></span><span class="marginnote"><span id="ref-GirlPain" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[44] </span><span class="csl-right-inline">D. E. Hoffmann and A. J. Tarzian, <span>“The girl who cried pain: A bias against women in the treatment of pain,”</span> <em>SSRN</em>, 2001, doi: <a href="http://dx.doi.org/10.2139/ssrn.383803">http://dx.doi.org/10.2139/ssrn.383803</a>.</span>
 </span>
-</span>) and Black patients (despite prescription drug abuse being more prevalent among White Americans), <span class="citation" data-cites="RacialBiasPain"><a href="#ref-RacialBiasPain" role="doc-biblioref">[44]</a></span><span class="marginnote"><span id="ref-RacialBiasPain" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[44] </span><span class="csl-right-inline">K. M. Hoffman, S. Trawalter, J. R. Axt, and M. N. Oliver, <span>“Racial bias in pain assessment and treatment recommendations, and false beliefs about biological differences between blacks and whites,”</span> <em>Proceedings of the National Academy of Sciences</em>, vol. 113, no. 16, pp. 4296–4301, 2016, doi: <a href="https://doi.org/10.1073/pnas.1516047113">10.1073/pnas.1516047113</a>.</span>
+</span>) and Black patients (despite prescription drug abuse being more prevalent among White Americans), <span class="citation" data-cites="RacialBiasPain"><a href="#ref-RacialBiasPain" role="doc-biblioref">[45]</a></span><span class="marginnote"><span id="ref-RacialBiasPain" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[45] </span><span class="csl-right-inline">K. M. Hoffman, S. Trawalter, J. R. Axt, and M. N. Oliver, <span>“Racial bias in pain assessment and treatment recommendations, and false beliefs about biological differences between blacks and whites,”</span> <em>Proceedings of the National Academy of Sciences</em>, vol. 113, no. 16, pp. 4296–4301, 2016, doi: <a href="https://doi.org/10.1073/pnas.1516047113">10.1073/pnas.1516047113</a>.</span>
 </span>
 </span>.</p>
 </section>
 <section id="measurement-bias" class="level5 unnumbered">
 <h5 class="unnumbered">Measurement bias</h5>
-<p>refers to non-random noise in measurements across groups. This can occur if for example, there are geographic disparities in services provided by an institution or the quantity and quality of the measuring instruments that mean the accuracy and completeness of records vary by location (and other highly correlated variables like race). In some cases institutions can systematically fail to produce accurate and timely records for certain groups. For example, in medical data, where more frequent misdiagnosis of rare diseases for women leads to a longer lag before accurate diagnosis. In particular, 12 compared to 20 months for Crohn’s disease (despite the disease being more prevalent among women) and 16 compared to 4 years for Ehlers-Danlos syndrome<span class="citation" data-cites="EU12K"><a href="#ref-EU12K" role="doc-biblioref">[45]</a></span><span class="marginnote"><span id="ref-EU12K" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[45] </span><span class="csl-right-inline"><span>“The voice of 12,000 patients: Experiences and expectations of rare disease patients on diagnosis and care in europe.”</span> 2009.</span>
+<p>refers to non-random noise in measurements across groups. This can occur if for example, there are geographic disparities in services provided by an institution or the quantity and quality of the measuring instruments that mean the accuracy and completeness of records vary by location (and other highly correlated variables like race). In some cases institutions can systematically fail to produce accurate and timely records for certain groups. For example, in medical data, where more frequent misdiagnosis of rare diseases for women leads to a longer lag before accurate diagnosis. In particular, 12 compared to 20 months for Crohn’s disease (despite the disease being more prevalent among women) and 16 compared to 4 years for Ehlers-Danlos syndrome<span class="citation" data-cites="EU12K"><a href="#ref-EU12K" role="doc-biblioref">[46]</a></span><span class="marginnote"><span id="ref-EU12K" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[46] </span><span class="csl-right-inline"><span>“The voice of 12,000 patients: Experiences and expectations of rare disease patients on diagnosis and care in europe.”</span> 2009.</span>
 </span>
 </span>. Systematic delays in diagnosis for protected groups mean that for any given snapshot in time, the medical records for more frequently misdiagnosed groups are less accurate.</p>
 <p>Another way in which measurement bias can manifest is if the measurement process varies across groups, for example where the level of scrutiny varies across groups. Predictive policing discussed earlier provides an example of this where there are existing disparities in the level of policing across neighbourhoods. But in practice any process (algorithmic or otherwise) which seeks to identify a behaviour or property (good or bad), but where disproportionate attention is allocated to some subgroup will result in disproportionately more instances of that behaviour or property being observed among members of that group. The result is induced correlation in the data, even in cases where there may in reality be none. One must be careful of making the assumption that where no observation was made the behaviour or property did not exist. The result can be a cycle that continually amplifies the association. Since data often measures and records features which are in fact noisey proxies for the true variables of interest, measurement bias includes cases where use of proxies leads to systematic errors.</p>
@@ -1348,7 +1410,7 @@
 <h5 class="unnumbered">Target variable selection</h5>
 <p>One of the challenges in developing a machine learning is the translation of the underlying problem by defining a target variable - something which can be observed, measured and recorded or obtained easily (from a third party vendor), and that accurately reflects the variable we wish to predict. While there are relatively uncontentious examples that machine learning solutions lend themselves well to (spam detection for emails or on-base or slugging percentage for major league baseball player valuation) for many problems the translation is non-trivial and subjective. Take a job applicant filter for example, that aims to find the most promising applicants. The attributes that one might consider to be held by an applicant tht make them promising are like to be described differently by different people even if they work in the same team. Even if two individuals agree on the attributes, it’s likely they’ll’ weight the attributes differently based on their experiences and preferences. Different choices will result in the different kinds of biases infiltrating our algorithm.</p>
 <p>Often when data on the variable we want to affect doesn’t really exist we use a proxy. In 2018, Amazon was forced to scrap a recruitment tool it spent four years developing. The algorithm rated resumes of potential employees and was trained on 10 years worth of resumes submitted by job applicants. The exact details of the algorithm were not publicised but based on the training data, it is likely that the proxy variable they used was some measure of how the candidates had performed in the hiring process previously. Thus predicting who they would have hired in the past (given their historical and existing biases) rather than who was the best applicant. The problem with such systems is that often they end up being how we define the thing that it’s actually a proxy for.</p>
-<p>Issues can also arise when defining a heterogeneous target variable, where a range of different events are coarsely grouped into a single outcome. This is a form of aggregation bias where the issue specifically concerns the target. This might happen for example where the event of particular interest is rare and by including more events in the target the predictive accuracy of the model increases as it has more data to learn from. D’Alessandro et. al<span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[39]</a></span> provide a useful example in predictive policing where the model developer is initially interested in predicting violent crime but ends up incorporating petty crimes (which happen much more frequently) in the target variable in pursuit of a more accurate model. The model then ends up trying to learn the features of a more nebulous concept of crime ignoring important differences between different types. Another example might be building a gewnder recognition system and only recognising people as one of two genders<span class="citation" data-cites="GenderShades"><a href="#ref-GenderShades" role="doc-biblioref">[24]</a></span>.</p>
+<p>Issues can also arise when defining a heterogeneous target variable, where a range of different events are coarsely grouped into a single outcome. This is a form of aggregation bias where the issue specifically concerns the target. This might happen for example where the event of particular interest is rare and by including more events in the target the predictive accuracy of the model increases as it has more data to learn from. D’Alessandro et. al<span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[40]</a></span> provide a useful example in predictive policing where the model developer is initially interested in predicting violent crime but ends up incorporating petty crimes (which happen much more frequently) in the target variable in pursuit of a more accurate model. The model then ends up trying to learn the features of a more nebulous concept of crime ignoring important differences between different types. Another example might be building a gewnder recognition system and only recognising people as one of two genders<span class="citation" data-cites="GenderShades"><a href="#ref-GenderShades" role="doc-biblioref">[24]</a></span>.</p>
 </section>
 <section id="feature-selection" class="level5 unnumbered">
 <h5 class="unnumbered">Feature selection</h5>
@@ -1371,30 +1433,6 @@
 <h5 class="unnumbered">Documentation</h5>
 <p>for models (as for datasets) can have a significant impact when it comes to avoiding model miuse (a model use it is not appropriate/approved for) and ensuring model limitations are well understood. It can reduce the risk of misinterpretation of variables as a suitable proxies for other variables. Clear explanation of the model, testing that was performed, on what subgroups of the data can mke it easier to know which tests might be missing that would offer insight into the validity of the model. Documentation that is standardised through use of a template could ensure some level of consistency and efficiency across domains and applications.</p>
 </section>
-</section>
-</section>
-<section id="system-issues" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span> System issues</h3>
-<p>In this section we discuss failures that relate to the larger machine learning system (rather than more directly to the model). Any institution (no matter how big or small) that uses models in a setting where there are real world consequences of the model being wrong should have processes in place to ensure the risks are assessed, understood and mitigated if necessary. In the section hat follows, we talk about the kinds of processes that form part of a responsible development and deployment workflow and provide examples of harms that can arise in the absence of them. We think of system failures being one of two types, those that can be resolved by implementing processes and those that can be (at least partially) mitigated through better controls around the risk related to the application.</p>
-<section id="failure-to-validate" class="level4 unnumbered">
-<h4 class="unnumbered">1. Failure to validate</h4>
-<p>We discuss two important aspects of the modelling which should be appropriately validated pre-deployment</p>
-<ol>
-<li><p>Data appropriateness and preparation</p></li>
-<li><p>Modelling approach, implementation and evaluation</p></li>
-</ol>
-<p>A common failure that results in biased algorithms is inadequate review and validation of a machine learning systems pre-deployment. Testing for discrimination should be built into the model/product development process. Interpretation and translation of ethical standards into data/model/product requirements, consideration of the resulting machine learning cycle and determining appropriate metrics should be an integral part of the problem formulation and solution design.</p>
-<p>An assessment should be made with regards to how appropriate the data is for the model use case. Understanding the provenance of the data (who collected it, how it was collected and for what purpose) is important. Is it representative of the population the model built on it intends to serve? Exploratory data analysis (EDA) should include understanding if there is bias and or discrimination in the data. In particular understanding how is the target variable distributed for different subgroups of the population and what the nature of the resulting machine learning cycle might be for the intended and unintended use cases. Is there strong correlation between protected features and other variables? Data preparation methods should also be analysed for potential biases they may introduce. Methods for measuring and mitigating bias as part of data preparation may be used and should also be analysed during development and model review.</p>
-<p>The process of testing and analysing model output for performance should also include corresponding analysis for discrimination and fairness. How are predictions and errors distributed for different subgroups of the population? How does the model output distribution differ from the training data? What are the limitations of the model? What should it not be used for and why? Again methods for measuring and mitigating bias may also be used and should be properly analysed.</p>
-</section>
-<section id="failure-to-monitor" class="level4 unnumbered">
-<h4 class="unnumbered">2. Failure to monitor</h4>
-<p>Post-deployment monitoring is an important part of responsible model development and deployment. Analysis should not stop once the model is deployed. Decisions on what to monitor and necessary feedback mechanisms should be determined during development. It’s important to understand if the model is performing in line with expectations (based on pre-deployment testing and analysis). Are there changes in distributions? Is the data coming out of the model more or less biased than the data going in? This should be of particular concern where the actions taken based on predictions determine the composition of future data. Mechanisms for model monitoring should account for asymmetries in information. Post-deployment monitoring encompasses a range of other processes (in addition to direct tracking of the model described above) such as risk materiality tracking and periodic re-reviews. We will discuss in more detail later in the chapter.</p>
-</section>
-<section id="non-deference-to-human-experts" class="level4 unnumbered">
-<h4 class="unnumbered">3. Non-deference to human experts</h4>
-<p>In section <a href="#sec_SimpsParadox" data-reference-type="ref" data-reference="sec_SimpsParadox">1.3</a> we discussed the importance of domain knowledge in interpreting data to avoid erroneous conclusions about relationships between variables. We highlight the need for consultation with human experts at the development stage in understanding the problem and data. In addition, different stakeholders in the risk of a model will have different perspectives and it is of important to understand these in assessing ethical risks.</p>
-<p>Given that models are simplified representations of real world systems and we know that they will make errors, responsible development should build in processes for anticipating and dealing with those cases and where necessary deferring to the judgement of a human expert.</p>
 </section>
 </section>
 <section id="linking-causes-of-bias-to-the-workflow" class="level3" data-number="2.3.3">
@@ -1585,8 +1623,8 @@ I(\hat{Y},Z) = \sum_{\hat{y} \in \mathcal{Y}} \sum_{z \in \mathcal{Z}}
 </tbody>
 </table>
 </div>
-<p>It is equal to zero, if and only if the joint distribution of <span class="math inline">Z</span> and <span class="math inline">\hat{Y}</span> is equal to the product of their marginal distributions. Therefore, two variables which have zero mutual information are independent (equation (C.4)). The <strong>normalised prejudice index</strong><span class="citation" data-cites="Fukuchi"><a href="#ref-Fukuchi" role="doc-biblioref">[46]</a></span><span class="marginnote"><span id="ref-Fukuchi" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[46] </span><span class="csl-right-inline">K. Fukuchi, J. Sakuma, and T. Kamishima, <span>“Prediction with model-based neutrality,”</span> <em>IEICE TRANS. INF. &amp; SYS.</em>, vol. E98–D, no. 8, 2015, doi: <a href="https://doi.org/Fukuchi">Fukuchi</a>.</span>
+<p>It is equal to zero, if and only if the joint distribution of <span class="math inline">Z</span> and <span class="math inline">\hat{Y}</span> is equal to the product of their marginal distributions. Therefore, two variables which have zero mutual information are independent (equation (C.4)). The <strong>normalised prejudice index</strong><span class="citation" data-cites="Fukuchi"><a href="#ref-Fukuchi" role="doc-biblioref">[47]</a></span><span class="marginnote"><span id="ref-Fukuchi" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[47] </span><span class="csl-right-inline">K. Fukuchi, J. Sakuma, and T. Kamishima, <span>“Prediction with model-based neutrality,”</span> <em>IEICE TRANS. INF. &amp; SYS.</em>, vol. E98–D, no. 8, 2015, doi: <a href="https://doi.org/Fukuchi">Fukuchi</a>.</span>
 </span>
 </span> divides mutual information by a normalising factor so that the resulting value falls between zero and one:</p>
 <div id="eq:npi">
@@ -1672,8 +1710,8 @@ H(Y) = -\sum_{y \in \mathcal{Y}} \mathbb{P}(y) \log \mathbb{P}(y),</span></td>
 <p>In bio-medical sciences, the <strong>risk difference</strong>: <span class="math display">d = \mathbb{P}(\hat{Y}=1 | Z=1) - \mathbb{P}(\hat{Y}=1 | Z=0)
   = \frac{n_{11}}{n_{Z=1}} - \frac{n_{01}}{n_{Z=0}},</span> measures the impact of treatment (or risk factors), <span class="math inline">Z</span> on outcome, <span class="math inline">\hat{Y}</span>. In discrimination literature, it has been described as the <strong>discrimination score</strong> and <strong>statistical parity difference</strong> among others. Note that if <span class="math inline">\hat{Y}=1</span> is the advantageous outcome and <span class="math inline">Z=1</span> is the advantaged group, we would expect <span class="math inline">d</span> to be non-negative<span class="sidenote-wrapper"><label for="sn-6" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-6" class="margin-toggle"/><span class="sidenote">We’ll see later that this is not the case in the AIF360 implementation where <span class="math inline">Z=1</span> is the unprivileged group and <span class="math inline">Z=0</span> is the privileged group<br />
 <br />
-</span></span>. The algorithm is fair when <span class="math inline">d=0</span>. The further from zero, the more unfair. A modified version of this metric is the <strong>normalised difference</strong><span class="citation" data-cites="Zliobaite"><a href="#ref-Zliobaite" role="doc-biblioref">[47]</a></span><span class="marginnote"><span id="ref-Zliobaite" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[47] </span><span class="csl-right-inline">I. Zliobaite, <span>“On the relation between accuracy and fairness in binary classification.”</span> 2015.Available: <a href="https://arxiv.org/abs/1505.05723">https://arxiv.org/abs/1505.05723</a></span>
+</span></span>. The algorithm is fair when <span class="math inline">d=0</span>. The further from zero, the more unfair. A modified version of this metric is the <strong>normalised difference</strong><span class="citation" data-cites="Zliobaite"><a href="#ref-Zliobaite" role="doc-biblioref">[48]</a></span><span class="marginnote"><span id="ref-Zliobaite" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[48] </span><span class="csl-right-inline">I. Zliobaite, <span>“On the relation between accuracy and fairness in binary classification.”</span> 2015.Available: <a href="https://arxiv.org/abs/1505.05723">https://arxiv.org/abs/1505.05723</a></span>
 </span>
 </span> which divides the difference by,</p>
 <div id="eq:dmax">
@@ -1701,12 +1739,12 @@ d_{\max} = \min\left\{ \frac{\mathbb{P}(\hat{Y}=1)}{\mathbb{P}(Z=1)},
                        \frac{\mathbb{P}(\hat{Y}=0)}{\mathbb{P}(Z=0)} \right\}.</span></p>
 </div>
 <p>Alternatively, we could instead take the ratio as a measure of discrimination: <span class="math display">r = \frac{\mathbb{P}(\hat{Y}=1 | Z=1)}{\mathbb{P}(\hat{Y}=1 | Z=0)}
-  = \left. \frac{n_{11}}{n_{Z=1}} \middle/ \frac{n_{01}}{n_{Z=0}} \right. .</span> In biomedical sciences this measure is called the <strong>risk ratio</strong> and is used to measure the strength of association between treatment (or risk factors), <span class="math inline">Z</span>, and outcome, <span class="math inline">\hat{Y}</span>. It has been described in discrimination aware machine learning literature as the <strong>impact ratio</strong> or <strong>disparate impact ratio</strong>. The algorithm is fair if <span class="math inline">r=1</span>. The further from one <span class="math inline">r</span> is, the more unfair. The Equal Employment Opportunity Commission (EEOC) have used this measure in their guidelines for identifying discrimination in employment selection processes<span class="citation" data-cites="US-EEOC"><a href="#ref-US-EEOC" role="doc-biblioref">[48]</a></span><span class="marginnote"><span id="ref-US-EEOC" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[48] </span><span class="csl-right-inline">U. S. E. E. O. Commission, <span>“Questions and answers to clarify and provide a common interpretation of the uniform guidelines on employee selection procedures,”</span> <em>Federal Register</em>, vol. 44, no. 43, 1979.</span>
+  = \left. \frac{n_{11}}{n_{Z=1}} \middle/ \frac{n_{01}}{n_{Z=0}} \right. .</span> In biomedical sciences this measure is called the <strong>risk ratio</strong> and is used to measure the strength of association between treatment (or risk factors), <span class="math inline">Z</span>, and outcome, <span class="math inline">\hat{Y}</span>. It has been described in discrimination aware machine learning literature as the <strong>impact ratio</strong> or <strong>disparate impact ratio</strong>. The algorithm is fair if <span class="math inline">r=1</span>. The further from one <span class="math inline">r</span> is, the more unfair. The Equal Employment Opportunity Commission (EEOC) have used this measure in their guidelines for identifying discrimination in employment selection processes<span class="citation" data-cites="US-EEOC"><a href="#ref-US-EEOC" role="doc-biblioref">[49]</a></span><span class="marginnote"><span id="ref-US-EEOC" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[49] </span><span class="csl-right-inline">U. S. E. E. O. Commission, <span>“Questions and answers to clarify and provide a common interpretation of the uniform guidelines on employee selection procedures,”</span> <em>Federal Register</em>, vol. 44, no. 43, 1979.</span>
 </span>
 </span>. As a rule of thumb, the EEOC determine that a company’s selection system is having an adverse impact on a particular group if the selection rate for that group is less than four-fifths (or 80%) that of the most advantaged group, that is, the impact ratio is less than 0.8 where <span class="math inline">Z=0</span> is the most advantaged group (for which the acceptance rate is the highest).</p>
-<p>The <strong>elift ratio</strong><span class="citation" data-cites="Pedreschi"><a href="#ref-Pedreschi" role="doc-biblioref">[49]</a></span><span class="marginnote"><span id="ref-Pedreschi" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[49] </span><span class="csl-right-inline">D. Pedreschi, S. Ruggieri, and F. Turini, <span>“Discrimination-aware data mining,”</span> in <em>Proceedings of the ACM SIGKDD international conference on knowledge discovery and data mining</em>, 2008, pp. 560–568. doi: <a href="https://doi.org/10.1145/1401890.1401959">10.1145/1401890.1401959</a>.</span>
+<p>The <strong>elift ratio</strong><span class="citation" data-cites="Pedreschi"><a href="#ref-Pedreschi" role="doc-biblioref">[50]</a></span><span class="marginnote"><span id="ref-Pedreschi" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[50] </span><span class="csl-right-inline">D. Pedreschi, S. Ruggieri, and F. Turini, <span>“Discrimination-aware data mining,”</span> in <em>Proceedings of the ACM SIGKDD international conference on knowledge discovery and data mining</em>, 2008, pp. 560–568. doi: <a href="https://doi.org/10.1145/1401890.1401959">10.1145/1401890.1401959</a>.</span>
 </span>
 </span> is similar to the impact ratio but instead of comparing acceptance rates for protected groups to each other, we compare them to the overall acceptance rate: <span class="math display">r_{\text{elift}} = \frac{\mathbb{P}(\hat{Y}=1 | Z=0)}{\mathbb{P}(\hat{Y}=1)}.</span></p>
 <p>In theory, any measure of association suitable for the data types can be used as a metric to understand the magnitude of discrimination in our data or predictions. The <strong>odds ratio</strong> (popular in natural, social and biomedical sciences) is the ratio of the odds of a positive prediction for each group. We can write it as: <span class="math display">r_{\text{odds}}
@@ -1730,8 +1768,8 @@ d_{\max} = \min\left\{ \frac{\mathbb{P}(\hat{Y}=1)}{\mathbb{P}(Z=1)},
 </section>
 <section id="introduction-to-aif360" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3"><span class="header-section-number">3.1.3</span> Introduction to AIF360</h3>
-<p>Now that we have covered some measures of fairness, let’s dive into calculating them. In this book we are going to use IBM’s <a href="https://aif360.mybluemix.net/resources">AI Fairness 360 (AIF360)</a>. AIF360 is currently the most comprehensive open source library available for measuring and mitigating bias in machine learning models. The Python package includes an extensive set of metrics for datasets and models to test for biases, explanations for these metrics, and algorithms to mitigate bias in datasets and models many of which we will cover in this book. The system has been designed to be extensible, adopted software engineering best practices to maintain code quality, and is well <a href="https://aif360.readthedocs.io/en/latest/index.html">documented</a>. The package implements techniques from at-least eight published papers and includes over 71 bias detection metrics and nine bias mitigation algorithms<span class="citation" data-cites="AIF360"><a href="#ref-AIF360" role="doc-biblioref">[50]</a></span><span class="marginnote"><span id="ref-AIF360" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[50] </span><span class="csl-right-inline">R. K. E. Bellamy <em>et al.</em>, <span>“AI fairness 360: An extensible toolkit for detecting, understanding, and mitigating unwanted algorithmic bias.”</span> 2018.Available: <a href="https://arxiv.org/abs/1810.01943">https://arxiv.org/abs/1810.01943</a></span>
+<p>Now that we have covered some measures of fairness, let’s dive into calculating them. In this book we are going to use IBM’s <a href="https://aif360.mybluemix.net/resources">AI Fairness 360 (AIF360)</a>. AIF360 is currently the most comprehensive open source library available for measuring and mitigating bias in machine learning models. The Python package includes an extensive set of metrics for datasets and models to test for biases, explanations for these metrics, and algorithms to mitigate bias in datasets and models many of which we will cover in this book. The system has been designed to be extensible, adopted software engineering best practices to maintain code quality, and is well <a href="https://aif360.readthedocs.io/en/latest/index.html">documented</a>. The package implements techniques from at-least eight published papers and includes over 71 bias detection metrics and nine bias mitigation algorithms<span class="citation" data-cites="AIF360"><a href="#ref-AIF360" role="doc-biblioref">[51]</a></span><span class="marginnote"><span id="ref-AIF360" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[51] </span><span class="csl-right-inline">R. K. E. Bellamy <em>et al.</em>, <span>“AI fairness 360: An extensible toolkit for detecting, understanding, and mitigating unwanted algorithmic bias.”</span> 2018.Available: <a href="https://arxiv.org/abs/1810.01943">https://arxiv.org/abs/1810.01943</a></span>
 </span>
 </span>. These techniques can all be called in a standard way, similar to scikit-learn’s fit/transform/predict paradigm.</p>
 <p>In this section we’re going to use AIF360 to calculate some of the metrics we’ve talked about in the previous section as a means to get started working with it. For calculating the metrics we’ve talked about so far, using AIF360 might seem to add unnecessary overhead as they are reasonably straightforward to code up directly once you have your data in a Pandas DataFrame. But remember, the library contains implementations of more complicated metrics and bias mitigations algorithms that we’ll cover later on in this book. Before we can use the library, we need to install it. Instructions are provided in Appendix <a href="#app_Install" data-reference-type="ref" data-reference="app_Install">A</a>.</p>
@@ -1889,14 +1927,14 @@ outcomes_df.at[`model&#39;, `ratio&#39;] = model_metric.disparate_impact()</code
 </section>
 <section id="sec_BalErr" class="level2" data-number="3.2">
 <h2 data-number="3.2"><span class="header-section-number">3.2</span> Balanced errors</h2>
-<p>In this section we learn about fairness criteria which seek to balance errors across groups, rather than outcomes. The fundamental assumption here is that the training data is fair; the target variable is the ground truth variable we wish to affect, the data is accurate and representative of the population and the features directly impact the target. Assuming we have said data, for our model to be fair, we require the errors to be distributed similarly for different subgroups of the population (defined by the values of sensitive features). Expressed differently, we want the errors to be independent of protected characteristics, that is, <span class="math inline">(\hat{Y}-Y) \bot Z</span>. We discussed earlier in the chapter how independence and conditional independence constraints have been interpreted as avoiding disparate impact and treatment respectively. Analogously, balanced error criterion have been described as avoiding <strong>disparate mistreatment</strong><span class="citation" data-cites="DispMistreat"><a href="#ref-DispMistreat" role="doc-biblioref">[51]</a></span><span class="marginnote"><span id="ref-DispMistreat" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[51] </span><span class="csl-right-inline">M. B. Zafar, I. Valera, M. Gomez Rodriguez, and K. P. Gummadi, <span>“Fairness beyond disparate treatment &amp; disparate impact,”</span> <em>Proceedings of the 26th International Conference on World Wide Web</em>, 2017, doi: <a href="https://doi.org/10.1145/3038912.3052660">10.1145/3038912.3052660</a>.</span>
+<p>In this section we learn about fairness criteria which seek to balance errors across groups, rather than outcomes. The fundamental assumption here is that the training data is fair; the target variable is the ground truth variable we wish to affect, the data is accurate and representative of the population and the features directly impact the target. Assuming we have said data, for our model to be fair, we require the errors to be distributed similarly for different subgroups of the population (defined by the values of sensitive features). Expressed differently, we want the errors to be independent of protected characteristics, that is, <span class="math inline">(\hat{Y}-Y) \bot Z</span>. We discussed earlier in the chapter how independence and conditional independence constraints have been interpreted as avoiding disparate impact and treatment respectively. Analogously, balanced error criterion have been described as avoiding <strong>disparate mistreatment</strong><span class="citation" data-cites="DispMistreat"><a href="#ref-DispMistreat" role="doc-biblioref">[52]</a></span><span class="marginnote"><span id="ref-DispMistreat" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[52] </span><span class="csl-right-inline">M. B. Zafar, I. Valera, M. Gomez Rodriguez, and K. P. Gummadi, <span>“Fairness beyond disparate treatment &amp; disparate impact,”</span> <em>Proceedings of the 26th International Conference on World Wide Web</em>, 2017, doi: <a href="https://doi.org/10.1145/3038912.3052660">10.1145/3038912.3052660</a>.</span>
 </span>
 </span>.</p>
 <section id="regression" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Regression</h3>
-<p>A relaxation of this criterion balances the mean error for the groups (rather than comparing the full distributions). <strong>Balanced residuals</strong><span class="citation" data-cites="BalRes"><a href="#ref-BalRes" role="doc-biblioref">[52]</a></span><span class="marginnote"><span id="ref-BalRes" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[52] </span><span class="csl-right-inline">T. Calders, A. Karim, F. Kamiran, W. Ali, and X. Zhang, <span>“Controlling attribute effect in linear regression,”</span> 2013. doi: <a href="https://doi.org/10.1109/ICDM.2013.114">10.1109/ICDM.2013.114</a>.</span>
+<p>A relaxation of this criterion balances the mean error for the groups (rather than comparing the full distributions). <strong>Balanced residuals</strong><span class="citation" data-cites="BalRes"><a href="#ref-BalRes" role="doc-biblioref">[53]</a></span><span class="marginnote"><span id="ref-BalRes" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[53] </span><span class="csl-right-inline">T. Calders, A. Karim, F. Kamiran, W. Ali, and X. Zhang, <span>“Controlling attribute effect in linear regression,”</span> 2013. doi: <a href="https://doi.org/10.1109/ICDM.2013.114">10.1109/ICDM.2013.114</a>.</span>
 </span>
 </span> takes the difference of the mean errors as a measure of fairness: <span class="math display">d_{\text{err}} = \mathbb{E}(\hat{y} - y | Z=1) - \mathbb{E}(\hat{y} - y | Z=0),</span> or written more explicitly, <span class="math display">d_{\text{err}} = \frac{1}{n_0}\sum_{i|z_i=0}(y_i-\hat{y}_i)
                - \frac{1}{n_1}\sum_{i|z_i=1}(y_i-\hat{y}_i).</span> Here <span class="math inline">d_{\text{err}}=0</span> would be considered fair.</p>
@@ -1906,8 +1944,8 @@ outcomes_df.at[`model&#39;, `ratio&#39;] = model_metric.disparate_impact()</code
 <p>For a classification problem the most obvious relaxation would be to ensure equal error rates (or equivalently accuracy) for all groups. As an example, recall the project Gender Shades we discussed in section <a href="#sec_harms" data-reference-type="ref" data-reference="sec_harms">1.4</a>, that audited several commercial gender classification packages measured their accuracy for different protected groups. To derive a measure of fairness from this criterion we could (as before) take the difference or the ratio; both of these are implemented in AIF360. The <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric.error_rate_difference"><strong>error rate difference</strong></a> is given by <span class="math display">d_{\text{err}} = \mathbb{P}(\hat{Y}\neq Y | Z=1) - \mathbb{P}(\hat{Y}\neq Y | Z=0).</span> Again here <span class="math inline">d_{\text{err}}=0</span> would be considered fair. The <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric.error_rate_ratio"><strong>error rate ratio</strong></a> is given by <span class="math display">r_{\text{err}} = \frac{\mathbb{P}(\hat{Y}\neq Y | Z=1)}
                       {\mathbb{P}(\hat{Y}\neq Y | Z=0)}</span> in which case <span class="math inline">r_{\text{err}}=1</span> would be considered fair.</p>
 <p>A binary classification model can make two different types of errors (false positives and false negatives), one of which will often be more desirable than the other. Table <a href="#tbl:app_CMErrMetrics" data-reference-type="ref" data-reference="tbl:app_CMErrMetrics">B.2</a> in appendix <a href="#app_Metrics" data-reference-type="ref" data-reference="app_Metrics">B</a> summarises the different types of error rates for a binary classification model that we might want to balance. The differences and ratios of all of these metrics can be found in AIF360s <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.metrics.ClassificationMetric.html#">ClassificationMetric</a> class.</p>
-<p>Balancing errors (or equivalently performance metrics) across groups can be broken down into two separate criteria, described as <strong>separation</strong> and <strong>sufficiency</strong><span class="citation" data-cites="FairMLBook"><a href="#ref-FairMLBook" role="doc-biblioref">[53]</a></span><span class="marginnote"><span id="ref-FairMLBook" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[53] </span><span class="csl-right-inline">S. Barocas, M. Hardt, and A. Narayanan, <em>Fairness and machine learning</em>. fairmlbook.org, 2019.</span>
+<p>Balancing errors (or equivalently performance metrics) across groups can be broken down into two separate criteria, described as <strong>separation</strong> and <strong>sufficiency</strong><span class="citation" data-cites="FairMLBook"><a href="#ref-FairMLBook" role="doc-biblioref">[54]</a></span><span class="marginnote"><span id="ref-FairMLBook" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[54] </span><span class="csl-right-inline">S. Barocas, M. Hardt, and A. Narayanan, <em>Fairness and machine learning</em>. fairmlbook.org, 2019.</span>
 </span>
 </span>. Each of these criteria can be defined as a conditional independence constraint on the joint distributions of the sensitive features, <span class="math inline">Z</span>, the target feature <span class="math inline">Y</span> and predicted target <span class="math inline">\hat{Y}</span>. We summarise the these in Table <a href="#tbl:FairErrors" data-reference-type="ref" data-reference="tbl:FairErrors">3.4</a>.</p>
 <div id="tbl:FairErrors">
@@ -1937,13 +1975,13 @@ outcomes_df.at[`model&#39;, `ratio&#39;] = model_metric.disparate_impact()</code
 <p>Essentially we are saying that for a fixed value of the target variable, there should be no difference in the distribution of the predicted target variable, for different values of the sensitive feature. That is, <span class="math display">\mathbb{P}(\hat{y}|y, z) = \mathbb{P}(\hat{y}|y).</span> Unlike independence, separation, allows for dependence between the predicted target variable and the sensitive feature but only to the extent that it exists between the actual target variable and the sensitive feature.</p>
 <p>Once again let’s take the simplest example of discrete binary classifier where we have a single sensitive binary feature. We can write this requirement as two conditions, <span class="math display">\begin{aligned}
 \mathbb{P}(\hat{Y}=1 | Z=1, Y=1) &amp; = \mathbb{P}(\hat{Y}=1 | Z=0, Y=1), \\
-\mathbb{P}(\hat{Y}=1 | Z=1, Y=0) &amp; = \mathbb{P}(\hat{Y}=1 | Z=0, Y=0).\end{aligned}</span> Recall that <span class="math inline">\mathbb{P}(\hat{Y}=1 | Y=1)</span> is the true positive rate (<span class="math inline">TPR</span>) of the classifier and <span class="math inline">\mathbb{P}(\hat{Y}=1 | Y=0)</span> is the false positive rate (<span class="math inline">FPR</span>). We see then that separation requires the true positive rate to be the same for all values of the sensitive feature and the false positive rate to be the same for all values of the sensitive feature. Note that the true positive rate is balanced if and only if the false negative rate is balanced, so thinking in terms of error metrics only, separation requires the false negative and false positive rates to be balanced. This fairness criterion is most well known as <strong>equalised odds</strong><span class="citation" data-cites="EqOfOp"><a href="#ref-EqOfOp" role="doc-biblioref">[54]</a></span><span class="marginnote"><span id="ref-EqOfOp" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[54] </span><span class="csl-right-inline">M. Hardt, E. Price, and N. Srebro, <span>“Equality of opportunity in supervised learning.”</span> 2016.Available: <a href="https://arxiv.org/abs/1610.02413">https://arxiv.org/abs/1610.02413</a></span>
+\mathbb{P}(\hat{Y}=1 | Z=1, Y=0) &amp; = \mathbb{P}(\hat{Y}=1 | Z=0, Y=0).\end{aligned}</span> Recall that <span class="math inline">\mathbb{P}(\hat{Y}=1 | Y=1)</span> is the true positive rate (<span class="math inline">TPR</span>) of the classifier and <span class="math inline">\mathbb{P}(\hat{Y}=1 | Y=0)</span> is the false positive rate (<span class="math inline">FPR</span>). We see then that separation requires the true positive rate to be the same for all values of the sensitive feature and the false positive rate to be the same for all values of the sensitive feature. Note that the true positive rate is balanced if and only if the false negative rate is balanced, so thinking in terms of error metrics only, separation requires the false negative and false positive rates to be balanced. This fairness criterion is most well known as <strong>equalised odds</strong><span class="citation" data-cites="EqOfOp"><a href="#ref-EqOfOp" role="doc-biblioref">[55]</a></span><span class="marginnote"><span id="ref-EqOfOp" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[55] </span><span class="csl-right-inline">M. Hardt, E. Price, and N. Srebro, <span>“Equality of opportunity in supervised learning.”</span> 2016.Available: <a href="https://arxiv.org/abs/1610.02413">https://arxiv.org/abs/1610.02413</a></span>
 </span>
 </span>.</p>
 <p>Implemented in IBM’s fairness library, <a href="https://github.com/IBM/AIF360">AIF360</a>, are two related metrics. The <strong>average odds difference</strong> measures the magnitude of unfairness as the average of the difference in true positive rate and false positive rate, that is, <span class="math display">d_{\text{av-odds}} = \frac{1}{2}
 [ TPR_{Z=0} - TPR_{Z=1} + FPR_{Z=0} - FPR_{Z=1} ].</span> The <strong>average odds error</strong> measures the magnitude of unfairness as the average of the absolute difference in true positive rate and false positive rate, that is, <span class="math display">d_{\text{av-odds-err}} = \frac{1}{2}
-[ |TPR_{Z=0} - TPR_{Z=1}| + |FPR_{Z=0} - FPR_{Z=1}| ].</span> A relaxed version of equalised odds, called <strong>equal opportunity</strong><span class="citation" data-cites="EqOfOp"><a href="#ref-EqOfOp" role="doc-biblioref">[54]</a></span>, requires only the true positive rates to be the same across all groups (assuming a positive prediction is the more advantageous ourcome). A metric which uses this as a criterion to measure unfairness in AIF360 is <strong>equal opportunity difference</strong> which takes the difference in true positive rates across groups, that is, <span class="math display">d_{\text{eq-op}} = TPR_{Z=0} - TPR_{Z=1}.</span></p>
+[ |TPR_{Z=0} - TPR_{Z=1}| + |FPR_{Z=0} - FPR_{Z=1}| ].</span> A relaxed version of equalised odds, called <strong>equal opportunity</strong><span class="citation" data-cites="EqOfOp"><a href="#ref-EqOfOp" role="doc-biblioref">[55]</a></span>, requires only the true positive rates to be the same across all groups (assuming a positive prediction is the more advantageous ourcome). A metric which uses this as a criterion to measure unfairness in AIF360 is <strong>equal opportunity difference</strong> which takes the difference in true positive rates across groups, that is, <span class="math display">d_{\text{eq-op}} = TPR_{Z=0} - TPR_{Z=1}.</span></p>
 <div class="lookbox">
 <p><strong>Exercise: Fair equality of opportunity</strong></p>
 <p>Can you see how the metric <em>equal opportunity</em> relates to the second principle of justice as fairness discussed in section <a href="#sec_FairnessJustice" data-reference-type="ref" data-reference="sec_FairnessJustice">1.2.1</a>?</p>
@@ -1969,8 +2007,8 @@ outcomes_df.at[`model&#39;, `ratio&#39;] = model_metric.disparate_impact()</code
 <li><p>How might we go about measuring the false omission rate if we wanted to check if it was also balanced?</p></li>
 </ul>
 </div>
-<p>Of our two fairness criteria, separation and sufficiency, the latter imposes a weaker constraint on our model. To understand why we explore another interpretation of sufficiency which intuitively explains why, in many cases, it is satisfied implicitly through the training process<span class="citation" data-cites="ImplicitFairness"><a href="#ref-ImplicitFairness" role="doc-biblioref">[55]</a></span><span class="marginnote"><span id="ref-ImplicitFairness" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[55] </span><span class="csl-right-inline">L. T. Liu, M. Simchowitz, and M. Hardt, <span>“The implicit fairness criterion of unconstrained learning.”</span> 2019.Available: <a href="https://arxiv.org/abs/1808.10013">https://arxiv.org/abs/1808.10013</a></span>
+<p>Of our two fairness criteria, separation and sufficiency, the latter imposes a weaker constraint on our model. To understand why we explore another interpretation of sufficiency which intuitively explains why, in many cases, it is satisfied implicitly through the training process<span class="citation" data-cites="ImplicitFairness"><a href="#ref-ImplicitFairness" role="doc-biblioref">[56]</a></span><span class="marginnote"><span id="ref-ImplicitFairness" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[56] </span><span class="csl-right-inline">L. T. Liu, M. Simchowitz, and M. Hardt, <span>“The implicit fairness criterion of unconstrained learning.”</span> 2019.Available: <a href="https://arxiv.org/abs/1808.10013">https://arxiv.org/abs/1808.10013</a></span>
 </span>
 </span>. Let us look at sufficiency criteria in terms of the classification score <span class="math inline">P</span>, <span class="math display">\mathbb{P}(Y=1 | P=p, Z=1) = \mathbb{P}(Y=1 | P=p, Z=0) \quad \forall \, p</span> We say that a classifier score is calibrated if <span class="math display">\mathbb{P}(Y=1 | P=p) = p \quad \forall \, p.</span> Essentially, this is the requirement that the proportion of data points assigned the score <span class="math inline">p</span>, which did in fact have a positive outcome <span class="math inline">Y=1</span>, should be equal to the score <span class="math inline">p</span>. The score <span class="math inline">p</span> can then be interpreted, at the population level, as the probability that the a positive prediction <span class="math inline">\hat{Y}=1</span> would be correct<span class="sidenote-wrapper"><label for="sn-7" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-7" class="margin-toggle"/><span class="sidenote">For the score to be interpretable as this probability at the individual level, we would need to satisfy the stronger criteria <span class="math inline">P=\mathbb{E}[Y|X]</span><br />
 <br />
@@ -2431,8 +2469,8 @@ FPR (p_a-p_b) TPR = 0</span></td>
 <li><p>Understanding within-group and between-group unfairness</p></li>
 </ul>
 </div>
-<p>This chapter is divided into two parts, in the first part we will introduce the notion of individual fairness. Compared to the notions we have studied so far, individual fairness is arguably a much more expansive concept of fairness. Group fairness criteria for decision processes are rather specific, they are intended to address the issue of discrimination based on protected characteristics. But fairness isn’t just about discrimination. Broadly speaking, <strong>individual fairness</strong><span class="citation" data-cites="DworkIndFair"><a href="#ref-DworkIndFair" role="doc-biblioref">[56]</a></span><span class="marginnote"><span id="ref-DworkIndFair" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[56] </span><span class="csl-right-inline">C. Dwork, M. Hardt, T. Pitassi, O. Reingold, and R. Zemel, <span>“Fairness through awareness.”</span> 2011.Available: <a href="https://arxiv.org/abs/1104.3913">https://arxiv.org/abs/1104.3913</a></span>
+<p>This chapter is divided into two parts, in the first part we will introduce the notion of individual fairness. Compared to the notions we have studied so far, individual fairness is arguably a much more expansive concept of fairness. Group fairness criteria for decision processes are rather specific, they are intended to address the issue of discrimination based on protected characteristics. But fairness isn’t just about discrimination. Broadly speaking, <strong>individual fairness</strong><span class="citation" data-cites="DworkIndFair"><a href="#ref-DworkIndFair" role="doc-biblioref">[57]</a></span><span class="marginnote"><span id="ref-DworkIndFair" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[57] </span><span class="csl-right-inline">C. Dwork, M. Hardt, T. Pitassi, O. Reingold, and R. Zemel, <span>“Fairness through awareness.”</span> 2011.Available: <a href="https://arxiv.org/abs/1104.3913">https://arxiv.org/abs/1104.3913</a></span>
 </span>
 </span> is the idea that a given decision process, is fair if similar people (with respect to the task) receive similar decisions. As a metric, individual fairness cares not about the actual decision, but rather about the consistency with which they are made. We’ll spend a considerable part of the first half of this chapter translating this high level concept into a criterion (for regression and classification models) in order understand how it might be measured. We will see that by this notion of fairness, deterministic classification models are inherently unfair. We discuss how to resolve this issue and implement the resolution. We use the metric consistency in AIF360 to measure individual fairness in our data and model predictions from the previous chapter.</p>
 <p>In the second part of this chapter, we learn about inequality indices and see how they potentially offer a unified approach to measuring unfairness in how an algorithm distributes benefits among both individuals and groups. Generalised entropy indices are a subclass of inequality indices that are of particular interest due to a range of properties. More specifically, for any given partition of the population, they are additively decomposable into components relating to within-group and between-group unfairness. We will learn how these indices are calculated and use the implementation in AIF360 to analyse their behaviour. We will compare the individual and group components of the inequality index to our previously defined individual and group fairness metrics. Let’s get started!</p>
@@ -2515,8 +2553,8 @@ d_{\mathcal{P}(\mathcal{Y})}(f(\boldsymbol{x}_i), f(\boldsymbol{x}_j)) \leq K d_
 <section id="consistency" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2"><span class="header-section-number">4.1.2</span> Consistency</h3>
 <p>The metric consistency, measures individual fairness by looking at the changes in our model output for neighbouring points on a finite set of data points. <span class="math display">yNN = 1 - \frac{1}{n} \sum_{i=1}^n \left| \hat{y}_i -
-\frac{1}{k}\sum_{j|x_j\in kNN(\boldsymbol{x}_i)} \hat{y}_j \right|</span> It is described as measuring “the consistency of the model classifications locally in input space”<span class="citation" data-cites="ZemelLearnFairReps"><a href="#ref-ZemelLearnFairReps" role="doc-biblioref">[57]</a></span><span class="marginnote"><span id="ref-ZemelLearnFairReps" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[57] </span><span class="csl-right-inline">R. Zemel, Y. Wu, K. Swersky, T. Pitassi, and C. Dwork, <span>“Learning fair representations,”</span> in <em>Proceedings of the 30th international conference on machine learning</em>, 2013, vol. 28, pp. 325–333.</span>
+\frac{1}{k}\sum_{j|x_j\in kNN(\boldsymbol{x}_i)} \hat{y}_j \right|</span> It is described as measuring “the consistency of the model classifications locally in input space”<span class="citation" data-cites="ZemelLearnFairReps"><a href="#ref-ZemelLearnFairReps" role="doc-biblioref">[58]</a></span><span class="marginnote"><span id="ref-ZemelLearnFairReps" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[58] </span><span class="csl-right-inline">R. Zemel, Y. Wu, K. Swersky, T. Pitassi, and C. Dwork, <span>“Learning fair representations,”</span> in <em>Proceedings of the 30th international conference on machine learning</em>, 2013, vol. 28, pp. 325–333.</span>
 </span>
 </span>. Values close to one indicate that similar inputs are treated similarly. Note that if all individuals receive the same prediction, consistency will be exactly one.</p>
 <div class="lookbox">
@@ -2548,8 +2586,8 @@ d_{\mathcal{P}(\mathcal{Y})}(f(\boldsymbol{x}_i), f(\boldsymbol{x}_j)) \leq K d_
 <section id="inequality-indices" class="level2" data-number="4.2">
 <h2 data-number="4.2"><span class="header-section-number">4.2</span> Inequality indices</h2>
 <p>Inequality indices are used extensively in economics and social development to measure inequality in metrics across individuals and groups in a population. Indices such as the coefficient of variation, Gini and Theil are, for example, used widely to measure income inequality. Inequality indices can essentially be used in any situation where one would like to understand how unevenly distributed some attribute is. Other applications outside of inequality include measuring racial segregation and the efficiency of irrigation and software systems.</p>
-<p>In this section we will learn how inequality indices can be used to measure algorithmic unfairness or more specifically, “to measure how unequally the outcomes of an algorithm benefit different individuals or groups in a population”<span class="citation" data-cites="IneqIndPaper"><a href="#ref-IneqIndPaper" role="doc-biblioref">[58]</a></span><span class="marginnote"><span id="ref-IneqIndPaper" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[58] </span><span class="csl-right-inline">T. Speicher <em>et al.</em>, <span>“A unified approach to quantifying algorithmic unfairness,”</span> <em>Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em>, 2018, doi: <a href="https://doi.org/10.1145/3219819.3220046">10.1145/3219819.3220046</a>.</span>
+<p>In this section we will learn how inequality indices can be used to measure algorithmic unfairness or more specifically, “to measure how unequally the outcomes of an algorithm benefit different individuals or groups in a population”<span class="citation" data-cites="IneqIndPaper"><a href="#ref-IneqIndPaper" role="doc-biblioref">[59]</a></span><span class="marginnote"><span id="ref-IneqIndPaper" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[59] </span><span class="csl-right-inline">T. Speicher <em>et al.</em>, <span>“A unified approach to quantifying algorithmic unfairness,”</span> <em>Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em>, 2018, doi: <a href="https://doi.org/10.1145/3219819.3220046">10.1145/3219819.3220046</a>.</span>
 </span>
 </span>. Later we will use AIF360 to calculate these metrics and compare them to group fairness metrics we calculated in the previous chapter. By the end of this section we will have a better understanding of how the inequality indices behave which will in turn enable us to better interpret their meaning.</p>
 <p>Using inequality indices to measure unfairness is a two step process. First we must define a <strong>benefit function</strong> which maps the outcome of an algorithm to the corresponding benefit; that is, a value representing the benefit of the outcome to the individual. We’ll come back to this mapping later. Given the benefits for a group of individuals, we can calculate the value of the index for that group. This provides a measure of how unfair the algorithm is, in distributing benefits among the individuals in that group. The larger the value of the index or inequality measure, the more ‘unfair’ the algorithm.</p>
@@ -2610,7 +2648,7 @@ d_{\mathcal{P}(\mathcal{Y})}(f(\boldsymbol{x}_i), f(\boldsymbol{x}_j)) \leq K d_
 <p>In the case of a binary classifier, all algorithmic predictions (where the ground truth is known) can be categorised in a confusion matrix as either a true positive (TP), false positive (FP), false negative (FN) or true negative (TN). A benefit function can then be defined by simply assigning a benefit value to each of these four cases. Compared to the notion of individual fairness described in section <a href="#sec_IndFair" data-reference-type="ref" data-reference="sec_IndFair">4.1</a> this is a significant departure. Here we make a rather coarse comparison of individuals. We bucket everyone into one of four groups and consider individuals in each group to have benefited the same amount from the algorithm. Table <a href="#tbl:clfBenefitFuncs" data-reference-type="ref" data-reference="tbl:clfBenefitFuncs">4.1</a> shows some examples of how we might define our benefit function (mapping from outcome to benefit) for a classification model to align with some of the notions of group fairness discussed in chapter <a href="#ch_GroupFairness" data-reference-type="ref" data-reference="ch_GroupFairness">3</a>. The final row of Table <a href="#tbl:clfBenefitFuncs" data-reference-type="ref" data-reference="tbl:clfBenefitFuncs">4.1</a> shows the default benefit function in AIF360, (as described in Speicher, Heidari et. al. under their notion of individual fairness - we shall call it ‘benefit fairness’ to avoid confusion). It assumes that the data is the ground truth and that a false positive prediction is more beneficial than a false negative. In this vein, it defines the benefit to the individual as the discrepancy between the individuals preferred prediction and the prediction ‘deserved’ according to the ground truth label, that is, <span class="math inline">b_i = \hat{y}_i - y_i + 1</span>.</p>
 <div id="tbl:clfBenefitFuncs">
 <table>
-<caption>Table 4.1: Summary of benefit function definitions corresponding to a variety of notions of fairness. <span class="citation" data-cites="IneqIndPaper"><a href="#ref-IneqIndPaper" role="doc-biblioref">[58]</a></span></caption>
+<caption>Table 4.1: Summary of benefit function definitions corresponding to a variety of notions of fairness. <span class="citation" data-cites="IneqIndPaper"><a href="#ref-IneqIndPaper" role="doc-biblioref">[59]</a></span></caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -4003,70 +4041,73 @@ I_{\alpha}(\boldsymbol{b}) &amp; = \frac{1}{n\alpha(\alpha-1)}
 <div class="csl-left-margin">[36] </div><div class="csl-right-inline">B. Lufkin, <span>“The myth behind long prison sentences,”</span> <em>BBC Future</em>, May 2018.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[37] </div><div class="csl-right-inline">T. Gebru <em>et al.</em>, <span>“Datasheets for datasets.”</span> 2020.Available: <a href="https://arxiv.org/abs/1803.09010">https://arxiv.org/abs/1803.09010</a></div>
+<div class="csl-left-margin">[37] </div><div class="csl-right-inline">A. D. Selbst, D. Boyd, S. A. Friedler, S. Venkatasubramanian, and J. Vertesi, <span>“Fairness and abstraction in sociotechnical systems,”</span> in <em>Proceedings of the conference on fairness, accountability, and transparency</em>, 2019, pp. 59–68. doi: <a href="https://doi.org/10.1145/3287560.3287598">10.1145/3287560.3287598</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[38] </div><div class="csl-right-inline">M. Mitchell <em>et al.</em>, <span>“Model cards for model reporting,”</span> <em>Proceedings of the Conference on Fairness, Accountability, and Transparency</em>, 2019, doi: <a href="https://doi.org/10.1145/3287560.3287596">10.1145/3287560.3287596</a>.</div>
+<div class="csl-left-margin">[38] </div><div class="csl-right-inline">T. Gebru <em>et al.</em>, <span>“Datasheets for datasets.”</span> 2020.Available: <a href="https://arxiv.org/abs/1803.09010">https://arxiv.org/abs/1803.09010</a></div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[39] </div><div class="csl-right-inline">B. d’Alessandro, C. O’Neil, and T. LaGatta, <span>“Conscientious classification: A data scientist’s guide to discrimination-aware classification,”</span> <em>Big Data</em>, vol. 5, no. 2, pp. 120–134, 2017, doi: <a href="https://doi.org/10.1089/big.2016.0048">10.1089/big.2016.0048</a>.</div>
+<div class="csl-left-margin">[39] </div><div class="csl-right-inline">M. Mitchell <em>et al.</em>, <span>“Model cards for model reporting,”</span> <em>Proceedings of the Conference on Fairness, Accountability, and Transparency</em>, 2019, doi: <a href="https://doi.org/10.1145/3287560.3287596">10.1145/3287560.3287596</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[40] </div><div class="csl-right-inline">H. Suresh and J. Guttag, <span>“A framework for understanding sources of harm throughout the machine learning life cycle,”</span> 2021.</div>
+<div class="csl-left-margin">[40] </div><div class="csl-right-inline">B. d’Alessandro, C. O’Neil, and T. LaGatta, <span>“Conscientious classification: A data scientist’s guide to discrimination-aware classification,”</span> <em>Big Data</em>, vol. 5, no. 2, pp. 120–134, 2017, doi: <a href="https://doi.org/10.1089/big.2016.0048">10.1089/big.2016.0048</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[41] </div><div class="csl-right-inline">K. L. Calderone, <span>“The influence of gender on the frequency of pain and sedative medication administered to postoperative patients,”</span> <em>Sex Roles</em>, vol. 23, pp. 713–725, 1990, doi: <a href="https://doi.org/10.1007/BF00289259">https://doi.org/10.1007/BF00289259</a>.</div>
+<div class="csl-left-margin">[41] </div><div class="csl-right-inline">H. Suresh and J. Guttag, <span>“A framework for understanding sources of harm throughout the machine learning life cycle,”</span> 2021.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[42] </div><div class="csl-right-inline">E. H. C. MD <em>et al.</em>, <span>“Gender disparity in analgesic treatment of emergency department patients with acute abdominal pain,”</span> <em>Academic Emergency Medicine</em>, vol. 15, pp. 414–418, May 2008, doi: <a href="https://doi.org/10.1111/j.1553-2712.2008.00100.x">https://doi.org/10.1111/j.1553-2712.2008.00100.x</a>.</div>
+<div class="csl-left-margin">[42] </div><div class="csl-right-inline">K. L. Calderone, <span>“The influence of gender on the frequency of pain and sedative medication administered to postoperative patients,”</span> <em>Sex Roles</em>, vol. 23, pp. 713–725, 1990, doi: <a href="https://doi.org/10.1007/BF00289259">https://doi.org/10.1007/BF00289259</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[43] </div><div class="csl-right-inline">D. E. Hoffmann and A. J. Tarzian, <span>“The girl who cried pain: A bias against women in the treatment of pain,”</span> <em>SSRN</em>, 2001, doi: <a href="http://dx.doi.org/10.2139/ssrn.383803">http://dx.doi.org/10.2139/ssrn.383803</a>.</div>
+<div class="csl-left-margin">[43] </div><div class="csl-right-inline">E. H. C. MD <em>et al.</em>, <span>“Gender disparity in analgesic treatment of emergency department patients with acute abdominal pain,”</span> <em>Academic Emergency Medicine</em>, vol. 15, pp. 414–418, May 2008, doi: <a href="https://doi.org/10.1111/j.1553-2712.2008.00100.x">https://doi.org/10.1111/j.1553-2712.2008.00100.x</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[44] </div><div class="csl-right-inline">K. M. Hoffman, S. Trawalter, J. R. Axt, and M. N. Oliver, <span>“Racial bias in pain assessment and treatment recommendations, and false beliefs about biological differences between blacks and whites,”</span> <em>Proceedings of the National Academy of Sciences</em>, vol. 113, no. 16, pp. 4296–4301, 2016, doi: <a href="https://doi.org/10.1073/pnas.1516047113">10.1073/pnas.1516047113</a>.</div>
+<div class="csl-left-margin">[44] </div><div class="csl-right-inline">D. E. Hoffmann and A. J. Tarzian, <span>“The girl who cried pain: A bias against women in the treatment of pain,”</span> <em>SSRN</em>, 2001, doi: <a href="http://dx.doi.org/10.2139/ssrn.383803">http://dx.doi.org/10.2139/ssrn.383803</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[45] </div><div class="csl-right-inline"><span>“The voice of 12,000 patients: Experiences and expectations of rare disease patients on diagnosis and care in europe.”</span> 2009.</div>
+<div class="csl-left-margin">[45] </div><div class="csl-right-inline">K. M. Hoffman, S. Trawalter, J. R. Axt, and M. N. Oliver, <span>“Racial bias in pain assessment and treatment recommendations, and false beliefs about biological differences between blacks and whites,”</span> <em>Proceedings of the National Academy of Sciences</em>, vol. 113, no. 16, pp. 4296–4301, 2016, doi: <a href="https://doi.org/10.1073/pnas.1516047113">10.1073/pnas.1516047113</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[46] </div><div class="csl-right-inline">K. Fukuchi, J. Sakuma, and T. Kamishima, <span>“Prediction with model-based neutrality,”</span> <em>IEICE TRANS. INF. &amp; SYS.</em>, vol. E98–D, no. 8, 2015, doi: <a href="https://doi.org/Fukuchi">Fukuchi</a>.</div>
+<div class="csl-left-margin">[46] </div><div class="csl-right-inline"><span>“The voice of 12,000 patients: Experiences and expectations of rare disease patients on diagnosis and care in europe.”</span> 2009.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[47] </div><div class="csl-right-inline">I. Zliobaite, <span>“On the relation between accuracy and fairness in binary classification.”</span> 2015.Available: <a href="https://arxiv.org/abs/1505.05723">https://arxiv.org/abs/1505.05723</a></div>
+<div class="csl-left-margin">[47] </div><div class="csl-right-inline">K. Fukuchi, J. Sakuma, and T. Kamishima, <span>“Prediction with model-based neutrality,”</span> <em>IEICE TRANS. INF. &amp; SYS.</em>, vol. E98–D, no. 8, 2015, doi: <a href="https://doi.org/Fukuchi">Fukuchi</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[48] </div><div class="csl-right-inline">U. S. E. E. O. Commission, <span>“Questions and answers to clarify and provide a common interpretation of the uniform guidelines on employee selection procedures,”</span> <em>Federal Register</em>, vol. 44, no. 43, 1979.</div>
+<div class="csl-left-margin">[48] </div><div class="csl-right-inline">I. Zliobaite, <span>“On the relation between accuracy and fairness in binary classification.”</span> 2015.Available: <a href="https://arxiv.org/abs/1505.05723">https://arxiv.org/abs/1505.05723</a></div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[49] </div><div class="csl-right-inline">D. Pedreschi, S. Ruggieri, and F. Turini, <span>“Discrimination-aware data mining,”</span> in <em>Proceedings of the ACM SIGKDD international conference on knowledge discovery and data mining</em>, 2008, pp. 560–568. doi: <a href="https://doi.org/10.1145/1401890.1401959">10.1145/1401890.1401959</a>.</div>
+<div class="csl-left-margin">[49] </div><div class="csl-right-inline">U. S. E. E. O. Commission, <span>“Questions and answers to clarify and provide a common interpretation of the uniform guidelines on employee selection procedures,”</span> <em>Federal Register</em>, vol. 44, no. 43, 1979.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[50] </div><div class="csl-right-inline">R. K. E. Bellamy <em>et al.</em>, <span>“AI fairness 360: An extensible toolkit for detecting, understanding, and mitigating unwanted algorithmic bias.”</span> 2018.Available: <a href="https://arxiv.org/abs/1810.01943">https://arxiv.org/abs/1810.01943</a></div>
+<div class="csl-left-margin">[50] </div><div class="csl-right-inline">D. Pedreschi, S. Ruggieri, and F. Turini, <span>“Discrimination-aware data mining,”</span> in <em>Proceedings of the ACM SIGKDD international conference on knowledge discovery and data mining</em>, 2008, pp. 560–568. doi: <a href="https://doi.org/10.1145/1401890.1401959">10.1145/1401890.1401959</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[51] </div><div class="csl-right-inline">M. B. Zafar, I. Valera, M. Gomez Rodriguez, and K. P. Gummadi, <span>“Fairness beyond disparate treatment &amp; disparate impact,”</span> <em>Proceedings of the 26th International Conference on World Wide Web</em>, 2017, doi: <a href="https://doi.org/10.1145/3038912.3052660">10.1145/3038912.3052660</a>.</div>
+<div class="csl-left-margin">[51] </div><div class="csl-right-inline">R. K. E. Bellamy <em>et al.</em>, <span>“AI fairness 360: An extensible toolkit for detecting, understanding, and mitigating unwanted algorithmic bias.”</span> 2018.Available: <a href="https://arxiv.org/abs/1810.01943">https://arxiv.org/abs/1810.01943</a></div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[52] </div><div class="csl-right-inline">T. Calders, A. Karim, F. Kamiran, W. Ali, and X. Zhang, <span>“Controlling attribute effect in linear regression,”</span> 2013. doi: <a href="https://doi.org/10.1109/ICDM.2013.114">10.1109/ICDM.2013.114</a>.</div>
+<div class="csl-left-margin">[52] </div><div class="csl-right-inline">M. B. Zafar, I. Valera, M. Gomez Rodriguez, and K. P. Gummadi, <span>“Fairness beyond disparate treatment &amp; disparate impact,”</span> <em>Proceedings of the 26th International Conference on World Wide Web</em>, 2017, doi: <a href="https://doi.org/10.1145/3038912.3052660">10.1145/3038912.3052660</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[53] </div><div class="csl-right-inline">S. Barocas, M. Hardt, and A. Narayanan, <em>Fairness and machine learning</em>. fairmlbook.org, 2019.</div>
+<div class="csl-left-margin">[53] </div><div class="csl-right-inline">T. Calders, A. Karim, F. Kamiran, W. Ali, and X. Zhang, <span>“Controlling attribute effect in linear regression,”</span> 2013. doi: <a href="https://doi.org/10.1109/ICDM.2013.114">10.1109/ICDM.2013.114</a>.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[54] </div><div class="csl-right-inline">M. Hardt, E. Price, and N. Srebro, <span>“Equality of opportunity in supervised learning.”</span> 2016.Available: <a href="https://arxiv.org/abs/1610.02413">https://arxiv.org/abs/1610.02413</a></div>
+<div class="csl-left-margin">[54] </div><div class="csl-right-inline">S. Barocas, M. Hardt, and A. Narayanan, <em>Fairness and machine learning</em>. fairmlbook.org, 2019.</div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[55] </div><div class="csl-right-inline">L. T. Liu, M. Simchowitz, and M. Hardt, <span>“The implicit fairness criterion of unconstrained learning.”</span> 2019.Available: <a href="https://arxiv.org/abs/1808.10013">https://arxiv.org/abs/1808.10013</a></div>
+<div class="csl-left-margin">[55] </div><div class="csl-right-inline">M. Hardt, E. Price, and N. Srebro, <span>“Equality of opportunity in supervised learning.”</span> 2016.Available: <a href="https://arxiv.org/abs/1610.02413">https://arxiv.org/abs/1610.02413</a></div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[56] </div><div class="csl-right-inline">C. Dwork, M. Hardt, T. Pitassi, O. Reingold, and R. Zemel, <span>“Fairness through awareness.”</span> 2011.Available: <a href="https://arxiv.org/abs/1104.3913">https://arxiv.org/abs/1104.3913</a></div>
+<div class="csl-left-margin">[56] </div><div class="csl-right-inline">L. T. Liu, M. Simchowitz, and M. Hardt, <span>“The implicit fairness criterion of unconstrained learning.”</span> 2019.Available: <a href="https://arxiv.org/abs/1808.10013">https://arxiv.org/abs/1808.10013</a></div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[57] </div><div class="csl-right-inline">R. Zemel, Y. Wu, K. Swersky, T. Pitassi, and C. Dwork, <span>“Learning fair representations,”</span> in <em>Proceedings of the 30th international conference on machine learning</em>, 2013, vol. 28, pp. 325–333.</div>
+<div class="csl-left-margin">[57] </div><div class="csl-right-inline">C. Dwork, M. Hardt, T. Pitassi, O. Reingold, and R. Zemel, <span>“Fairness through awareness.”</span> 2011.Available: <a href="https://arxiv.org/abs/1104.3913">https://arxiv.org/abs/1104.3913</a></div>
 </div>
 <div class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[58] </div><div class="csl-right-inline">T. Speicher <em>et al.</em>, <span>“A unified approach to quantifying algorithmic unfairness,”</span> <em>Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em>, 2018, doi: <a href="https://doi.org/10.1145/3219819.3220046">10.1145/3219819.3220046</a>.</div>
+<div class="csl-left-margin">[58] </div><div class="csl-right-inline">R. Zemel, Y. Wu, K. Swersky, T. Pitassi, and C. Dwork, <span>“Learning fair representations,”</span> in <em>Proceedings of the 30th international conference on machine learning</em>, 2013, vol. 28, pp. 325–333.</div>
+</div>
+<div class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[59] </div><div class="csl-right-inline">T. Speicher <em>et al.</em>, <span>“A unified approach to quantifying algorithmic unfairness,”</span> <em>Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em>, 2018, doi: <a href="https://doi.org/10.1145/3219819.3220046">10.1145/3219819.3220046</a>.</div>
 </div>
 </div>
 </section>
