@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Dr Leena Murgai">
-  <meta name="dcterms.date" content="2021-12-09">
+  <meta name="dcterms.date" content="2021-12-13">
   <title>Mitigating Bias in Machine Learning</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="tex2html/tufte/tufte.css">
@@ -37,7 +37,7 @@
 <header>
 <h1 class="title">Mitigating Bias in Machine Learning</h1>
 <p class="byline">Dr Leena Murgai</p>
-<p class="byline"> 9 December 2021</p>
+<p class="byline">13 December 2021</p>
 </header>
 <div class="TOC">
 <nav id="TOC">
@@ -57,7 +57,7 @@
 <li><a href="#ch_EthicalDev"><span class="toc-section-number">2</span> Ethical development</a>
 <ul>
 <li><a href="#machine-learning-cycle"><span class="toc-section-number">2.1</span> Machine Learning Cycle</a></li>
-<li><a href="#responsible-development-and-deployment"><span class="toc-section-number">2.2</span> Responsible development and deployment</a></li>
+<li><a href="#sec_ResponseDev"><span class="toc-section-number">2.2</span> Responsible development and deployment</a></li>
 <li><a href="#common-causes-of-harm"><span class="toc-section-number">2.3</span> Common causes of harm</a></li>
 <li><a href="#summary-1">Summary</a></li>
 </ul></li>
@@ -106,7 +106,7 @@
     <li><a href="#ch_EthicalDev"><span class="toc-section-number">2</span> Ethical development</a>
     <ul>
     <li><a href="#machine-learning-cycle"><span class="toc-section-number">2.1</span> Machine Learning Cycle</a></li>
-    <li><a href="#responsible-development-and-deployment"><span class="toc-section-number">2.2</span> Responsible development and deployment</a></li>
+    <li><a href="#sec_ResponseDev"><span class="toc-section-number">2.2</span> Responsible development and deployment</a></li>
     <li><a href="#common-causes-of-harm"><span class="toc-section-number">2.3</span> Common causes of harm</a></li>
     <li><a href="#summary-1">Summary</a></li>
     </ul></li>
@@ -1013,13 +1013,13 @@
 </span>. It’s higher than countries with authoritarian governments, those that have recently been locked in civil war and those with murder rates more than twice that in the US. Comparing with countries that have stable democratic governments, the incarceration rate in the US is more than 5 times that of its closest peer - the UK. The US spends $57 billion a year on housing more than 2.2 million people in prison<span class="citation" data-cites="BBCFLongSent"><a href="#ref-BBCFLongSent" role="doc-biblioref">[36]</a></span><span class="marginnote"><span id="ref-BBCFLongSent" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[36] </span><span class="csl-right-inline">B. Lufkin, <span>“The myth behind long prison sentences,”</span> <em>BBC Future</em>, May 2018.</span>
 </span>
-</span>, almost half of which are private companies that spend significant sums on lobbying the federal government for policies that would further increase incarceration. Some have advocated for the use of risk scores in sentencing in order to reduce the rate of incarceration, the idea being that if the risk scores are low then defendants can be spared prison time. What would the feedback effect on and disparity be for this usecase? what is the impact of the imbalance in error rates? What assumptions are you making in your to reach this conclusion?</p>
+</span>, almost half of which are private companies that spend significant sums on lobbying the federal government for policies that would further increase incarceration. Some have advocated for the use of risk scores in sentencing in order to reduce the rate of incarceration, the idea being that if the risk scores are low then defendants can be spared prison time. What might the feedback effect be for this usecase? What is the impact of the imbalance in error rates? What assumptions are you making to reach this conclusion?</p>
 </div>
 <p>Alternatively, suppose the software was used as a way to distribute limited rehabilitation resources, allocating them to those defendants that that were deemed to be at the highest risk of re-offending (and thus the most in need of intervention). Assuming the model to be accurate and that rehabilitation decreased the risk of reoffending, we can expect that using this model would serve to reduce existing disparities in recidivism rates between individuals. What about the imbalance in errors? Black defendents would more often erroneously be allocated rehabilitation resources and white defendents erroneously denied.</p>
 <p>We have made numerous assumptions in our analysis of the feedback above; rehabilitation consistently reduces the risk of recidivism (regardless of the crime), that the relationship between sentence length and recidivism risk is monotonic and increasing. That two years is a long enough time horizon to consider. Without getting into the weeds, the point here is simply that the same model can have a very different feedback cycle if used in a different way. How a model is used is important and its <em>performance</em> cannot be evaluated in isolation from its usecase. A question to ask is, does the action taken on the back of the model serve to push extremes to the centre, or push them further apart? The relationships you have to understand to answer the question, will depend on the specifics of the problem.</p>
 </section>
 </section>
-<section id="responsible-development-and-deployment" class="level2" data-number="2.2">
+<section id="sec_ResponseDev" class="level2" data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span> Responsible development and deployment</h2>
 <p>In this section we cover the more practical aspects of ethical model development and deployment. We take a take a higher level view of the process by which machine learning systems are created and identify the stages at which we can build in safety considerations. We take inspiration from model risk management in finance where models are ubiquitous. In banking, processes and policies with regard to development, testing, documentation, review, monitoring and reporting of model related valuation risk, have been developed over decades alongside regulation. Many of the ideas we discuss in this chapter were developed and implemented after the 2008 credit crisis in an effort to improve controls around valuation model risk for derivative products (more on this later).</p>
 <section id="development-and-deployment-lifecycle" class="level3" data-number="2.2.1">
@@ -1076,8 +1076,8 @@
 <li><p><strong>The number and complexity of the models being used by the business:</strong> An organisation that uses hundreds of models and composes them to create new products would benefit greatly from infrastructure and methodologies for measuring the materiality of the associated risks that would enable prioritisation of work related to mitigating them. In contrast, for a business based on a single model, this would be less of a concern.</p></li>
 <li><p><strong>Cost of errors:</strong> Where the stakes are high, pre-deployment testing will need to be extensive and prescribed in order to reduce the probability of making them. Well defined and mandatory processes will play an important role - checklists, contingency planning, detailed logging so postmortems and more. For these types of applications we would want authority over model use to be distributed to risk functions which determine when the product is approved for deployment and have the power to decommission them.</p></li>
 </ul>
-<p>Given this, how does one approach the problem of responsible development? Step zero is to create a set of governance standards, the purpose of which is to clearly define and communicate what responsible model development and deployment looks like for your specific application, use case, domain, business, principles and values. It essentially documents and communicates the why, who, what and how of your model risk management approach. <span style="color: red">Is it worth clarifying what we mean by model here, does it include humans? Our definition changes later when we discuss the taxonomy! What about the framing trap?</span></p>
-<p>What are the kinds of questions we might want our <span style="color: red">model</span> governance standards to answer?</p>
+<p>Given this, how does one approach the problem of responsible development? Step zero is to create a set of model governance standards, the purpose of which is to clearly define and communicate what responsible model development and deployment looks like for your specific application, use case, domain, business, principles and values. It essentially documents and communicates the why, who, what and how of your model risk management approach. <span style="color: red">Is it worth clarifying what we mean by model here, does it include humans? Our definition changes later when we discuss the taxonomy! What about the framing trap? Data + decision? Decision system governance? Covid vaccine fluff up.</span></p>
+<p>What are the kinds of questions we might want our model governance standards to answer?</p>
 <ul>
 <li><p><strong>Why is the work important?</strong> What kinds of events or uses of your models are you trying to avoid (or said another way are outside of the organisation’s risk appetite)? What legislation is the company subject to? What are the consequences of failures? What are the values of the company that you want to protect?</p></li>
 <li><p><strong>Who is responsible?</strong> Who are the stakeholders? Who is accountable for managing each the various identified problems? What are the required roles that must be fullfilled to manage the risks.</p></li>
@@ -1144,18 +1144,22 @@
 </section>
 <section id="common-causes-of-harm" class="level2" data-number="2.3">
 <h2 data-number="2.3"><span class="header-section-number">2.3</span> Common causes of harm</h2>
-<p>There are many ways in which machine learning solutions can result in harm. In this section we present a taxonomy of common causes of harm and then discuss it in more detail providing examples. At the end of the section, we’ll relate the causes in our taxonomy to the corresponding stages of the model development and deployment life cycle (discussed earlier) at which consideration could prevent them from arising. The goal is for this to serve as a good starting point for a reference for developing fairer models; avoid common pitfalls and ensure that we, as data scientists and developers of these technologies, perform an appropriate level of due dilligence before releasing our work.</p>
-<p>Creating a taxonomy is not as straightforward as one might hope. There is no agreed upon terminology that describes the different types of issues that can arise or agreed upon framework for developing machine learning solutions that factor in safety concerns (since there are no regulations). Indeed, developing one is the subject of recent research, <span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[40]</a></span><span class="marginnote"><span id="ref-ConsClfn" class="csl-entry" role="doc-biblioentry">
+<p>There are many ways in which machine learning solutions can result in harm. In this section we present a taxonomy of common causes and provide examples. At the end of the section, we’ll relate the causes in our taxonomy to the corresponding stages of the model development and deployment life cycle (discussed earlier), indicating where consideration and intervention could prevent them from arising. The goal is for this to serve as a good starting point as a practical reference for developing fairer models. For practicing data scientists it could be helpful as a standard to compare our current practices against, avoid common pitfalls and hopefully help ensure we perform and appropriate level of due dilligence before releasing our work.</p>
+<p>Before presenting this taxonomy, it’s worth being clear that, in reality, there is no agreed upon terminology that describes the different types of issues that can arise or agreed upon framework for developing machine learning solutions that factor in ethical safety concerns (since regulation surrounding algorithmic decision systems is still in the process of being shaped). Indeed, developing one is the subject of recent research, <span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[40]</a></span><span class="marginnote"><span id="ref-ConsClfn" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[40] </span><span class="csl-right-inline">B. d’Alessandro, C. O’Neil, and T. LaGatta, <span>“Conscientious classification: A data scientist’s guide to discrimination-aware classification,”</span> <em>Big Data</em>, vol. 5, no. 2, pp. 120–134, 2017, doi: <a href="https://doi.org/10.1089/big.2016.0048">10.1089/big.2016.0048</a>.</span>
 </span>
 </span>, <span class="citation" data-cites="BiasFramework"><a href="#ref-BiasFramework" role="doc-biblioref">[41]</a></span><span class="marginnote"><span id="ref-BiasFramework" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[41] </span><span class="csl-right-inline">H. Suresh and J. Guttag, <span>“A framework for understanding sources of harm throughout the machine learning life cycle,”</span> 2021.</span>
 </span>
-</span>, <span class="citation" data-cites="DS4DS"><a href="#ref-DS4DS" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="MC4MR"><a href="#ref-MC4MR" role="doc-biblioref">[39]</a></span>. The word bias itself has many definitions and even in a given context can have multiple valid interpretations. Different practitioners would likely describe the same type of bias differently. Causes of bias in machine learning applications are often numerous and overlapping, thus difficult to attribute to a single source or prescribe a single solution for. The most appropriate remedy itself will be very much context dependent, different practitioners may not even agree.</p>
-<p><span style="color: red">Chapter 1: What is bias?</span></p>
-<p><span style="color: red">Define model? Data + decision? Decision system governance? Covid vaccine fluff up.</span></p>
-<p>For it’s practical value, at a high level we follow the taxonomy described by d’Alessandro et. al.<span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[40]</a></span>, in which the model is distinguished from the larger system of which it is a component. The <strong>system</strong> includes the infrastructure, processes, policies and risk controls around development, deployment, monitoring and maintenace of the decision system. While the <strong>model</strong> is defined as the function mapping <span class="math inline">f</span> from features <span class="math inline">(\boldsymbol{X}, \boldsymbol{Z})</span> to predictions <span class="math inline">\hat{Y}</span>. We aim to layout both the points at which issues arise and the various points at which one could assess and intervene if necessary. For this reason, the table may appear to contain duplications of the same problem viewed from different perspectives. This is intentional. In many organisations, different parts of the system might be developed independently and so this adds value. It’s not uncommon, thanks to unprecidented growth in data vendors, for models to be built on independently collected data.</p>
-<p>Evidence based medicine provides a rich terminology for different types of bias (causes of systematic errors) and has perhaps the most comprehensive set of definitions and classification of bias types. This in itself can provide an important reference in determining which kinds of biases model developers should be aware of and we include some of them here. Table <a href="#tbl:Taxonomy" data-reference-type="ref" data-reference="tbl:Taxonomy">2.2</a> summarises our taxonomy of common causes of harm in machine learning systems.</p>
+</span>, <span class="citation" data-cites="DS4DS"><a href="#ref-DS4DS" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="MC4MR"><a href="#ref-MC4MR" role="doc-biblioref">[39]</a></span>. The word bias itself has many definitions and even in a given context can have multiple valid interpretations. Different practitioners would likely describe the same type of bias differently. Causes of bias in machine learning applications are often numerous and overlapping, thus difficult to attribute to a single source or prescribe a single solution for. The most appropriate remedy itself will be very much context dependent and different practitioners will choose different approaches.</p>
+<p>In creating this taxonomy, we take inspiration from that described by d’Alessandro et. al.<span class="citation" data-cites="ConsClfn"><a href="#ref-ConsClfn" role="doc-biblioref">[40]</a></span>, in which the <em>model</em> or algorithm, is distinguished from the larger <em>system</em> through which it is created, implemented and managed.</p>
+<ul>
+<li><p>The <strong>system</strong> includes the people, infrastructure, processes, policies and risk controls around development, deployment, monitoring and maintenace of the decision system.</p></li>
+<li><p>The <strong>model</strong> is defined as the function mapping <span class="math inline">f</span> from features <span class="math inline">(\boldsymbol{X}, \boldsymbol{Z})</span> to predictions <span class="math inline">\hat{Y}</span>.</p></li>
+</ul>
+<p>Note that in our terminology, the model is simply a mapping it need not be learned by calibration to historic data. Depending on the nature of the system, not all the items in the taxomomy will apply (not the learning related issues, in this case), but some will. Any algorithm where the decision being made is important enough should be treated as such and proper precautions taken. For an algorithm which will be used in production, this should mean being subject to code review and unit testing that demonstrates its validity in some well chosen cases. A good example of where this would have been valuable came up in Decemeber 2020 when a bug in an algorithm, meant that <a href="https://www.npr.org/sections/coronavirus-live-updates/2020/12/18/948176807/stanford-apologizes-after-vaccine-allocation-leaves-out-nearly-all-medical-resid">Stanford Hospital Residents were not correctly prioritised for the COVID-19 vaccine</a>, despite working with COVID-19 patients daily. The algorithm did not apparently account for the fact that Resident doctors had the location field as blank in the data. Part of the problem is the ease with which one can implement an algorithm. We might never know the details of how it was implemented and tested but I find it hard not to picture a spreadsheet being involved. Spreadsheet calculations are prone to error and should be used with extreme caution where the stakes are high. In finance they are seen as a risk control issue. A spreadsheet simply isn’t the best choice where unit tests and code review are important. And when was the last time you wrote unit tests for a spreadsheet?</p>
+<p>In our taxonomy, we aim to layout both the points at which issues arise and the various points at which one could assess and intervene. For this reason, the table may appear to contain duplications of the same problem viewed from different perspectives. This is intentional. Often different parts of an application are developed independently. It’s not uncommon for example (thanks to unprecidented growth in data markets), for models to be built by one organisation, based on data collected by another. Taking this approach in beneficial since it provides multiple opportunities to spot and remedy the same problems.</p>
+<p>Evidence based medicine provides a rich terminology for different mechanisms through which systematic errors can be introduced in data and has perhaps the most comprehensive set of definitions and classification of bias types. This in itself can provide an important reference in determining which kinds of biases model developers should be aware of and we include some of them here. Table <a href="#tbl:Taxonomy" data-reference-type="ref" data-reference="tbl:Taxonomy">2.2</a> summarises our taxonomy of common causes of harm in machine learning systems.</p>
 <div id="tbl:Taxonomy">
 <table>
 <caption>Table 2.2: Taxonomy of common causes of harm in machine learning systems.</caption>
@@ -1191,18 +1195,17 @@
 </tr>
 <tr class="even">
 <td style="text-align: left;" rowspan="6">Controls</td>
-<td style="text-align: left;" rowspan="2">Deployment bias</td>
+<td style="text-align: left;">Deployment bias</td>
 <td style="text-align: left;">Inappropriate model use / Misinterpretation of model results</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;" rowspan="3">Validation</td>
 <td style="text-align: left;">Data appropriateness and preparation</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"></td>
 <td style="text-align: left;">Modelling approach and implementation</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"></td>
 <td style="text-align: left;">Model evaluation (pre and post deployment metrics)</td>
 </tr>
 <tr class="even">
@@ -1285,50 +1288,11 @@
 </div>
 <section id="system-issues" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span> System issues</h3>
-<p>In this section we discuss failures that relate to the larger decision system (rather than more directly to the model mapping). In section <a href="#sec_ProcessPolicy" data-reference-type="ref" data-reference="sec_ProcessPolicy">2.2.2</a> we discussed the kinds of processes, policies, roles and responsibilities that might exist as part of a fairness aware model development, deployment and management workflow. In this section we briefly discuss the kinds of harms that can result in the absence of these. We think of system failures being one of two types,</p>
+<p>In section <a href="#sec_ResponseDev" data-reference-type="ref" data-reference="sec_ResponseDev">2.2</a> we discussed a framework for responsible development and deplyment of models. We summarise important elements of that discussion under system issues in our taxonomy of harms. The idea is that if having a process in place could avoid certain types of harms, then not having them is a failure of the system surrounding the model. We think of system failures being one of two types,</p>
 <ol>
 <li><p>those that can be resolved by through improvements in process and policies.</p></li>
 <li><p>those that can be (at least partially) mitigated through better controls around the risk related to the application.</p></li>
 </ol>
-<section id="process-policy-issues" class="level4 unnumbered" style="color: red">
-<h4 class="unnumbered">Process / Policy issues</h4>
-</section>
-<section id="prioritisation" class="level5 unnumbered" style="color: red">
-<h5 class="unnumbered">Prioritisation</h5>
-<p>Failure to allocate appropriate/sufficient resource</p>
-</section>
-<p><span style="color: red">Failure to distribute power to manage conflicts of interest</span></p>
-<section id="governance" class="level5 unnumbered" style="color: red">
-<h5 class="unnumbered">Governance</h5>
-<p>Failure to set or comply with application specific standards</p>
-</section>
-<section id="risk-assessment" class="level5 unnumbered" style="color: red">
-<h5 class="unnumbered">Risk Assessment</h5>
-<p>Failure to assess possible severity of impact</p>
-</section>
-<section id="accountability" class="level5 unnumbered" style="color: red">
-<h5 class="unnumbered">Accountability</h5>
-<p>Non deference to human domain expert</p>
-</section>
-<section id="controls" class="level4 unnumbered" style="color: red">
-<h4 class="unnumbered">Controls</h4>
-</section>
-<section id="deployment-bias" class="level5 unnumbered" style="color: red">
-<h5 class="unnumbered">Deployment bias</h5>
-<p>Inappropriate model use</p>
-</section>
-<p><span style="color: red">Misinterpretation of model results</span></p>
-<section id="validation" class="level5 unnumbered" style="color: red">
-<h5 class="unnumbered">Validation</h5>
-<p>Data appropriateness and preparation</p>
-</section>
-<p><span style="color: red">Modelling approach and implementation</span></p>
-<p><span style="color: red">Model evaluation (pre and post deployment metrics)</span></p>
-<section id="monitoring" class="level5 unnumbered" style="color: red">
-<h5 class="unnumbered">Monitoring</h5>
-<p>Poor feedback/monitoring of model validity and impact</p>
-</section>
-<p><span style="color: red">Poor monitoring of risk exposure</span></p>
 <section id="failure-to-validate" class="level4 unnumbered">
 <h4 class="unnumbered">1. Failure to validate</h4>
 <p>We discuss two important aspects of the modelling which should be appropriately validated pre-deployment</p>
@@ -1460,7 +1424,7 @@
 <li><p>Just as we can create pernicious machine learning cycles that exaggerate disparities, we can also create virtuous ones that have the effect of reducing disparities. Therefore it’s important to consider the whole machine learning cycle when formulating a machine learning problem</p></li>
 </ul>
 </section>
-<section id="responsible-development-and-deployment-1" class="level3 unnumbered">
+<section id="responsible-development-and-deployment" class="level3 unnumbered">
 <h3 class="unnumbered">Responsible development and deployment</h3>
 <section id="fairness-and-bias-interventions" class="level4 unnumbered">
 <h4 class="unnumbered">Fairness and bias interventions</h4>
