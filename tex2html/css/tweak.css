@@ -70,6 +70,14 @@ caption {
     margin-bottom: 0;
     padding: 0;
 }
+/* Specific Tables */
+div[id="tbl:app_ProbRules"] table { 
+  border: none;
+}
+div[id="tbl:app_ProbRules"] td { 
+  border: none;
+}
+
 
 /* Headers */
 h4 {
@@ -141,7 +149,15 @@ div[id^="eq:"] td {
 .content ul {
   list-style-type: none;
 }
-
+/*Specific equation adjustments to numbering*/
+div[id="eq:IndSuf1"] td,
+div[id="eq:IndSuf2"] td,
+div[id="eq:IndSep1"] td,
+div[id="eq:IndSep2"] td,
+div[id="eq:SepSuf1"] td,
+div[id="eq:SepSuf2"] td { 
+  vertical-align: bottom;
+}
 /*References*/
 #refs > .csl-entry {
     font-size: 1.4rem;
