@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Dr Leena Murgai">
-  <meta name="dcterms.date" content="2022-02-10">
+  <meta name="dcterms.date" content="2022-02-11">
   <title>Mitigating Bias in Machine Learning</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="tex2html/tufte/tufte.css">
@@ -22,7 +22,7 @@
 <header>
 <h1 class="title">Mitigating Bias in Machine Learning</h1>
 <p class="byline">Dr Leena Murgai</p>
-<p class="byline">10 February 2022</p>
+<p class="byline">11 February 2022</p>
 </header>
 <div class="TOC">
 <nav id="TOC">
@@ -1536,13 +1536,13 @@ To show that causal relationships matter, we consider two different examples.</p
 <p>We broadly classify group fairness criteria into two types; those comparing <em>outcomes</em> across groups and those comparing <em>errors</em>. We discussed examples of both in chapter <a href="#ch_Background" data-reference-type="ref" data-reference="ch_Background">1</a>. Recall that in section <a href="#sec_SimpsParadox" data-reference-type="ref" data-reference="sec_SimpsParadox">1.3</a>, we compared outcomes (acceptance rates) for male and female applicants to Berkeley as an example of Simpson’s rule. In section <a href="#sec_harms" data-reference-type="ref" data-reference="sec_harms">1.4</a>, we discussed Gender Shades, a project that compared the errors (or equivalently accuracy) of a set of gender recognition systems, across subgroups defined by skin tone and gender. We’ll see how in general group fairness criterion can be understood as independence constraints on the joint distributions of the non-sensitive features <span class="math inline">\(X\)</span>, sensitive features, <span class="math inline">\(Z\)</span>, the target variable <span class="math inline">\(Y\)</span> and predicted target <span class="math inline">\(\hat{Y}\)</span> (or rather <span class="math inline">\(P\)</span> for a classification problem where we want our fairness criteria to hold for all thresholds). For brevity, we will express all constraints in terms of <span class="math inline">\(\hat{Y}\)</span>, but keep in mind that for classification problems we might want to instead impose it on the score <span class="math inline">\(P\)</span>. We will introduce the necessary mathematical notation as required throughout this book. A helpful summary is provided in the preamble on page .</p>
 <section id="sec_BalOut" class="level2" data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span> Comparing outcomes</h2>
-<p>First we look at fairness constraints on the relationship between the sensitive features <span class="math inline">\(Z\)</span>, and the predicted target <span class="math inline">\(\hat{Y}\)</span> (or <span class="math inline">\(Y\)</span> if we are interested in measuring the fairness of our data rather than our model). We’ll discuss two fairness criteria. In the first we require the outcome <span class="math inline">\(\hat{Y}\)</span>, to be marginally (unconditionally) independent of the sensitive features <span class="math inline">\(Z\)</span>. In the second we are essentially trying to establish cause; we require the outcome <span class="math inline">\(\hat{Y}\)</span> to be independent of the sensitive features <span class="math inline">\(Z\)</span> when conditioned on all other (non-sensitive) features <span class="math inline">\(X\)</span>. We’ll describe the latter as the twin test, that is <span class="math inline">\(\hat{Y}\)</span> and <span class="math inline">\(Z\)</span> being independent ceteris paribus (all else, or rather all other variables <span class="math inline">\(X\)</span>, being equal).</p>
+<p>First we look at fairness constraints on the relationship between the sensitive features <span class="math inline">\(Z\)</span>, and the predicted target <span class="math inline">\(\hat{Y}\)</span> (or rather <span class="math inline">\(Y\)</span> if we are interested in measuring the fairness of our data rather than our model). We’ll discuss two fairness criteria. In the first we require the outcome <span class="math inline">\(\hat{Y}\)</span>, to be marginally (unconditionally) independent of the sensitive features <span class="math inline">\(Z\)</span>. In the second we are essentially trying to establish cause; we require the outcome <span class="math inline">\(\hat{Y}\)</span> to be independent of the sensitive features <span class="math inline">\(Z\)</span> when conditioned on all other (non-sensitive) features <span class="math inline">\(X\)</span>. We’ll describe the latter as the twin test, that is <span class="math inline">\(\hat{Y}\)</span> and <span class="math inline">\(Z\)</span> being independent ceteris paribus (all else, or rather all other variables <span class="math inline">\(X\)</span>, being equal).</p>
 <section id="independence" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Independence</h3>
 <p>Of all the fairness criteria, independence is the most well known and that which (as we’ll see later), imposes the strongest constraint. It requires the target variable to be marginally (unconditionally) independent of the sensitive feature, that is, <span class="math inline">\(\hat{Y} \bot Z\)</span>. This is true, if and only if (<span class="math inline">\(\iff\)</span>) the probability distribution of the target variable <span class="math inline">\(f_{\hat{Y}}(y)\)</span>, is the same for all values of the sensitive feature <span class="math inline">\(Z\)</span>, that is, <span class="math inline">\(f_{\hat{Y}|Z}(y)=f_{\hat{Y}}(y)\)</span>. For a discrete target variable we can say <span class="math display">\[\hat{Y} \bot Z \quad \iff \quad \mathbb{P}(\hat{Y}=\hat{y}|Z=z) = \mathbb{P}(\hat{Y}=\hat{y}) \quad \forall \quad y \in \mathcal{Y}, \quad z \in \mathcal{Z},\]</span> or <span class="math inline">\(\mathbb{P}(\hat{y}|z)=\mathbb{P}(\hat{y})\)</span> in our abbreviated notation.</p>
 <p>Independence might be viewed as addressing disparate impact, since we are only interested in the relationship between the outcome and sensitive feature. Recall that for the 1973 Berkeley admissions example in section <a href="#sec_SimpsParadox" data-reference-type="ref" data-reference="sec_SimpsParadox">1.3</a>, we looked at independence criterion, by comparing acceptance rates across the sensitive feature gender. Imposing independence is a strong expression of the view that fairness is equality. It might be interpreted as the notion that abilities (or features of importance <span class="math inline">\(X\)</span>, in determining <span class="math inline">\(Y\)</span>) in all groups are, or should be, similarly distributed; the belief that observed differences in the joint distributions in training data are a manifestation of unfair discrimination, rather than inherent differences in people belonging to groups that differ by their sensitive features <span class="math inline">\(Z\)</span>.</p>
-<section id="measures-of-independence" class="level4" data-number="3.1.1.1">
-<h4 data-number="3.1.1.1"><span class="header-section-number">3.1.1.1</span> Measures of independence</h4>
+<section id="measures-of-independence" class="level4 unnumbered">
+<h4 class="unnumbered">Measures of independence</h4>
 <p>Below we will define a range of fairness metrics, which are all derived from the notion of independence. Along the way, we will familiarise ourselves with some of the terminology used to describe the various independence metrics that are commonly analysed. In each case the metric provides some measure, of how far from independent, the target variable and sensitive feature are. Notice that independence imposes a constraint on only two random variables, the predicted target <span class="math inline">\(\hat{Y}\)</span> and sensitive feature <span class="math inline">\(Z\)</span>. In the equations that follow, we provide metrics that quantify the fairness of our model output <span class="math inline">\(\hat{Y}\)</span>, but we could equally well replace the predicted target variable <span class="math inline">\(\hat{Y}\)</span>, with the actual target variable <span class="math inline">\(Y\)</span> to assess the fairness of our data under the same criterion.</p>
 <p><strong>Mutual information</strong>, denoted <span class="math inline">\(I\)</span>, is popular in information theory for measuring dependence between random variables.</p>
 <div id="eq:MutualInfo">
@@ -1744,14 +1744,14 @@ f_{\hat{Y}|X}(\hat{y}, z; x) = f_{\hat{Y}|X}(\hat{y}; x).\]</span> Suppose we wi
 <td style="text-align: center;" rowspan="4">Prediction</td>
 <td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=1\)</span></td>
 <td style="text-align: center;" rowspan="2">True Positive</td>
-<td style="text-align: center;" rowspan="2">False Positive Type I Error</td>
+<td style="text-align: center;" rowspan="2">False Positive<br>Type I Error</td>
 <td style="text-align: center;" rowspan="2">False Discovery Rate<br><span class="math inline">\(\mathbb{P}(\hat{y}\neq y|\hat{y}=1)\)</span></td>
 </tr>
 <tr class="odd">
 </tr>
 <tr class="even">
 <td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=0\)</span></td>
-<td style="text-align: center;" rowspan="2">False Negative Type II Error</td>
+<td style="text-align: center;" rowspan="2">False Negative<br>Type II Error</td>
 <td style="text-align: center;" rowspan="2">True Negative</td>
 <td style="text-align: center;" rowspan="2">False Omission Rate<br><span class="math inline">\(\mathbb{P}(\hat{y}\neq y|\hat{y}=0)\)</span></td>
 </tr>
@@ -1768,6 +1768,7 @@ f_{\hat{Y}|X}(\hat{y}, z; x) = f_{\hat{Y}|X}(\hat{y}; x).\]</span> Suppose we wi
 </tbody>
 </table>
 </div>
+<p>A binary classification model can make two different types of errors (false positives and false negatives), the costs of which will typically not be equal. Table <a href="#tbl:CMErrMetrics" data-reference-type="ref" data-reference="tbl:CMErrMetrics">3.2</a> summarises terminology for the different types of error rates for a binary classification model.</p>
 <div id="tbl:CMPerfMetrics">
 <table>
 <caption>Table 3.3: Summary of performance metrics for a binary classifier</caption>
@@ -1789,14 +1790,14 @@ f_{\hat{Y}|X}(\hat{y}, z; x) = f_{\hat{Y}|X}(\hat{y}; x).\]</span> Suppose we wi
 <td style="text-align: center;" rowspan="4">Prediction</td>
 <td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=1\)</span></td>
 <td style="text-align: center;" rowspan="2">True Positive</td>
-<td style="text-align: center;" rowspan="2">False Positive Type I Error</td>
+<td style="text-align: center;" rowspan="2">False Positive<br>Type I Error</td>
 <td style="text-align: center;" rowspan="2">Positive Predictive Value<sup>a</sup><br><span class="math inline">\(\mathbb{P}(\hat{y}=y|\hat{y}=1)\)</span></td>
 </tr>
 <tr class="odd">
 </tr>
 <tr class="even">
 <td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=0\)</span></td>
-<td style="text-align: center;" rowspan="2">False Negative Type II Error</td>
+<td style="text-align: center;" rowspan="2">False Negative<br>Type II Error</td>
 <td style="text-align: center;" rowspan="2">True Negative</td>
 <td style="text-align: center;" rowspan="2">Negative Predictive Value<br><span class="math inline">\(\mathbb{P}(\hat{y}=y|\hat{y}=0)\)</span></td>
 </tr>
@@ -1817,7 +1818,6 @@ f_{\hat{Y}|X}(\hat{y}, z; x) = f_{\hat{Y}|X}(\hat{y}; x).\]</span> Suppose we wi
 <p><sup>a</sup> Positive Predictive Value = Precision</p>
 <p><sup>b</sup> True Positive Rate = Recall</p>
 </div>
-<p>A binary classification model can make two different types of errors (false positives and false negatives), the costs of which will typically not be equal. Table <a href="#tbl:CMErrMetrics" data-reference-type="ref" data-reference="tbl:CMErrMetrics">3.2</a> summarises terminology for the different types of error rates for a binary classification model.</p>
 <p>Fairness criteria that compare errors (or equivalently performance metrics - see Table <a href="#tbl:CMPerfMetrics" data-reference-type="ref" data-reference="tbl:CMPerfMetrics">3.3</a> for a summary) across groups can be broken down into two conditional independence constraints on the joint distributions of the sensitive features, <span class="math inline">\(Z\)</span>, the target feature <span class="math inline">\(Y\)</span> and predicted target <span class="math inline">\(\hat{Y}\)</span>. These can be described as <strong>separation</strong> (<span class="math inline">\(\hat{Y}\bot Z|Y\)</span>) and <strong>sufficiency</strong><span class="citation" data-cites="FairMLBook"><a href="#ref-FairMLBook" role="doc-biblioref">[55]</a></span><span class="marginnote"><span id="ref-FairMLBook" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[55] </span><span class="csl-right-inline">S. Barocas, M. Hardt, and A. Narayanan, <em>Fairness and machine learning</em>. fairmlbook.org, 2019.</span>
 </span>
@@ -2149,7 +2149,8 @@ FPR (p_a-p_b) TPR = 0\]</span></td>
 <section id="group-fairness" class="level3 unnumbered">
 <h3 class="unnumbered">Group fairness</h3>
 <ul>
-<li><p>The term group fairness is used to describe a series of metrics that all stem from the same high level idea; the notion that some property should be equal across different subgroups of a population, where the subgroups are determined by the values of some protected characteristic such as gender or race.</p></li>
+<li><p>The term group fairness is used to describe a class of metrics that all stem from the same high level idea; the notion that some property should be equally distributed across different subgroups of a population.</p></li>
+<li><p>Group fairness metrics are often used to measure discrimination or bias in a given decision process.</p></li>
 <li><p>In general group fairness criterion and measures can be derived from independence constraints on the joint distributions of the non-sensitive features <span class="math inline">\(X\)</span>, sensitive features, <span class="math inline">\(Z\)</span>, the target feature <span class="math inline">\(Y\)</span> and predicted target <span class="math inline">\(\hat{Y}\)</span>.</p></li>
 <li><p>Group fairness criteria can be broadly classified into two types; those seeking to compare outcomes across groups and those comparing errors.</p></li>
 </ul>
@@ -2167,7 +2168,7 @@ FPR (p_a-p_b) TPR = 0\]</span></td>
 <tr class="odd">
 <td style="text-align: left;">Criterion</td>
 <td style="text-align: center;">Independence</td>
-<td style="text-align: center;">Independence cet. par.</td>
+<td style="text-align: center;">Twin test</td>
 <td style="text-align: center;">Separation</td>
 <td style="text-align: center;">Sufficiency</td>
 </tr>
@@ -2193,11 +2194,8 @@ FPR (p_a-p_b) TPR = 0\]</span></td>
 <section id="independence-1" class="level4 unnumbered">
 <h4 class="unnumbered">Independence</h4>
 <ul>
-<li><p>The term <em>group fairness</em> is used to describe a class of metrics that are used to measure discrimination or bias in a given decision process.</p></li>
-<li><p>Independence imposes the requirement that the predicted target variable be independent of the sensitive feature.</p></li>
-<li><p>Independence can be viewed as addressing disparate impact, since we are only interested in the relationship between the outcome and sensitive feature.</p></li>
 <li><p>Independence is a strong expression of the view that fairness is equality. It might be interpreted as the notion that abilities (or features) in all groups are, or should be, equally distributed; the belief that observed differences in the distributions in training data are a manifestation of unfair discrimination, errors in data collection, or both, rather than inherent differences in the abilities of people belonging to one group or another.</p></li>
-<li><p>A nice feature of independence metrics is they can be evaluated on both the data and the model. A common problem in machine learning is that existing biases in the data can be exaggerated if protected groups are minorities in the population. By comparing independence metrics for the data and with those of our model output we can understand if our model is inadvertently introducing biases that do not originate from the data.</p></li>
+<li><p>Independence metrics is they can be evaluated on both the data and the model. A common problem in machine learning is that existing biases in the data can be exaggerated if protected groups are minorities in the population. By comparing independence metrics for the data and with those of our model output we can understand if our model is inadvertently introducing biases that do not originate from the data.</p></li>
 <li><p>If the target variable <span class="math inline">\(Y\)</span> and sensitive feature <span class="math inline">\(Z\)</span> are not independent then satisfying independence for your model will not permit the theoretically ‘perfect’ solution <span class="math inline">\(Y = \hat{Y}\)</span>. We would naturally expect that the stronger the relationship between the sensitive feature and target, the greater the trade-off between fairness and utility in satisfying the independence criterion.</p></li>
 <li><p>A major shortcoming of independence is that it doesn’t consider that there may be confounding variables. It assumes that all relevant features are held by all protected groups equally and where there are differences it assumes unfairness and passes the task of correcting for it to the decision maker.</p></li>
 </ul>
@@ -2205,9 +2203,8 @@ FPR (p_a-p_b) TPR = 0\]</span></td>
 <section id="the-twin-test" class="level4 unnumbered">
 <h4 class="unnumbered">The twin test</h4>
 <ul>
-<li><p>Conditional independence imposes the requirement that the predicted target variable be conditionally independent of the sensitive feature, given all other features.</p></li>
-<li><p>Conditional independence has been interpreted as addressing disparate treatment, since it exposes differing treatment of individuals based on protected class membership. In reality, while it would be sufficient to demonstrate disparate treatment, it is not necessary. Using protected features in the algorithm would be enough to result in disparate treatment liability in the US, the impact of using the feature is irrelevant.</p></li>
-<li><p>In the case where a decision is made purely on the basis of an algorithm and there are no unobserved variables, we can perform a ‘twin test’ to establish disparate treatment. We conduct a randomized experiment and calculate the causal mean difference. If the value is non-zero, we have established the existence of disparate treatment.</p></li>
+<li><p>The twin test has been interpreted as addressing disparate treatment, since it exposes differing treatment of individuals based on protected class membership. In reality, while it would be sufficient to demonstrate disparate treatment, it is not necessary. Using protected features in the algorithm would be enough to result in disparate treatment liability in the US, the impact of using the feature is irrelevant.</p></li>
+<li><p>In the case where a decision is made purely on the basis of an algorithm and there are no unobserved variables, we can perform a ‘twin test’ to establish disparate treatment. We conduct a randomized experiment and compute the causal mean difference. If the value is non-zero, we have established the existence of disparate treatment.</p></li>
 </ul>
 </section>
 </section>
@@ -2223,7 +2220,6 @@ FPR (p_a-p_b) TPR = 0\]</span></td>
 <section id="separation-1" class="level4 unnumbered">
 <h4 class="unnumbered">Separation</h4>
 <ul>
-<li><p>Separation requires the predicted target variable to be independent of the sensitive feature, conditioned on the target variable</p></li>
 <li><p>Separation, allows for dependence between the predicted target variable and the sensitive feature but only to the extent that it exists between the actual target variable and the sensitive feature.</p></li>
 <li><p>For a binary classification model, separation requires both the false negative and false positive rates to be equal across groups. This criterion is known as equalised odds</p></li>
 <li><p>Equal opportunity criterion requires only the true positive rates to be the same across all groups (assuming a positive prediction is the more advantageous outcome).</p></li>
@@ -2232,9 +2228,8 @@ FPR (p_a-p_b) TPR = 0\]</span></td>
 <section id="sufficiency-1" class="level4 unnumbered">
 <h4 class="unnumbered">Sufficiency</h4>
 <ul>
-<li><p>Sufficiency requires the sensitive feature and target variable to be independent, conditional on the predicted target variable.</p></li>
 <li><p>For a binary classification model, sufficiency requires both the false omission rate and false discovery rates to be equal across protected groups.</p></li>
-<li><p>Sufficiency is is a weaker model constraint compared to separation as it is often satisfied implicitly through the training process.</p></li>
+<li><p>Sufficiency is is a weaker model constraint compared to separation as it is satisfied implicitly through the training process.</p></li>
 </ul>
 </section>
 </section>
@@ -2245,15 +2240,6 @@ FPR (p_a-p_b) TPR = 0\]</span></td>
 <li><p>In the case that <span class="math inline">\(Y\)</span> is binary, independence (<span class="math inline">\(Z \bot \hat{Y}\)</span>) and separation (<span class="math inline">\(Z \bot \hat{Y} | Y\)</span>) criteria can only be simultaneously satisfied if either <span class="math inline">\(\hat{Y} \bot Y\)</span> or <span class="math inline">\(Y \bot Z\)</span>.</p></li>
 <li><p>Separation (<span class="math inline">\(Z \bot \hat{Y} | Y\)</span>) and sufficiency (<span class="math inline">\(Z \bot Y | \hat{Y}\)</span>) can only be simultaneously be satisfied if the sensitive feature, <span class="math inline">\(Z\)</span> is independent of both the target variable <span class="math inline">\(Y\)</span> and the predicted target <span class="math inline">\(\hat{Y}\)</span>, that is if <span class="math inline">\(Z \bot Y\)</span> and <span class="math inline">\(Z \bot \hat{Y}\)</span>.</p></li>
 <li><p>In the case where <span class="math inline">\(Y\)</span> is binary, separation and sufficiency can only be satisfied simultaneously if the sensitive feature is independent of the target variable, or the model has an accuracy of 100% (<span class="math inline">\(\hat{Y}=Y\)</span>) or the model has an accuracy of 0% (<span class="math inline">\(\hat{Y}=1-Y\)</span>).</p></li>
-</ul>
-</section>
-<section id="aif360" class="level3 unnumbered">
-<h3 class="unnumbered">AIF360</h3>
-<ul>
-<li><p>To use AIF360 to calculate fairness metrics we need our data in a Pandas DataFrame which has only numeric data types to create a <code>BinaryLabelDataset</code> object.</p></li>
-<li><p>Balanced outcome fairness metrics are methods of the <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.metrics.BinaryLabelDatasetMetric.html#aif360.metrics.BinaryLabelDatasetMetric"><code>BinaryLabelDatasetMetric</code></a> class.</p></li>
-<li><p>Balanced error fairness metrics are methods of the <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.metrics.ClassificationMetric.html#"><code>ClassificationMetric</code></a> class.</p></li>
-<li><p>Privileged and unprivileged groups are defined in the format of a list of dictionaries. Each dictionary in the list defines a group, the key being a feature and the value being the value of the feature for members of the group. The key, value pairs in the dictionaries are joined with an intersection (AND operator) and the dictionaries in the list are joined with a union (OR operator).</p></li>
 </ul>
 </section>
 </section>
@@ -3327,14 +3313,14 @@ gei = clf_metric.generalized_entropy_index(benefit_function=FPR_bf)</code></pre>
 <td style="text-align: center;" rowspan="4">Prediction</td>
 <td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=1\)</span></td>
 <td style="text-align: center;" rowspan="2">True Positive</td>
-<td style="text-align: center;" rowspan="2">False Positive Type I Error</td>
+<td style="text-align: center;" rowspan="2">False Positive<br>Type I Error</td>
 <td style="text-align: center;" rowspan="2">Positive Predictive Value<sup>a</sup><br><span class="math inline">\(\mathbb{P}(\hat{y}=y|\hat{y}=1)\)</span></td>
 </tr>
 <tr class="odd">
 </tr>
 <tr class="even">
 <td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=0\)</span></td>
-<td style="text-align: center;" rowspan="2">False Negative Type II Error</td>
+<td style="text-align: center;" rowspan="2">False Negative<br>Type II Error</td>
 <td style="text-align: center;" rowspan="2">True Negative</td>
 <td style="text-align: center;" rowspan="2">Negative Predictive Value<br><span class="math inline">\(\mathbb{P}(\hat{y}=y|\hat{y}=0)\)</span></td>
 </tr>
@@ -3379,14 +3365,14 @@ gei = clf_metric.generalized_entropy_index(benefit_function=FPR_bf)</code></pre>
 <td style="text-align: center;" rowspan="4">Prediction</td>
 <td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=1\)</span></td>
 <td style="text-align: center;" rowspan="2">True Positive</td>
-<td style="text-align: center;" rowspan="2">False Positive Type I Error</td>
+<td style="text-align: center;" rowspan="2">False Positive<br>Type I Error</td>
 <td style="text-align: center;" rowspan="2">False Discovery Rate<br><span class="math inline">\(\mathbb{P}(\hat{y}\neq y|\hat{y}=1)\)</span></td>
 </tr>
 <tr class="odd">
 </tr>
 <tr class="even">
 <td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=0\)</span></td>
-<td style="text-align: center;" rowspan="2">False Negative Type II Error</td>
+<td style="text-align: center;" rowspan="2">False Negative<br>Type II Error</td>
 <td style="text-align: center;" rowspan="2">True Negative</td>
 <td style="text-align: center;" rowspan="2">False Omission Rate<br><span class="math inline">\(\mathbb{P}(\hat{y}\neq y|\hat{y}=0)\)</span></td>
 </tr>
@@ -3402,6 +3388,71 @@ gei = clf_metric.generalized_entropy_index(benefit_function=FPR_bf)</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
+</section>
+<section id="combined-table" class="level4 unnumbered">
+<h4 class="unnumbered">Combined table</h4>
+<div id="tbl:app_CMPerfMetrics2">
+<table>
+<caption>Table B.3: Summary of performance metrics for a binary classifier</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;" colspan="2">Ground Truth</th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Prediction</td>
+<td style="text-align: center;"><span class="math inline">\(y=1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y=0\)</span></td>
+<td style="text-align: center;">Performance</td>
+<td style="text-align: center;">Error rate</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=1\)</span></td>
+<td style="text-align: center;" rowspan="2">True Positive</td>
+<td style="text-align: center;" rowspan="2">False Positive<br>Type I Error</td>
+<td style="text-align: center;" rowspan="2">Positive Predictive Value<sup>a</sup><br><span class="math inline">\(\mathbb{P}(\hat{y}=y|\hat{y}=1)\)</span></td>
+<td style="text-align: center;" rowspan="2">False Discovery Rate<br><span class="math inline">\(\mathbb{P}(\hat{y}\neq y|\hat{y}=1)\)</span></td>
+</tr>
+<tr class="odd">
+</tr>
+<tr class="even">
+<td style="text-align: center;" rowspan="2"><span class="math inline">\(\hat{y}=0\)</span></td>
+<td style="text-align: center;" rowspan="2">False Negative<br>Type II Error</td>
+<td style="text-align: center;" rowspan="2">True Negative</td>
+<td style="text-align: center;" rowspan="2">Negative Predictive Value<br><span class="math inline">\(\mathbb{P}(\hat{y}=y|\hat{y}=0)\)</span></td>
+<td style="text-align: center;" rowspan="2">False Omission Rate<br><span class="math inline">\(\mathbb{P}(\hat{y}\neq y|\hat{y}=0)\)</span></td>
+</tr>
+<tr class="odd">
+</tr>
+<tr class="even">
+<td style="text-align: center;" rowspan="2">Performance</td>
+<td style="text-align: center;" rowspan="2">True Positive Rate<sup>b</sup><br><span class="math inline">\(\mathbb{P}(\hat{y}=y|y=1)\)</span></td>
+<td style="text-align: center;" rowspan="2">True Negative Rate<br><span class="math inline">\(\mathbb{P}(\hat{y}=y|y=0)\)</span></td>
+<td style="text-align: center;" rowspan="2">Accuracy<br><span class="math inline">\(\mathbb{P}(\hat{y}=y)\)</span></td>
+<td style="text-align: center;" rowspan="2"></td>
+</tr>
+<tr class="odd">
+</tr>
+<tr class="even">
+<td style="text-align: center;" rowspan="2">Error Rate</td>
+<td style="text-align: center;" rowspan="2">False Negative Rate<br><span class="math inline">\(\mathbb{P}(\hat{y}\neq y|y=1)\)</span></td>
+<td style="text-align: center;" rowspan="2">False Positive Rate<br><span class="math inline">\(\mathbb{P}(\hat{y}\neq y|y=0)\)</span></td>
+<td style="text-align: center;" rowspan="2"></td>
+<td style="text-align: center;" rowspan="2">Error rate <span class="math inline">\(\mathbb{P}(\hat{y}\neq y)\)</span></td>
+</tr>
+<tr class="odd">
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tablenotes">
+<p><sup>a</sup> Positive Predictive Value = Precision</p>
+<p><sup>b</sup> True Positive Rate = Recall</p>
 </div>
 </section>
 </section>
