@@ -61,11 +61,11 @@
 <li><a href="#inequality-indices"><span class="toc-section-number">4.2</span> Inequality indices</a></li>
 <li><a href="#summary-3">Summary</a></li>
 </ul></li>
-<li><a href="#aif360-1"><span class="toc-section-number">5</span> AIF360</a>
+<li><a href="#app_AIF360"><span class="toc-section-number">A</span> AIF360</a>
 <ul>
 <li><a href="#app_Install"><span class="toc-section-number">A.1</span> Installing AIF360</a></li>
-<li><a href="#group-fairness-in-aif360"><span class="toc-section-number">5.2</span> Group fairness in AIF360</a></li>
-<li><a href="#individual-fairness-2"><span class="toc-section-number">5.3</span> Individual fairness</a></li>
+<li><a href="#app_AIF360_GF"><span class="toc-section-number">A.2</span> Group fairness in AIF360</a></li>
+<li><a href="#app_AIF360_IF"><span class="toc-section-number">A.3</span> Individual fairness</a></li>
 </ul></li>
 <li><a href="#app_Metrics"><span class="toc-section-number">B</span> Performance Metrics</a></li>
 <li><a href="#app_ProbRules"><span class="toc-section-number">C</span> Rules of Probability</a></li>
@@ -117,11 +117,11 @@
     <li><a href="#inequality-indices"><span class="toc-section-number">4.2</span> Inequality indices</a></li>
     <li><a href="#summary-3">Summary</a></li>
     </ul></li>
-    <li><a href="#aif360-1"><span class="toc-section-number">5</span> AIF360</a>
+    <li><a href="#app_AIF360"><span class="toc-section-number">A</span> AIF360</a>
     <ul>
     <li><a href="#app_Install"><span class="toc-section-number">A.1</span> Installing AIF360</a></li>
-    <li><a href="#group-fairness-in-aif360"><span class="toc-section-number">5.2</span> Group fairness in AIF360</a></li>
-    <li><a href="#individual-fairness-2"><span class="toc-section-number">5.3</span> Individual fairness</a></li>
+    <li><a href="#app_AIF360_GF"><span class="toc-section-number">A.2</span> Group fairness in AIF360</a></li>
+    <li><a href="#app_AIF360_IF"><span class="toc-section-number">A.3</span> Individual fairness</a></li>
     </ul></li>
     <li><a href="#app_Metrics"><span class="toc-section-number">B</span> Performance Metrics</a></li>
     <li><a href="#app_ProbRules"><span class="toc-section-number">C</span> Rules of Probability</a></li>
@@ -2202,8 +2202,8 @@ FPR (p_a-p_b) TPR = 0\]</span></td>
 <li><p>A major shortcoming of independence is that it doesn’t consider that there may be confounding variables. It assumes that all relevant features are held by all protected groups equally and where there are differences it assumes unfairness and passes the task of correcting for it to the decision maker.</p></li>
 </ul>
 </section>
-<section id="conditional-independence" class="level4 unnumbered">
-<h4 class="unnumbered">Conditional independence</h4>
+<section id="the-twin-test" class="level4 unnumbered">
+<h4 class="unnumbered">The twin test</h4>
 <ul>
 <li><p>Conditional independence imposes the requirement that the predicted target variable be conditionally independent of the sensitive feature, given all other features.</p></li>
 <li><p>Conditional independence has been interpreted as addressing disparate treatment, since it exposes differing treatment of individuals based on protected class membership. In reality, while it would be sufficient to demonstrate disparate treatment, it is not necessary. Using protected features in the algorithm would be enough to result in disparate treatment liability in the US, the impact of using the feature is irrelevant.</p></li>
@@ -2858,7 +2858,7 @@ n_g \ln \left(\frac{\mu_g}{\mu}\right).\]</span></td>
 </section>
 </section>
 </section>
-<section id="aif360-1" class="level1" data-number="5">
+<section id="app_AIF360" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">A</span> AIF360</h1>
 <section id="app_Install" class="level2" data-number="5.1">
 <h2 data-number="5.1"><span class="header-section-number">A.1</span> Installing AIF360</h2>
@@ -2877,7 +2877,7 @@ n_g \ln \left(\frac{\mu_g}{\mu}\right).\]</span></td>
 <pre><code>$ jupyter notebook mbml_german.ipynb</code></pre></li>
 </ol>
 </section>
-<section id="group-fairness-in-aif360" class="level2" data-number="5.2">
+<section id="app_AIF360_GF" class="level2" data-number="5.2">
 <h2 data-number="5.2"><span class="header-section-number">A.2</span> Group fairness in AIF360</h2>
 <section id="comparing-outcomes-1" class="level3" data-number="5.2.1">
 <h3 data-number="5.2.1"><span class="header-section-number">A.2.1</span> Comparing outcomes</h3>
@@ -3152,7 +3152,7 @@ display(errors_df)</code></pre>
 <p>Recall that when we compared fairness metrics under the independence criterion, it appeared that our model was reducing the level of bias in the data. Note that comparing balanced error metrics (in addition to independence metrics) gives us a richer understanding of the behaviour of our model in relation to protected groups.</p>
 </section>
 </section>
-<section id="individual-fairness-2" class="level2" data-number="5.3">
+<section id="app_AIF360_IF" class="level2" data-number="5.3">
 <h2 data-number="5.3"><span class="header-section-number">A.3</span> Individual fairness</h2>
 <section id="consistency-1" class="level3" data-number="5.3.1">
 <h3 data-number="5.3.1"><span class="header-section-number">A.3.1</span> Consistency</h3>
@@ -3725,7 +3725,7 @@ NPV &amp; = \frac{(1-p)(1-FPR)}{p(1-TPR) + (1-p)(1-FPR)}.\end{aligned}\]</span><
 </section>
 <section id="sec_app_Ch4Solns" class="level2" data-number="8.2">
 <h2 data-number="8.2"><span class="header-section-number">D.2</span> Chapter 4 Exercises</h2>
-<section id="individual-fairness-3" class="level3" data-number="8.2.1">
+<section id="individual-fairness-2" class="level3" data-number="8.2.1">
 <h3 data-number="8.2.1"><span class="header-section-number">D.2.1</span> Individual fairness</h3>
 <div class="lookbox">
 <div id="IF_RandPreds">
