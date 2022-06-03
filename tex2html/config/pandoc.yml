@@ -1,0 +1,91 @@
+# On the comandline
+# pandoc --defaults tex2html/config/pandoc.yml
+
+from: latex
+to: html5
+
+output-file: MBML.html
+input-file: MBML.tex
+
+template: tex2html/tufte/tufte.html5
+standalone: true
+
+# metadata values specified here are parsed as literal strings, not markdown:
+metadata:
+#  author: Dr Leena Murgai
+#  title: Mitigating Bias in Machine Learning
+# Replace date with today's date if it's empty filter date.lua
+  date: 
+  link-citations: true
+  reference-section-title: References
+ # suppress-bibliography: true
+  crossrefYaml: tex2html/config/pandoc-crossref.yml
+
+css:
+- tex2html/tufte/tufte.css # https://github.com/edwardtufte/tufte-css
+- tex2html/css/pandoc.css  # https://github.com/jez/tufte-pandoc-css
+- tex2html/css/navbar.css  # https://github.com/mrtzh/unbuch
+- tex2html/css/tweak.css
+
+# Note that these take files, not their contents:
+#include-before-body: []
+#include-after-body: [99_BackMatter/References.html]
+#include-in-header: [tex2html/css/includes.css]
+
+resource-path: ["tex2html/csl/" ]
+data-dir: /Users/leenamurgai/Library/Python/3.8/bin
+
+reference-links: true
+#reference-location: block
+
+# --------------------------- # ------------------------------------------------------- #
+filters:                      # Filters are run in the order specified.                 #
+# --------------------------- # ------------------------------------------------------- #
+- tex2html/filters/date.lua   # Replace date with today's date if it's empty above      #
+# --------------------------- # ------------------------------------------------------- #
+# - tex2html/filters/fullwidthfig.lua # Can't do this with the pandoc AST
+# --------------------------- # ------------------------------------------------------- #
+- tex2html/filters/texref.lua # Cleanup pandoc and pandoc-crossref conflicts            #
+#                             # https://github.com/lierdakil/pandoc-crossref/issues/319 #
+# --------------------------- # ------------------------------------------------------- #
+- pandoc-crossref             # https://github.com/lierdakil/pandoc-crossref            #
+#                             # http://lierdakil.github.io/pandoc-crossref/             #
+#                             # Since pandoc-crossref uses the same citation syntax     #
+#                             # as citeproc, you have to run former before latter.      #
+#                             # Doesn't number my equations                             #
+# --------------------------- # ------------------------------------------------------- #
+- citeproc                    # If you need control over when the citeproc processing   #
+#                             # is done relative to other filters, you should specify   #
+#                             # citeproc in the list of filters, instead of switching   #
+#                             # on built-in citation processing                         #
+# --------------------------- # ------------------------------------------------------- #
+- pandoc-sidenote             # https://github.com/jez/pandoc-sidenote                  #
+# --------------------------- # ------------------------------------------------------- #
+# - tex2html/filters/test.lua
+# - tex2html/filters/margincitations.lua
+# --------------------------- # ------------------------------------------------------- #
+  
+# citeproc: true     # Built-in citation processing
+bibliography: 99_BackMatter/References.bib
+csl: ieee
+
+log-file: tex2html/log/log.json
+
+# citeproc, natbib, or biblatex. This only affects LaTeX
+# output.  If you want to use citeproc to format citations,
+# you should also set 'citeproc: true' (see above).
+#cite-method: natbib
+
+table-of-contents: true
+toc-depth: 2
+top-level-division: chapter
+number-sections: true
+
+# Both listings and section-divs have an impact on the body text width?!
+listings: false    # Doesn't change the fact that there are no captions for code
+section-divs: true # Wrap sections in <section> tags and
+                   # attach identifiers to the enclosing <section>
+                   # rather than the heading itself.
+
+html-math-method:
+  method: mathjax

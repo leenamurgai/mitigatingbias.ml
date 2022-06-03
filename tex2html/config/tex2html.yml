@@ -1,0 +1,77 @@
+# On the comandline
+# python tex2html/config/tex2html.yml
+
+# We need pandoc.yml to run pandoc and get it's output filename
+pandocYaml: 'tex2html/config/pandoc.yml'
+
+html_file_out: index.html
+
+#######################################################################################
+# For efficiency, figures must be specified in the order they appear in the book
+fullwidthfigures: 
+  - 01_MotivationAndContext/figures/Fig_CollConfProg.png
+  #- 01_MotivationAndContext/figures/Fig_TinyImages.png
+  #- 02_EthicalDevelopment/figures/Fig_RatesDrugUseSaleRace.jpg
+  - 02_EthicalDevelopment/figures/Fig_Workflow.png
+  - 02_EthicalDevelopment/figures/Fig_Taxonomy.png
+
+marginfigures: 
+  - 05_IndividualFairness/figures/Fig_TriangleInequality.png
+
+#######################################################################################
+linebreak_lines:
+  False Positive Type I Error: 'False Positive<br>Type I Error'
+  False Negative Type II Error: 'False Negative<br>Type II Error'
+  Positive Predictive Value<sup>a</sup> <: 'Positive Predictive Value<sup>a</sup><br><'
+  Negative Predictive Value <: 'Negative Predictive Value<br><'
+  True Positive Rate<sup>b</sup> <: 'True Positive Rate<sup>b</sup><br><'
+  True Negative Rate <: 'True Negative Rate<br><'
+  False Discovery Rate <: 'False Discovery Rate<br><'
+  False Omission Rate <: 'False Omission Rate<br><'
+  False Negative Rate <: 'False Negative Rate<br><'
+  False Positive Rate <: 'False Positive Rate<br><'
+  True Positive (<: 'True Positive<br>(<'
+  False Positive (<: 'False Positive<br>(<'
+  False Negative (: 'False Negative<br>('
+  True Negative (<: 'True Negative<br>(<'
+  Accuracy <: 'Accuracy<br><'
+  Error Rate <: 'Error Rate<br><'
+
+#######################################################################################
+appendix_lettermap:
+  AIF360: 'A'
+  Performance Metrics: 'B'
+  Rules of Probability: 'C'
+  Solutions to Exercises: 'D'
+
+labels_pre_post:
+# Labels
+  - !!python/tuple ['<span class="header-section-number">', ''] # headers
+  - !!python/tuple ['Figure ', '.']                             # figures
+  - !!python/tuple ['Table ', '.']                              # tables
+  - !!python/tuple ['Listing ', '.']                            # listings
+  - !!python/tuple ['listing ', '.']                            # listings
+  - !!python/tuple ['Equation (', '.']                          # equation refs
+  - !!python/tuple ['equation (', '.']                          # equation refs
+  - !!python/tuple ['<td style="text-align: right;"><span class="math display">(',
+                    '']                                         # equation labels
+# Example equation label
+# <td style="text-align: right;"><span class="math display">(7.1)</span>
+
+appendix_label_prefixes:
+  - app_      # headers
+  - sec_app_  # headers
+  - fig:app_  # figures
+  - tbl:app_  # tables
+# Equation and Listing references are not linked
+
+#######################################################################################
+n_lines_per_ref: 3 # Each reference is 3 lines (using ieee.csl)
+
+#######################################################################################
+
+refs_in_math:
+  - eq:SepSuf1
+  - eq:SepSuf2
+
+#######################################################################################

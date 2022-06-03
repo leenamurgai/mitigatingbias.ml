@@ -1,0 +1,25 @@
+file-extensions:
+  - aux
+  - fdb_latexmk
+  - fls
+  - lof
+  - log
+  - lot
+  - out
+  - synctex.gz
+  - toc
+
+chapters: 
+  - 01_MotivationAndContext
+  - 02_EthicalDevelopment
+  - 03_GroupFairness
+  - 04_IndividualFairness
+  - 05_InequalityIndices
+  
+inputs:
+  - 98_Appendices
+
+chapter-extensions:
+  - aux
+  - bbl
+  - blg

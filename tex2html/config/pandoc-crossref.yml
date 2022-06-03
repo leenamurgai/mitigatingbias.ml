@@ -1,0 +1,16 @@
+# pandoc-crossref settings
+# https://github.com/lierdakil/pandoc-crossref
+# http://lierdakil.github.io/pandoc-crossref
+
+chapters: true           # Prepend numbering with "chap#."
+
+#eqnPrefix: ""           # Still prepends with a space 
+#lstPrefix: ""           #
+eqnPrefixTemplate: $$i$$ # https://github.com/lierdakil/pandoc-crossref/issues/319
+lstPrefixTemplate: $$i$$ # 
+
+tableEqns: true          # Typeset eqns and eqn #s in tbl instead of embedding #s
+                         # into eqns (default false)
+
+#loftitle: "List of figures"
+#lotTitle: "List of tables"
