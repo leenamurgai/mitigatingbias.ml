@@ -106,7 +106,10 @@ I've optimised to achieve readability of tables in both LaTeX and HTML. In some 
    ```
 ## 4. Update the website
 
-To update the website, use the command: ```python3 tex2html/src/updatewebsite.py```
+To update the website, use the command:
+```
+python3 tex2html/src/updatewebsite.py
+```
 
 - The files and folders which require updating are configured in [website.yml](https://github.com/leenamurgai/leenamurgai.github.io/tree/master/book/tex2html/config/wesite.yml).
 - The code
