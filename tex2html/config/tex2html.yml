@@ -9,14 +9,20 @@ html_file_out: index.html
 #######################################################################################
 # For efficiency, figures must be specified in the order they appear in the book
 fullwidthfigures: 
-  - 01_MotivationAndContext/figures/Fig_CollConfProg.png
-  #- 01_MotivationAndContext/figures/Fig_TinyImages.png
+  - 01_Context/figures/Fig_CollConfProg.png
+  #- 01_Context/figures/Fig_TinyImages.png
   #- 02_EthicalDevelopment/figures/Fig_RatesDrugUseSaleRace.jpg
   - 02_EthicalDevelopment/figures/Fig_Workflow.png
   - 02_EthicalDevelopment/figures/Fig_Taxonomy.png
+  - 05_InequalityIndices/figures/Fig_GEI_bmin0_n10n50.png
+  - 05_InequalityIndices/figures/Fig_I_alpha_1-4_varlambda
+  - 05_InequalityIndices/figures/Fig_g_lambda_tilde_alpha.png
+  - 05_InequalityIndices/figures/Fig_I_lambda_50-95_varalpha.png
+  - 05_InequalityIndices/figures/Fig_h_plus_lambda_bar_alpha.png
+  - 05_InequalityIndices/figures/Fig_ccplot_varalpha.png
 
-marginfigures: 
-  - 05_IndividualFairness/figures/Fig_TriangleInequality.png
+marginfigures:
+  - 04_IndividualFairness/figures/Fig_TriangleInequality.png
 
 #######################################################################################
 linebreak_lines:

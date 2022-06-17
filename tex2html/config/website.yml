@@ -9,11 +9,12 @@ files:
   - MBML.pdf
   - README.md
   - tex2html/README.md
+  - tex2html/src/README.md
   - tex2html/tufte/tufte.css
   - tex2html/tufte/tufte.html5
 
 chapters:
-  - 01_MotivationAndContext
+  - 01_Context
   - 02_EthicalDevelopment
   - 03_GroupFairness
 

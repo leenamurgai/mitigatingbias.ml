@@ -10,7 +10,7 @@ file-extensions:
   - toc
 
 chapters: 
-  - 01_MotivationAndContext
+  - 01_Context
   - 02_EthicalDevelopment
   - 03_GroupFairness
   - 04_IndividualFairness
