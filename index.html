@@ -621,7 +621,7 @@
 <thead>
 <tr class="header">
 <th style="text-align: center;" colspan="5"></th>
-<th style="text-align: center;" colspan="4"><span style="color: lmb">Stained?</span> / <span style="color: lmr">Male?</span></th>
+<th style="text-align: center;" colspan="4"><span style="color: SteelBlue">Stained?</span> / <span style="color: FireBrick">Male?</span></th>
 </tr>
 </thead>
 <tbody>
@@ -631,11 +631,11 @@
 <td style="text-align: center;" colspan="2"><span class="math inline">\(C=0\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;" rowspan="2"><span style="color: lmb">Black?</span>/ <span style="color: lmr">Died?</span></td>
-<td style="text-align: center;" colspan="2"><span style="color: lmb">Plain?</span>/ <span style="color: lmr">Treated?</span></td>
+<td style="text-align: center;" rowspan="2"><span style="color: SteelBlue">Black?</span>/ <span style="color: FireBrick">Died?</span></td>
+<td style="text-align: center;" colspan="2"><span style="color: SteelBlue">Plain?</span>/ <span style="color: FireBrick">Treated?</span></td>
 <td style="text-align: center;" rowspan="5"></td>
-<td style="text-align: center;" rowspan="2"><span style="color: lmb">Black?</span>/ <span style="color: lmr">Died?</span></td>
-<td style="text-align: center;" colspan="4"><span style="color: lmb">Plain?</span>/ <span style="color: lmr">Treated?</span></td>
+<td style="text-align: center;" rowspan="2"><span style="color: SteelBlue">Black?</span>/ <span style="color: FireBrick">Died?</span></td>
+<td style="text-align: center;" colspan="4"><span style="color: SteelBlue">Plain?</span>/ <span style="color: FireBrick">Treated?</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(A=1\)</span></td>
@@ -686,7 +686,7 @@
 <p>Which distribution gives us the most relevant understanding of the association between <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, the marginal (i.e. unconditional) <span class="math inline">\(\mathbb{P}(A,B)\)</span> or conditional distribution <span class="math inline">\(\mathbb{P}(A,B|C)\)</span>? To show that causal relationships matter, we consider two different examples.</p>
 </section>
 <section id="example-a-pack-of-cards-colliding-variable" class="level4 unnumbered">
-<h4 class="unnumbered"><span style="color: lmb">Example a) Pack of Cards (Colliding Variable)</span></h4>
+<h4 class="unnumbered"><span style="color: SteelBlue">Example a) Pack of Cards (Colliding Variable)</span></h4>
 <p>Suppose the population is a pack of cards. It so happens that baby Milen has been messing about with the cards and made some dirty in the process. Let’s summarise our variables,</p>
 <ul>
 <li><p><span class="math inline">\(A\)</span> tells us the character of the card, either plain (<span class="math inline">\(A=1\)</span>) or royal (King, Queen, Jack; <span class="math inline">\(A=0\)</span>).</p></li>
@@ -696,7 +696,7 @@
 <p>In this case, the aggregated data showing <span class="math inline">\(\mathbb{P}(A,B)\)</span> is relevant since the cleanliness of the cards <span class="math inline">\(C\)</span> has no bearing on the association between the character <span class="math inline">\(A\)</span> and colour <span class="math inline">\(B\)</span> of the cards.</p>
 </section>
 <section id="example-b-treatment-effect-on-mortality-rate-confounding-variable" class="level4 unnumbered">
-<h4 class="unnumbered"><span style="color: lmr">Example b) Treatment Effect on Mortality Rate (Confounding Variable)</span></h4>
+<h4 class="unnumbered"><span style="color: FireBrick">Example b) Treatment Effect on Mortality Rate (Confounding Variable)</span></h4>
 <p>Next, suppose that the data relates to the results of medical trials for a drug on a potentially lethal illness. This time,</p>
 <ul>
 <li><p><span class="math inline">\(A\)</span> tells us if the subject was treated (<span class="math inline">\(A=1\)</span>) or not (<span class="math inline">\(A=0\)</span>).</p></li>
@@ -721,7 +721,7 @@
 <h3 data-number="1.4.3"><span class="header-section-number">1.4.3</span> Collapsibility</h3>
 <p>We have demonstrated that correlation does not imply causation in the manifestation of Simpson’s Paradox. But there is second factor that can have an impact; and that is the nature of the measure of association in question.</p>
 <section id="example-c-treatment-effect-on-mortality-rate-prognostic-variable" class="level4 unnumbered">
-<h4 class="unnumbered"><span style="color: lmg">Example c) Treatment Effect on Mortality Rate (Prognostic Variable)</span></h4>
+<h4 class="unnumbered"><span style="color: SeaGreen">Example c) Treatment Effect on Mortality Rate (Prognostic Variable)</span></h4>
 <p>Suppose that in the study of the efficacy of the treatment (in Example 2 above), we remedy the selection bias so that male and female patients are equally likely to be treated. We remove the causal relationship between variables <span class="math inline">\(A\)</span> and <span class="math inline">\(C\)</span> (treatment and gender). In this case, the variable <span class="math inline">\(C\)</span> becomes <em>prognostic</em> rather than confounding. See Figure <a href="#fig:CollConfProg" data-reference-type="ref" data-reference="fig:CollConfProg">1.4</a> c). In this case the decision as to which distributions (marginal or conditional) are most relevant would depend only on the target population in question. In the absence of the confounding variable in our study one might reasonably expect the marginal measure of association to be bounded by the partial measures of association. Such intuition is correct only if the measure of association is <em>collapsible</em> (that is, it can be expressed as the weighted average of the partial measures), not otherwise. Some examples of collapsible measures of association are the risk ratio and risk difference. The odds ratio however is not collapsible. If you don’t know what these are, don’t worry, we’ll return to them in chapter <a href="#ch_GroupFairness" data-reference-type="ref" data-reference="ch_GroupFairness">3</a>.</p>
 </section>
 </section>
