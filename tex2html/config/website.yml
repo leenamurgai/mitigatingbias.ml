@@ -7,7 +7,6 @@ onlineBookFolder: ../../leenamurgai.github.io
 files:
   - index.html
   - MBML.pdf
-  - README.md
   - tex2html/README.md
   - tex2html/src/README.md
   - tex2html/tufte/tufte.css

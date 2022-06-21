@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta name="author" content="Dr Leena Murgai">
-  <meta name="dcterms.date" content="2022-06-17">
+  <meta name="dcterms.date" content="2022-06-21">
   <title>Mitigating Bias in Machine Learning</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="tex2html/tufte/tufte.css">
@@ -22,7 +22,7 @@
 <header>
 <h1 class="title">Mitigating Bias in Machine Learning</h1>
 <p class="byline">Dr Leena Murgai</p>
-<p class="byline">17 June 2022</p>
+<p class="byline">21 June 2022</p>
 </header>
 <div class="TOC">
 <nav id="TOC">
@@ -267,17 +267,17 @@
 </section>
 <section id="sec_FairnessJustice" class="level2" data-number="1.2">
 <h2 data-number="1.2"><span class="header-section-number">1.2</span> A Philosophical Perspective</h2>
-<p>Cathy O’Neil describes models as “opinions embedded in code”. Developing models is not an objective scientific process, it involves making a series subjective choices. One of the most fundamental ways in which we impose our opinion on a machine learning model is in deciding how we measure success. Which model is the <em>right</em> one so to speak? Let’s look at the process of training a model. We start with some parametric representation (a family of models), which you hope is sufficiently in complex to be able to reflect the relationships between the variables in the data. The goal in training is to determine which model (in our chosen family) is <em>best</em>, the best model being the one that minimises the expected error (assuming our data is representive of some objective ground truth).</p>
+<p>Cathy O’Neil describes models as “opinions embedded in code”. Developing models is not an objective scientific process, it involves making a series subjective choices. One of the most fundamental ways in which we impose our opinion on a machine learning model is in deciding how we measure success. Which model is the <em>right</em> one so to speak? Let’s look at the process of training a model. We start with some parametric representation (a family of models), which you hope is sufficiently in complex to be able to reflect the relationships between the variables in the data. The goal in training is to determine which model (in our chosen family) is <em>best</em>, the <em>best</em> model being the one that minimises the expected error (assuming our data is representive of some objective ground truth).</p>
 <p>If all we are interested in doing is understanding how well our model represents the world, this approach might be valid. We don’t concern ourselves with the direction of the error in training. Overestimation is as bad as underestimation, false positives are as bad as false negatives. In this case, understanding errors are a means to refine our model if it does not explain the particular phenomenon we are studying. But for sociotechnical systems, we’re not simply trying to understand the world, we are making decisions off the back of it; decisions which result in a benefit or harm to those subjected to them. The very purpose of codifying a decision policy is often to cheaply deploy it at scale. The more people it processes, the more financial value there is in codifying the decision process. Another, way to look such models instead then, is as a system for distributing benefits (or conversely harms) among a population. In this section we briefly discuss some more philosphical theories relevant to these types of problems. We start with utilitarianism which is perhaps the easiest theory to draw parallels with when it comes to training a model.</p>
 <section id="utilitarianism" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span> Utilitarianism</h3>
 <p>Utilitarianism provides a framework for moral reasoning in decision making. Under this framework, the correct course of action, when faced with a dilemma, is the one that maximises the benefit for the greatest number of people. The doctrine demands that the benefits to all people are are counted equally. Variations of the theory have evolved over the years. Some differ in their notion of how benefits are understood. Others distinguish between the quality of various kinds of benefit. In a business context, one might consider it as financial benefit (and cost). Although, this in itself depends on one’s perspective. Some doctrines advocate that the impact of the action in isolation should be considered, while others ask what the impact would be if everyone in the population took the same actions.</p>
-<p>There are some practical problems with utilitarianism as the sole guiding principle for decision making. How do we measure benefit? How do we navigate the complexities of placing a value on immeasurable and vastly different consequences? What is a life, time, money or particular emotion worth and how do we compare and aggregate them? How can one even be certain of the consequences? Longer term consequences are hard if not impossible to predict. Perhaps the most significant flaw in utilitarianism for moral reasoning is the omission of justice as a consideration.</p>
-<p>Utilitarian reasoning judges actions based solely on consequences and aggregates them over a population. So, if an action that unjustly harms a minority group happens to be the one that maximises the aggregate benefit over a population, it is nevertheless the correct action to take. Under utilitarianism, theft or infidelity might be morally justified, if those it would harm are none the wiser. Or punishing an innocent person for a crime they did not commit could be justified, if it served to quell unrest among a population. For this reason it is widely accepted that utilitarianism is insufficient as a framework for decision making.</p>
+<p>There are some practical problems with utilitarianism as the sole guiding principle for decision making. How do we measure benefit? How do we navigate the complexities of placing a value on immeasurable and vastly different consequences? What is a life, time, money or particular emotion worth and how do we compare and aggregate them? How can one even be certain of the consequences? Longer term consequences are hard if not impossible to predict. Perhaps the most significant flaw in utilitarianism for moral reasoning, is the omission of justice as a consideration.</p>
+<p>Utilitarian reasoning judges actions based solely on consequences, and aggregates them over a population. So, if an action that unjustly harms a minority group happens to be the one that maximises the aggregate benefit over a population, it is nevertheless the correct action to take. Under utilitarianism, theft or infidelity might be morally justified, if those it would harm are none the wiser. Or punishing an innocent person for a crime they did not commit could be justified, if it served to quell unrest among a population. For this reason it is widely accepted that utilitarianism is insufficient as a framework for decision making.</p>
 <p>Utilitarianism is a flavour of consequentialism, a branch of ethical theory that holds that consequences are the yard stick against which we must judge the morality of our actions. In contrast deontological ethics judges the morality of actions against a set of rules that define our duties or obligations towards others. Here it is not the consequences of our actions that matter but rather intent.</p>
 <p>The conception of utilitarianism is attributed to British philosopher Jeremy Bentham who authored the first major book on the topic <em>An Introduction to the Principles of Morals and Legislation</em> in 1780. In it Bentham argues that, it is the pursuit of pleasure and avoidance of pain alone that motivate individuals to act. Given this he saw utilitarianism as a principle by which to govern. Broadly speaking, the role of government, in his view, was to assign rewards or punishments to actions, in proportion to the happiness or suffering they produced among the governed. At the time, the idea that the well-being of all people should be counted equally, and that that morality of actions should be judged accordingly was revolutionary. Bentham was a progressive in his time, he advocated for women’s rights (to vote, hold office and divorce), decriminalisation of homosexual acts, prison reform and the abolition of slavery and more. He argued many of his beliefs as a simple economic calculation of how much happiness they would produce. Importantly, he didn’t claim that all people were equal, but rather only that their happiness mattered equally.</p>
-<p>Times have changed. Over the last century, as civil rights have advanced, the weaknesses of the utilitarianism in practice have been exposed time and time again. Utilitarian reasoning has increasingly been seen as hindering social progress rather than advancing it. For example, utilitarian arguments were used by Whites in apartheid South Africa, who claimed that all South Africans were better-off under White rule, and that a mixed government would lead to social decline as it had in other African nations. Utilitarian reasoning has been used widely by capitalist nations in the form of trickle-down economics. The theory being that the benefits of tax-breaks for the wealthy drive economic growth and ‘trickle-down’ to the rest of the population. But evidence suggests that trickle-down economic policies in more recent decades have done more damage than good, increasing national debt and fueling income inequality. Utilitarian principles have more recently been in the spotlight in the debate over torture, capturing a rather callous conviction, one where the ‘means justify the ends’.</p>
-<p>Yuval Noah Harari has described this problem on a grander scale. He argues that historically, decentralization of power and efficiency have aligned; so much so, that many of us cannot think of democracy as being capable of failing to more totalitarian regimes. But in this new age, data is power. We can train enomous models, that require vast amounts of data, to process people en masse, organise and sort them. The question Yuval poses is, <em>Might the benefits of centralised data, offer a great enough advantage, to tip the balance of efficiency, in favour of more centralised models of power?</em></p>
+<p>Times have changed. Over the last century, as civil rights have advanced, the weaknesses of utilitarianism in practice have been exposed time and time again. Utilitarian reasoning has increasingly been seen as hindering social progress, rather than advancing it. For example, utilitarian arguments were used by Whites in apartheid South Africa, who claimed that all South Africans were better-off under White rule, and that a mixed government would lead to social decline as it had in other African nations. Utilitarian reasoning has been used widely by capitalist nations in the form of trickle-down economics. The theory being that the benefits of tax-breaks for the wealthy drive economic growth and ‘trickle-down’ to the rest of the population. But evidence suggests that trickle-down economic policies in more recent decades have done more damage than good, increasing national debt and fueling income inequality. Utilitarian principles have also been tested in the debate over torture, capturing a rather callous conviction, one where the ‘means justify the ends’.</p>
+<p>Historian and author, Yuval Noah Harari has eloquently abstracted this problem. He argues that historically, decentralization of power and efficiency have aligned; so much so, that many of us cannot think of democracy as being capable of failing, to more totalitarian regimes. But in this new age, data is power. We can train enormous models, that require vast amounts of data, to process people en masse, organise and sort them. And importantly, one does not have to have a perfect system in order to have an impact because of the scale on which they can be deployed. The question Yuval poses is, <em>Might the benefits of centralised data, offer a great enough advantage, to tip the balance of efficiency, in favour of more centralised models of power?</em></p>
 </section>
 <section id="justice-as-fairness" class="level3" data-number="1.2.2">
 <h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span> Justice as Fairness</h3>
@@ -511,13 +511,13 @@
 </section>
 <section id="sec_SimpsParadox" class="level2" data-number="1.4">
 <h2 data-number="1.4"><span class="header-section-number">1.4</span> A Technical Perspective</h2>
-<p>The problem of distinguishing correlation from causation is an important one in identifying bias. To demonstrate the danger of making causal inferences from observational data and stress the importance of domain knowledge, we discuss a well known and particularly relevant example of Simpson’s paradox<span class="citation" data-cites="Berkeley"><a href="#ref-Berkeley" role="doc-biblioref">[10]</a></span><span class="marginnote"><span id="ref-Berkeley" class="csl-entry" role="doc-biblioentry">
-<span class="csl-left-margin">[10] </span><span class="csl-right-inline">P. J. Bickel, E. A. Hammel, and J. W. O’Connell, <span>“Sex bias in graduate admissions: Data from berkeley,”</span> <em>Science</em>, vol. 187, Issue 4175, pp. 398–404, 1975.</span>
-</span>
-</span>, also known as the reversal paradox and Yule-Simpson effect.</p>
+<p>The problem of distinguishing correlation from causation is an important one in identifying bias. Using illustrative examples of Simpson’s paradox, we demonstrate the danger of assuming causal relationships based on observational data.</p>
 <section id="simpsons-paradox" class="level3" data-number="1.4.1">
 <h3 data-number="1.4.1"><span class="header-section-number">1.4.1</span> Simpson’s Paradox</h3>
-<p>In 1973, University of California, Berkeley received approximately 15,000 applications for the fall quarter<span class="citation" data-cites="Berkeley"><a href="#ref-Berkeley" role="doc-biblioref">[10]</a></span>. At the time it was made up of 101 departments. 12,763 applications reached the decision stage. Of these 8442 were male and 4321 were female. The acceptance rates for the applicants were 44% and 35% respectively (see Table <a href="#tbl:BerkAdm1" data-reference-type="ref" data-reference="tbl:BerkAdm1">1.3</a>).</p>
+<p>In 1973, University of California, Berkeley received approximately 15,000 applications for the fall quarter<span class="citation" data-cites="Berkeley"><a href="#ref-Berkeley" role="doc-biblioref">[10]</a></span><span class="marginnote"><span id="ref-Berkeley" class="csl-entry" role="doc-biblioentry">
+<span class="csl-left-margin">[10] </span><span class="csl-right-inline">P. J. Bickel, E. A. Hammel, and J. W. O’Connell, <span>“Sex bias in graduate admissions: Data from berkeley,”</span> <em>Science</em>, vol. 187, Issue 4175, pp. 398–404, 1975.</span>
+</span>
+</span>. At the time it was made up of 101 departments. 12,763 applications reached the decision stage. Of these 8442 were male and 4321 were female. The acceptance rates for the applicants were 44% and 35% respectively (see Table <a href="#tbl:BerkAdm1" data-reference-type="ref" data-reference="tbl:BerkAdm1">1.3</a>).</p>
 <div id="tbl:BerkAdm1">
 <table>
 <caption>Table 1.3: Graduate admissions data from Berkeley (fall 1973).</caption>
@@ -602,15 +602,15 @@
 <img src="01_Context/figures/Fig_BerkeleyAppByDept.png" id="fig:SimpsParAppByDept" style="width:85.0%" alt="Figure 1.2: Application distributions by department for male and female applicants." /><figcaption aria-hidden="true">Figure 1.2: Application distributions by department for male and female applicants.</figcaption>
 </figure>
 <p>In other words a larger proportion of the women are being filtered out overall, simply because they are applying to departments that are harder to get into.</p>
-<p>This is a classic example of Simpson’s Rule - where an observable relationship between two categorical variables (in this case gender and acceptance) disappears or reverses after controlling for one or more other variables (in this case department). Simpson’s Rule is a special case of so called association paradoxes (where the variables are categorical, and the relationship changes qualitatively), but the same rules also apply to continuous variables. The <em>marginal measure of association</em> (e.g. correlation) between two variables need not be bounded by the <em>partial measures of association</em> after controlling on one or more variable. Although Edward Hugh Simpson famously wrote about the paradox in 1951, it was not discovered by him. In fact, it was reported by George Udny Yule as early as 1903 and in the case of the association paradox for continuous variables, that was demonstrated by Karl Pearson in 1899.</p>
-<p>Let’s discuss another quick example. A 1996 follow-up study on the effects of smoking recorded the mortality rate for the participants over a 20 year period. They found higher mortality rates among the non-smokers, 31.4% compared to 23.9% which, in itself, might imply a considerable protective affect from smoking. Clearly there’s something fishy going on. Disaggregating the data by age group showed that the mortality rates were higher for smokers in all but one of them. Looking at the age distribution of the populations of smokers and non-smokers, it’s apparent that the age distribution of the non-smoking group is more positively skewed, that is, they are older on average. This concords with the rationale that non-smokers live longer - hence the difference in age distributions of the participants.</p>
+<p>This is a classic example of Simpson’s Paradox (also known as the reversal paradox and Yule-Simpson effect). We have an observable relationship between two categorical variables (in this case gender and acceptance) which disappears or reverses, after controlling for one or more other variables (in this case department). Simpson’s Paradox is a special case of so called association paradoxes (where the variables are categorical, and the relationship changes qualitatively), but the same rules also apply to continuous variables. The <em>marginal</em> (unconditional) measure of association (e.g. correlation) between two variables need not be bounded by the <em>partial</em> (conditional) measures of association (after controlling for one or more variables). Although Edward Hugh Simpson famously wrote about the paradox in 1951, it was not discovered by him. In fact, it was reported by George Udny Yule as early as 1903. The association paradox for continuous variables was demonstrated by Karl Pearson in 1899.</p>
+<p>Let’s discuss another quick example. A 1996 follow-up study on the effects of smoking recorded the mortality rate for the participants over a 20 year period. They found higher mortality rates among the non-smokers, 31.4% compared to 23.9% which, in itself, might imply a considerable protective affect from smoking. Clearly there’s something fishy going on. Disaggregating the data by age group showed that the mortality rates were higher for smokers in all but one of them. Looking at the age distribution of the populations of smokers and non-smokers, it’s apparent that the age distribution of the non-smoking group is more positively skewed, and so they are older on average. This concords with the rationale that non-smokers live longer - hence the difference in age distributions of the participants.</p>
 <figure>
 <img src="01_Context/figures/Fig_SimpParaReg.png" id="fig:SimpsPara" style="width:98.0%" alt="Figure 1.3: Visualisation of Simpsons Paradox. Wikipedia." /><figcaption aria-hidden="true">Figure 1.3: Visualisation of Simpsons Paradox. <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Wikipedia</a>.</figcaption>
 </figure>
 </section>
 <section id="causality" class="level3" data-number="1.4.2">
 <h3 data-number="1.4.2"><span class="header-section-number">1.4.2</span> Causality</h3>
-<p>In both the above examples, it appears that the salient information is found in the disaggregated data (we’ll come back to this later). In both cases it is the disaggregated data that enables us to understand the <em>true nature</em> of the relationship between the variables of interest. As we shall see in this section, this need not be the case. To show this, we discuss two examples. In each case, the data is identical but the meaning of the variables is not. The examples are those Simpson gave in his original 1951 paper<span class="citation" data-cites="Simpson"><a href="#ref-Simpson" role="doc-biblioref">[11]</a></span><span class="marginnote"><span id="ref-Simpson" class="csl-entry" role="doc-biblioentry">
+<p>In both the above examples, it appears that the salient information is found in the disaggregated data (we’ll come back to this later). In both cases it is the disaggregated data that enables us to understand the <em>true nature</em> of the relationship between the variables of interest. As we shall see in this section, this need not be the case. To show this, we discuss two examples. In each case, the data is identical but the variables is not. The examples are those Simpson gave in his original 1951 paper<span class="citation" data-cites="Simpson"><a href="#ref-Simpson" role="doc-biblioref">[11]</a></span><span class="marginnote"><span id="ref-Simpson" class="csl-entry" role="doc-biblioentry">
 <span class="csl-left-margin">[11] </span><span class="csl-right-inline">E. Simpson, <span>“The interpretation of interaction in contingency tables,”</span> <em>Journal of the Royal Statistical Society</em>, vol. Series B, 13, pp. 238–241, 1951.</span>
 </span>
 </span>.</p>
@@ -620,24 +620,28 @@
 <caption>Table 1.5: Data summary showing the association between variables <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, first for all the data points and then stratified by the value of <span class="math inline">\(C\)</span>.</caption>
 <thead>
 <tr class="header">
-<th style="text-align: center;" colspan="3">All data points</th>
-<th style="text-align: center;"></th>
-<th style="text-align: center;" colspan="3"><span class="math inline">\(C=1\)</span></th>
-<th style="text-align: center;"></th>
-<th style="text-align: center;" colspan="3"><span class="math inline">\(C=0\)</span></th>
+<th style="text-align: center;" colspan="5"></th>
+<th style="text-align: center;" colspan="4"><span style="color: lmb">Stained?</span> / <span style="color: lmr">Male?</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"></td>
+<td style="text-align: center;" colspan="5"></td>
+<td style="text-align: center;" colspan="2"><span class="math inline">\(C=1\)</span></td>
+<td style="text-align: center;" colspan="2"><span class="math inline">\(C=0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;" rowspan="2"><span style="color: lmb">Black?</span>/ <span style="color: lmr">Died?</span></td>
+<td style="text-align: center;" colspan="2"><span style="color: lmb">Plain?</span>/ <span style="color: lmr">Treated?</span></td>
+<td style="text-align: center;" rowspan="5"></td>
+<td style="text-align: center;" rowspan="2"><span style="color: lmb">Black?</span>/ <span style="color: lmr">Died?</span></td>
+<td style="text-align: center;" colspan="4"><span style="color: lmb">Plain?</span>/ <span style="color: lmr">Treated?</span></td>
+</tr>
+<tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(A=1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(A=0\)</span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
 <td style="text-align: center;"><span class="math inline">\(A=1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(A=0\)</span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
 <td style="text-align: center;"><span class="math inline">\(A=1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(A=0\)</span></td>
 </tr>
@@ -645,12 +649,9 @@
 <td style="text-align: center;"><span class="math inline">\(B=1\)</span></td>
 <td style="text-align: center;">20</td>
 <td style="text-align: center;">6</td>
-<td style="text-align: center;"></td>
 <td style="text-align: center;"><span class="math inline">\(B=1\)</span></td>
 <td style="text-align: center;">5</td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><span class="math inline">\(B=1\)</span></td>
 <td style="text-align: center;">15</td>
 <td style="text-align: center;">3</td>
 </tr>
@@ -658,12 +659,9 @@
 <td style="text-align: center;"><span class="math inline">\(B=0\)</span></td>
 <td style="text-align: center;">20</td>
 <td style="text-align: center;">6</td>
-<td style="text-align: center;"></td>
 <td style="text-align: center;"><span class="math inline">\(B=0\)</span></td>
 <td style="text-align: center;">8</td>
 <td style="text-align: center;">4</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><span class="math inline">\(B=0\)</span></td>
 <td style="text-align: center;">12</td>
 <td style="text-align: center;">2</td>
 </tr>
@@ -671,12 +669,9 @@
 <td style="text-align: center;"><span class="math inline">\(\mathbb{P}(B|A)\)</span></td>
 <td style="text-align: center;">50%</td>
 <td style="text-align: center;">50%</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><span class="math inline">\(\mathbb{P}(B|A)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\mathbb{P}(B|A,C)\)</span></td>
 <td style="text-align: center;">38%</td>
 <td style="text-align: center;">43%</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><span class="math inline">\(\mathbb{P}(B|A)\)</span></td>
 <td style="text-align: center;">56%</td>
 <td style="text-align: center;">60%</td>
 </tr>
@@ -691,8 +686,8 @@
 <p>Which distribution gives us the most relevant understanding of the association between <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, the marginal (i.e. unconditional) <span class="math inline">\(\mathbb{P}(A,B)\)</span> or conditional distribution <span class="math inline">\(\mathbb{P}(A,B|C)\)</span>? To show that causal relationships matter, we consider two different examples.</p>
 </section>
 <section id="example-a-pack-of-cards-colliding-variable" class="level4 unnumbered">
-<h4 class="unnumbered">Example a) Pack of Cards (Colliding Variable)</h4>
-<p>Suppose the population is a pack of cards. It so happens that baby Milen has been messing about with the cards and made some dirty in the process.</p>
+<h4 class="unnumbered"><span style="color: lmb">Example a) Pack of Cards (Colliding Variable)</span></h4>
+<p>Suppose the population is a pack of cards. It so happens that baby Milen has been messing about with the cards and made some dirty in the process. Let’s summarise our variables,</p>
 <ul>
 <li><p><span class="math inline">\(A\)</span> tells us the character of the card, either plain (<span class="math inline">\(A=1\)</span>) or royal (King, Queen, Jack; <span class="math inline">\(A=0\)</span>).</p></li>
 <li><p><span class="math inline">\(B\)</span> tells us the colour of the card, either black (<span class="math inline">\(B=1\)</span>) or red (<span class="math inline">\(B=0\)</span>).</p></li>
@@ -701,14 +696,14 @@
 <p>In this case, the aggregated data showing <span class="math inline">\(\mathbb{P}(A,B)\)</span> is relevant since the cleanliness of the cards <span class="math inline">\(C\)</span> has no bearing on the association between the character <span class="math inline">\(A\)</span> and colour <span class="math inline">\(B\)</span> of the cards.</p>
 </section>
 <section id="example-b-treatment-effect-on-mortality-rate-confounding-variable" class="level4 unnumbered">
-<h4 class="unnumbered">Example b) Treatment Effect on Mortality Rate (Confounding Variable)</h4>
-<p>Next, suppose that the data relates to the results of medical trials for a drug on a potentially lethal illness.</p>
+<h4 class="unnumbered"><span style="color: lmr">Example b) Treatment Effect on Mortality Rate (Confounding Variable)</span></h4>
+<p>Next, suppose that the data relates to the results of medical trials for a drug on a potentially lethal illness. This time,</p>
 <ul>
 <li><p><span class="math inline">\(A\)</span> tells us if the subject was treated (<span class="math inline">\(A=1\)</span>) or not (<span class="math inline">\(A=0\)</span>).</p></li>
 <li><p><span class="math inline">\(B\)</span> tells us if the subject died (<span class="math inline">\(B=1\)</span>) or recovered (<span class="math inline">\(B=0\)</span>).</p></li>
 <li><p><span class="math inline">\(C\)</span> tells us the gender of the subject, either male (<span class="math inline">\(C=1\)</span>) or female (<span class="math inline">\(C=0\)</span>).</p></li>
 </ul>
-<p>In this case the disaggregated data shows the more relevant association, <span class="math inline">\(\mathbb{P}(A,B|C)\)</span>. We can see that treatment with the drug <span class="math inline">\(A\)</span> reduces the probability of death <span class="math inline">\(B\)</span> for both male and female participants and the effect is obscured by aggregating the data over gender <span class="math inline">\(C\)</span>.</p>
+<p>In this case the disaggregated data shows the more relevant association, <span class="math inline">\(\mathbb{P}(A,B|C)\)</span>. From it, we can see that female patients are more likely to die than males overall; 56 and 60% versus 38 and 43%, depending on if they were treated or not. In both cases we see that treatment with the drug <span class="math inline">\(A\)</span> reduces the mortality rate for both male and female participants, and the effect is obscured by aggregating the data over gender <span class="math inline">\(C\)</span>.</p>
 </section>
 <section id="back-to-causality" class="level4 unnumbered">
 <h4 class="unnumbered">Back to Causality</h4>
@@ -716,18 +711,18 @@
 <figure class="fullwidth">
 <img src="01_Context/figures/Fig_CollConfProg.png" id="fig:CollConfProg" alt="Figure 1.4: Causal diagrams for A, B and C when C is a colliding, confounding and prognostic variable." /><figcaption aria-hidden="true">Figure 1.4: Causal diagrams for <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> when <span class="math inline">\(C\)</span> is a colliding, confounding and prognostic variable.</figcaption>
 </figure>
-<p>The causal diagram in Figure <a href="#fig:CollConfProg" data-reference-type="ref" data-reference="fig:CollConfProg">1.4</a> a) shows the variables <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> for the first example. The arrows exist both from card character and colour to cleanliness because apparently, baby Milen had a preference for royal cards over plain and red cards over black. Conditioning on a collider <span class="math inline">\(C\)</span> generates an association between <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, even if they are unconditionally independent. This common effect is often observed as selection bias.</p>
-<p>The causal diagram in Figure <a href="#fig:CollConfProg" data-reference-type="ref" data-reference="fig:CollConfProg">1.4</a> b) shows the variables <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> for the second example. The arrows exist from gender to treatment because men were less likely to receive it and from gender to death because men were also less likely to die. The arrow from <span class="math inline">\(A\)</span> to <span class="math inline">\(B\)</span> represents the effect of treatment on mortality which is observable only by conditioning on gender. Note that there are two sources of association in opposite directions between variables <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (treatment and death). A positive association due to the differing effect by gender and a negative association due to the efficacy of the treatment. The two effects cancel each other out when the data is aggregated.</p>
-<p>We see through the discussion of these two examples that statistical reasoning is not sufficient to be able to determine which of the distributions (marginal or conditional) are relevant. Doing so requires subject matter knowledge regarding the causal structure of the the variables. Note that the above conclusions in relation to colliding and confounding variables does not generalize to complex time varying problems.</p>
-<p>Before moving on from causality, we return to the example we discussed at the very start of this section. According to our analysis of the Berkeley admissions data, we concluded that the disaggregated data contained the ‘salient information’ explaining the disparity in acceptance rates for male and female applicants. The problem is, we have only proven application rates to be one of many possible <em>causes</em> of the differing acceptance rates (we cannot see outside of our data). In addition, we have not proven <em>gender discrimanation</em>, not to be the cause. What we have evidenced, is the existance of disparities in both acceptance rates and application rates across sex. One problem is that <em>gender discrimanation</em> is not a measurable thing in itself. It’s complicated. It is made up of many components, most of which are not contained in the data. Beliefs, personal preferences, behaviours, actions, justifications; none of which are contained in the data we discussed. We concluded that disggregated data contained the ‘salient’ information, but why? A valid question we cannot answer is, <em>why do the application rates differ by sex?</em> How do we know that this is itself, is not a result of gender discrimnation. Perhaps some departments are less welcoming of women than others, perhaps some are just much more welcoming of men than women? So how would we know if it was gender discrimination? Well we need to ask the right questions, that will lead us to collect the right data.</p>
+<p>The causal diagram in Figure <a href="#fig:CollConfProg" data-reference-type="ref" data-reference="fig:CollConfProg">1.4</a> a) shows the variables <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> for the first example. The arrows exist both from card character and colour to cleanliness because apparently, baby Milen had a preference for royal cards over plain and red cards over black. Conditioning on a collider <span class="math inline">\(C\)</span> generates an association (e.g. correlation) between <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, even if they are unconditionally independent. This common effect is often observed as <em>selection</em> or <em>representation bias</em>. Representation bias can induce correlation between variables, even where there is none. For decision systems, this can lead to feedback loops that increase the extremity of the representation bias in future data. We’ll come back to this in chapter <a href="#ch_EthicalDev" data-reference-type="ref" data-reference="ch_EthicalDev">2</a>, when we talk about common causes of bias.</p>
+<p>The causal diagram in Figure <a href="#fig:CollConfProg" data-reference-type="ref" data-reference="fig:CollConfProg">1.4</a> b) shows the variables <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> for the second example. The arrows exist from <span class="math inline">\(gender\)</span> to treatment because men were less likely to be treated, and from gender to death because men were also less likely to die. The arrow from <span class="math inline">\(A\)</span> to <span class="math inline">\(B\)</span> represents the effect of treatment on mortality which is observable only by conditioning on gender. Note that there are two sources of association in opposite directions between variables <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (treatment and death); a positive association, because men were less likely to be treated; and a negative association, because male patients are less likely to die. The two effects cancel each other out when the data is aggregated.</p>
+<p>We see through the discussion of these two examples, that statistical reasoning is not sufficient to be able to determine which of the distributions (marginal or conditional) are relevant. Note that the above conclusions in relation to colliding and confounding variables does not generalize to complex time varying problems.</p>
+<p>Before moving on from causality, we return to the example we discussed at the very start of this section. According to our analysis of the Berkeley admissions data, we concluded that the disaggregated data contained the <em>salient</em> information explaining the disparity in acceptance rates for male and female applicants. The problem is, we have only shown that application rates to be one of many possible <em>causes</em> of the differing acceptance rates (we cannot see outside of our data). In addition, we have not proven <em>gender discrimanation</em>, not to be the cause. What we have evidenced, is the existance of disparities in both acceptance rates and application rates across sex. One problem is that <em>gender discrimanation</em> is not a measurable thing in itself. It’s complicated. It is made up of many components, most of which are not contained in the data. Beliefs, personal preferences, behaviours, actions, and more. A valid question we cannot answer is, <em>why do the application rates differ by sex?</em> How do we know that this is itself, is not a result of gender discrimnation. Perhaps some departments are less welcoming of women than others or, perhaps some are just much more welcoming of men than women? So how would we know if gender discrimination is at play here? We need to ask the right questions to collect the right data.</p>
 </section>
 </section>
 <section id="sec_collapsibility" class="level3" data-number="1.4.3">
 <h3 data-number="1.4.3"><span class="header-section-number">1.4.3</span> Collapsibility</h3>
-<p>We have demonstrated the importance of causality in interpreting data and dissecting Simpson’s Paradox. But there is another factor involved in its manifestation, that is, the behaviour of the measure of association in question.</p>
+<p>We have demonstrated that correlation does not imply causation in the manifestation of Simpson’s Paradox. But there is second factor that can have an impact; and that is the nature of the measure of association in question.</p>
 <section id="example-c-treatment-effect-on-mortality-rate-prognostic-variable" class="level4 unnumbered">
-<h4 class="unnumbered">Example c) Treatment Effect on Mortality Rate (Prognostic Variable)</h4>
-<p>Suppose that in the study of the efficacy of the treatment (in Example 2 above), men and women were equally likely to be treated. This removes the causal relationship between variables <span class="math inline">\(A\)</span> and <span class="math inline">\(C\)</span> (treatment and gender), and variable <span class="math inline">\(C\)</span> becomes <em>prognostic</em> rather than confounding. See Figure <a href="#fig:CollConfProg" data-reference-type="ref" data-reference="fig:CollConfProg">1.4</a> c). In this case the decision as to which distributions (marginal or conditional) are most relevant would depend only on the target population in question. In the absence of the confounding variable in our study one might reasonably expect the marginal measure of association to be bounded by the partial measures of association. Such intuition is correct only if the measure of association is <em>collapsible</em> (that is, it can be expressed as the weighted average of the partial measures), not otherwise. Some examples of collapsible measures of association are the risk ratio and risk difference. The odds ratio however is not collapsible. If you don’t know what these are, don’t worry, we’ll return to them in chapter <a href="#ch_GroupFairness" data-reference-type="ref" data-reference="ch_GroupFairness">3</a>.</p>
+<h4 class="unnumbered"><span style="color: lmg">Example c) Treatment Effect on Mortality Rate (Prognostic Variable)</span></h4>
+<p>Suppose that in the study of the efficacy of the treatment (in Example 2 above), we remedy the selection bias so that male and female patients are equally likely to be treated. We remove the causal relationship between variables <span class="math inline">\(A\)</span> and <span class="math inline">\(C\)</span> (treatment and gender). In this case, the variable <span class="math inline">\(C\)</span> becomes <em>prognostic</em> rather than confounding. See Figure <a href="#fig:CollConfProg" data-reference-type="ref" data-reference="fig:CollConfProg">1.4</a> c). In this case the decision as to which distributions (marginal or conditional) are most relevant would depend only on the target population in question. In the absence of the confounding variable in our study one might reasonably expect the marginal measure of association to be bounded by the partial measures of association. Such intuition is correct only if the measure of association is <em>collapsible</em> (that is, it can be expressed as the weighted average of the partial measures), not otherwise. Some examples of collapsible measures of association are the risk ratio and risk difference. The odds ratio however is not collapsible. If you don’t know what these are, don’t worry, we’ll return to them in chapter <a href="#ch_GroupFairness" data-reference-type="ref" data-reference="ch_GroupFairness">3</a>.</p>
 </section>
 </section>
 </section>
